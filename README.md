@@ -9,7 +9,7 @@
 - **Science Cognitive** : Cours complet.
 
 ## Notes manuscrites
-Mes notes manuscrites et TD sont disponibles sur [OneNote] (https://univlillefr-my.sharepoint.com/:o:/g/personal/charles_vin_etu_univ-lille_fr/EmeuKDcSToJDiAhxIEOoPEEBX8kr3KIyw-nFvLYdoV5Ewg?e=m0tE20).
+Mes notes manuscrites et TD sont disponibles sur [OneNote](https://univlillefr-my.sharepoint.com/:o:/g/personal/charles_vin_etu_univ-lille_fr/EmeuKDcSToJDiAhxIEOoPEEBX8kr3KIyw-nFvLYdoV5Ewg?e=m0tE20).
 Code couleur :
 - En rouge ce sont les parfaites corrections du professeur. C’est ce qu’il a écrit au tableau.
 - En vert c’est parfois les petits tips pour mieux comprendre, dit à l’oral, ...
