@@ -57,6 +57,7 @@
     \[
         \forall x \in \mathbb{R}\setminus \{0\} : x^T A x > 0
     .\]
+    Plus concrètement on diagonalise et regarde le signe des valeurs propres.
 \end{defn}
 
 \begin{thm}[décomposition de Schan]
@@ -155,6 +156,27 @@ Voir OneNote
 \end{thm}
 
 
+\section{Convexité}
+\begin{defn}[]
+    $ f : E \to F$ convexe ssi 
+    \[
+        \forall t \in [0,1], x,y \in E : f(tx + (1-t)y) \leq tf(x) + (1-t)f(y)
+    .\]
+\end{defn}
+\begin{thm}[1.a]
+    $ f \text{ convexe } \Leftrightarrow $ \begin{itemize}
+        \item $\nabla ^2f(x) \text{ SDP }$ 
+        \item Strictement convexe $ \Leftrightarrow $ au plus une solution opti.
+    \end{itemize}
+\end{thm}
+
+\begin{defn}[Problème convexe]
+    $ \Leftrightarrow f: E \to F $ strictement convexe et $ E $ convexe. Souvent $ E=\mathbb{R}^n $ qui est convexe. \\
+    propriété (thm 2) : \begin{itemize}
+        \item Tout minimum local est un min globale 
+    \end{itemize}
+\end{defn}
+
 
 \section{Optimisation sans contraintes}
 \begin{thm}[Condition Nécessaires d'optimalité]
@@ -168,6 +190,19 @@ Voir OneNote
 \begin{exmp}[Exemple 1,2,3 page 6-7]
     
 \end{exmp}
+
+\begin{defn}[Inverse d'une matrice 2x2]
+    \[
+        A = \begin{pmatrix}
+            a & b \\
+            c & d
+        \end{pmatrix}, A^{-1} = \frac{1}{\det A} \begin{pmatrix}
+            d & -b \\
+            -c & a
+        \end{pmatrix}
+    .\]
+\end{defn}
+
 
 
 
