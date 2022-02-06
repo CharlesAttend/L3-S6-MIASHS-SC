@@ -108,9 +108,10 @@ Pour trouver la valeur de $ h(F_n, F_X) $ : Faire le grand tableau puis trouver 
 \section{Le test du $ \mathcal{X}^2 $ d'ajustement}
 \subsection*{Conditions}
 \begin{enumerate}
-    \item Les $ X_i $ sont à valeur dans un ensemble fini (loi discrète)
+    \item Les $ X_i $ sont à valeur dans un ensemble fini (loi discrète). Si a valeur dans $ \mathbb{N} $, on fusionne les classes à partir d'un certain rang choisis 
     \item Test asymptotique : $ \forall k \in \{1, \dots, d\}, np_k^{ref}(1-p_k^{ref}) \geq 5 \Leftrightarrow n \geq 20$ 
 \end{enumerate}
+Si on ne remplis pas les conditions, on peut fusionner les classes 
 
 \subsection*{Hypothèse}
 \begin{align*}
@@ -152,7 +153,32 @@ avec $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2(d
         \item Si $ D \leq h_\alpha  $ on conserve $ H_0 $ 
     \end{itemize}
 \end{enumerate}
+\subsubsection{Bilan de la méthode}
+Aspects positifs : 
+\begin{itemize}
+    \item \textbf{Fonctionne pour toutes les lois}
+    \item Facile à faire
+\end{itemize}
 
+Aspects négatifs : 
+\begin{itemize}
+    \item Problème de consistance. Regrouper les variables par intervalle ruiner l'erreur de seconde espèce.
+    \item Asymptotique
+    \item Dépendant du choix des intervalles. Ce qui n'est pas canonique.
+\end{itemize}
 
-
+\subsection{Le $ \mathcal{X}^2 $ d'ajustement à une famille paramétrique de loi}
+Pratiquement comme avant, pas encore fait en TD, mais copier collé du cours quand même 
+\begin{enumerate}
+    \item Etape 1 : Soit $ \hat{\theta }_n $ l'estimateur du maximum de vraisemblance de $ \theta  $ (pour $ P_\theta  $ ). On estime \textbf{tous} les paramètres de la loi $ (p_1^{\hat{\theta }_n}, \dots, p_d^{\hat{\theta }_n}) $ 
+    \item Etape 2 : On vas tester l'ajustement de $ X_1, \dots, X_n $ à $ P_{\hat{\theta }_n} $ On calcule les fréquences observées $ \hat{p}_{k,n} $.
+    \item Etape 3 : Vérification des conditions $ np_k^{\hat{\theta }_n} $ et possible regroupement en classes 
+    \item Etape 4 : Calcul de la stat de test $ D $ 
+    \item Etape 5 : Zone de rejet : lecture de $ H_\alpha  $ le quantile d'ordre $ 1-\alpha  $ d'une $ \mathcal{X}^2(d-1-M) $ avec $ M $ nombre de paramètre. 
+    \item Etape 6 : Décision 
+        \begin{itemize}
+            \item $ D > h_\alpha  $ on rejette $ H_0 $ 
+            \item $ D \leq h_\alpha  $ on conserve $ H_0 $ 
+        \end{itemize}
+\end{enumerate}
 \end{document}
