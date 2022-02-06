@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{bbm} % Pour l'indicatrice
+\usepackage{systeme}
+
+% pour les hyperlien 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+}
+\urlstyle{same} % utiliser \href{url}{Text}
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Théorème}[section]
+% \newtheorem{lem}[thm]{Lemme}
+% \newtheorem{prop}[thm]{Proposition}
+% \newtheorem*{cor}{Corollaire}
+% %\newtheorem*{KL}{Klein’s Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+% % \newtheorem{xca}[exmp]{Exercise}
+
+% \theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+% %\newtheorem{case}{Case}
+
+
+
+\title{Cours}
+\author{Charles Vin}
+\date{Date}
+
+\begin{document}
+\maketitle
+
+
+\section{Quelques rappels et notation}
+\subsection{Matrice symétrique réelle}
+\begin{defn}[Définie positive]
+    $ A $ est DP si 
+    \[
+        \forall x \in \mathbb{R}\setminus \{0\} : x^T A x > 0
+    .\]
+\end{defn}
+
+\begin{thm}[décomposition de Schan]
+    Soit $ A \in S_n(\mathbb{R}) $ alors il existe $ U $ matrice unitaire ($ U^TU=I \Leftrightarrow U^{-1}=U^T $ ) et $ D $ matrice diagonale tq 
+    \[
+        A=U^TDU
+    .\]
+    $ D=diag(\lambda _1, \dots, \lambda _n) $ 
+    $ U={u_1,\dots,u_2} $ 
+    \begin{note}[]
+        C'est le théorème de la diagonalisation ça !
+    \end{note}
+\end{thm}
+\begin{rem}[]
+    Comme $ U $ est inversible on a 
+    \[
+        \forall y \in \mathbb{R}^n, \exists x \in \mathbb{R}^n, y=U^Tx
+    .\]
+\end{rem}
+
+\begin{defn}[Dérivé directionnel]
+    Permet les dérivés de matrice.
+    \[
+        \nabla f(x) * h = \lim_{t \to 0} \frac{f(x+th) - f(x)}{t}
+    .\]
+\end{defn}
+
+\begin{defn}[Formule de Lagrange]
+    
+\end{defn}
+
+\subsubsection{Exercise 1 page 3:}
+Voir OneNote
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+        $f$ & $g$ & $F$ & $\nabla R$ \\ \hline
+        $\mathbb{R}^n \to \mathbb{R}^m $ & $\mathbb{R}^n \to \mathbb{R}^m $ & $ f \pm g, f^Tg \in \mathbb{R}$ & $ \nabla f \pm \nabla g , g^T \nabla f + f^T \nabla g \in \mathbb{R}^{1\times n} $ \\ \hline
+        $\mathbb{R}^n \to \mathbb{R} $ & $\mathbb{R}^n \to \mathbb{R}^m $ & $ fg \in \mathbb{R}^m $ & $g \nabla f + f \nabla g \in \mathcal{M}_{m,n}(\mathbb{R}) $ \\ \hline
+        $\mathbb{R}^n \to \mathbb{R}^m $ & $\mathbb{R}^n \to \mathbb{R}^p $ & $ g \circ f \in \mathbb{R}^p $ & $ \nabla g(f) \nabla f \in \mathcal{M}_{p,n}(\mathbb{R}) $ \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{defn}[Convexité]
+    Un ensemble $ D \subset \mathbb{R}^n $ est un \textbf{convexe} si 
+    \[
+        \forall x,y \in D, \forall t \in [0,1], (tx + (1-t)y) \in D
+    .\]
+\end{defn}
+
+\begin{defn}[Fonction convexe]
+    Un fonction $ f $ est (strictement ou non) convexe sur $ D $ si 
+    \[
+        \forall x,y \in D, \forall t \in [0,1], f(tx+(1-t)y) \leq t f(x) + (1-t)f(y)
+    .\]
+\end{defn}
+
+\begin{thm}[]
+    Soit $ f:D \to \mathbb{R}^n $ une fonction de classe $ \mathcal{C}^2 $ alors 
+    \begin{enumerate}
+        \item $ f $ est convexe $ \Leftrightarrow \forall x \in D: \nabla ^2 f(x) est SDP$ 
+        \item $ \forall x \in D: \nabla ^2 f(x) $ est DP $ \Rightarrow f $ est strictement convexe
+    \end{enumerate}
+\end{thm}
+
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+        $ f(x) $                    & $ \nabla f(x) $                           & $ \nabla ^2 f(x) $            \\ \hline
+        $ c \in \mathbb{R}^N $      & $ 0 \in \mathcal{M}_{n,m}(\mathbb{R}) $   & $ ~ $                         \\ \hline
+        $ b^T x \in \mathbb{R} $    & $ b^T \in \mathbb{R}^{1 \times n} $       & $ 0 \in S_n(\mathbb{R}) $     \\ \hline
+        $ bx \in \mathbb{R}^n $     & $ B*I \in S_n(\mathbb{R}) $               & $ 0 \in S_n(\mathbb{R}) $     \\ \hline
+        $ Ax \in \mathbb{R}^m $     & $ A \in \mathcal{M}_{m,n}(\mathbb{R}) $   & $ 0 \in S_n(\mathbb{R}) $     \\ \hline
+        $ x^Tx $                    & $ 2x^T $                                  & $ 2 I \in S_n(\mathbb{R}) $   \\ \hline
+        $ x^T A x $                 & $ x^t (A + A^T) $                         & $ A+A^T \in S_n(\mathbb{R}) $ \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{thm}[Formule de lagrange]
+    Soit 
+    \begin{itemize}
+        \item $ (P) $ un problème d'optimisation à $ p $ contraintes d'égalités et $ q $ contraintes d'inégalités
+        \item $ g_i (x) = 0 $ les contraintes d'égalités 
+        \item $ h_j(x) \leq 0 $ les contraintes d'inégalités
+    \end{itemize}
+    \[
+        L(x, \lambda , \mu ) = f(x) - \sum_{i=1}^{p}\lambda _i g_i(x) - \sum_{j=1}^{q}\mu _i h_j(x)
+    .\]
+    On cherche ensuite la borne inférieur de la fonction dual de lagrange (en dérivant)
+    \[
+        D(\lambda , \mu ) = \inf _{x \in \mathcal{A}} L(x, \lambda , \mu )
+    .\]
+\end{thm}
+
+
+
+\section{Optimisation sans contraintes}
+\begin{thm}[Condition Nécessaires d'optimalité]
+    
+\end{thm}
+
+\begin{thm}[Condition Suffisantes d'optimalité]
+    
+\end{thm}
+
+\begin{exmp}[Exemple 1,2,3 page 6-7]
+    
+\end{exmp}
+
+
+
+
+
+\end{document}

@@ -1,0 +1,310 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{systeme}
+\usepackage{bbm}
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Titre},
+    }
+\urlstyle{same} %\href{url}{Text}
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollaire}
+%\newtheorem*{KL}{Klein’s Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+% \newtheorem{xca}[exmp]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+%\newtheorem{case}{Case}
+
+
+
+\title{Modélisation Statistique}
+\author{Charles Vin}
+\date{Date}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introduction à la modélisation}
+Un modèle est une simplification de la réalité, formelle grâce à des équations mathématiques conçus dans un but de prédiction. \\
+La modélisation statistique s'appuie sur les résultats d'une expérience. Lorsqu'on répète l'expérience, le résultat peut varier. \\
+Le but est de décrire le phénomène/processus à l'origine des données. Représenté par une variable aléatoire.  \\
+Il y a deux rôles \begin{itemize}
+    \item Descriptif : comprendre comment sont générés les observations, quel lien il peut y avoir entre les variables.
+    \item Prédictif : pouvoir faire une prédiction pour une nouvelle date, lieu, individu...
+\end{itemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics*[width=.75\textwidth]{./Figures/fig1.png}
+    \label{fig1}
+\end{figure}
+
+La modélisation statistique c'est \begin{itemize}
+    \item Supposer que les observations $ x_1, x_2, \dots, x_n $ sont la réalisation de variables aléatoires $ X_1, X_2, \dots, X_n $.
+    \item Donner une famille de loi possible F pour le vecteur aléatoire $ (X_1, X_2, \dots, X_n)$
+    \begin{itemize}
+        \item Si on peut écrire F sous la forme suivante $F = \{F_\theta , \theta n \theta \in \Theta \}$ avec $ \theta $ de dimension fini, on dira que le modèle est \textbf{paramétrique}. Par exemple $ F = \{P(\lambda ), \lambda , \lambda  \in \mathbb{R}^+\} $ .
+        \item On considérera souvent que les variables $X_1, \dots, X_n$ sont \textbf{i.i.d.}. 
+    \end{itemize}
+\end{itemize}
+
+L'échantillonnage est très important, sans contrôler l'échantillon on peut dire tout et son contraire. On ne vas pas vraiment s'attarder sur les méthodes l'échantillonnage mais il faut garder en tête que si celui-ci est mauvais, tout le reste, toute notre modélisation sera erroné. 
+
+\section{La régression linéaire simple}
+\subsection{Contexte}
+On dispose d'un couple de variable aléatoire $ (X,Y) $.
+\begin{thm}[de la variance totale]
+    \[
+        \underbrace{V(Y)}_{\text{Variance Totale}} = \underbrace{E(V(Y)|X)}_{\text{Variance résiduelle}} + \underbrace{V(E(Y|X))}_{\text{Variance expliquée}}
+    .\]
+    Donc 
+    \[
+        V(Y) \leq E(V(Y) | X)
+    .\]
+    Le fait de connaître $X$ permet de diminuer l'incertitude sur $Y$ . Ainsi $X$ pourrait servir à prédire $Y$. On pourrait prédire $Y$ par une fonction de $X$ : $ \hat{Y}= f(X) $.
+
+    \begin{proof}[Preuve: ]
+        \begin{align*}
+            V(Y) &= E(Y^2) - E(Y)^2 \\
+                &= E(E(Y^2)|X) - E(Y|X)^2 \\
+                &= E(E(Y^2|X)) - E( E(Y)^2 | X) + E( E(Y)^2 | X) - E( E(Y)|X)^2 \\
+                &= E( E(Y^2) - E(Y)^2 | X) + Var(E(Y|X)) \\
+                E(Var(Y) | X)
+        \end{align*}
+    \end{proof}
+\end{thm}
+
+\begin{cor}[Résultat important admis]
+    
+    \[
+        \arg \max E((Y - f(X))^2) = E(Y|X)
+    .\]
+    La meilleurs façon d'utiliser $ X $ pour prédire $ Y $ est de prendre $ f(X) = E(Y|X) $. On va alors poser 
+    \[
+        Y = E(Y|X) + \epsilon 
+    .\]
+    avec $ \epsilon  $ un terme d'erreur aléatoire. On peut montrer que \begin{itemize}
+        \item $ E(\epsilon) = 0 $ 
+        \item $ Cov(\epsilon, X) = Cov(\epsilon, E(Y|X)) = 0$ 
+        \item $ V(\epsilon ) = (1- \frac{V(E(Y|X))}{V(Y)})V(Y) $ 
+    \end{itemize}
+\end{cor}
+
+\subsection{Cadre de la régression linéaire}
+Dans le cadre de la régression linéaire on va poser 
+\begin{align*}
+    &E(Y|X) = \alpha + \beta X \\
+    \Leftrightarrow & Y = \alpha + \beta X + \epsilon 
+\end{align*}
+\begin{proof}[Preuve: ] (je sais pas trop ce qu'elle prouve là)
+    Le point $ (E(X), E(Y)) $ appartient à la droite d'équation $E(Y|X) = \alpha + \beta X$
+    
+    \[
+        E(E(Y|X)) = E( \alpha + \beta X) \Rightarrow E(Y) = \alpha + \beta E(X)
+    .\]
+    \begin{align*}
+        E(Y) = \alpha + \beta E(X) \Rightarrow Y - E(Y) \\
+            &= \alpha + \beta X + \epsilon - \alpha - \beta E(X) \\
+            &= \beta (X - E(X) + \epsilon) \Rightarrow (Y-E(Y))(X-E(X)) = \beta (X-E(X)^2) + E(X-E(X)) \\
+            &\Rightarrow E( (Y-E(Y)) (X-E(X)) ) = \beta E( (X - E(X))^2 ) + E(\epsilon (X-E(X)))_{=Cov(\epsilon,X) = 0} \\
+        \beta &= \frac{Cov(X,Y)}{V(X)} = \rho_{X,Y} \frac{\sigma _y}{\sigma _x}
+    \end{align*}
+\end{proof}
+
+\subsection{Application à la statistique}
+On dispose d'un échantillon de taille $ n $ sur lequel on mesure deux variables que l'on nommera $ y_i $ et $ x_i $. 
+
+On suppoera que le couple $ (x_i, y_i) $ 
+DIAPO 17
+
+\subsection{Exemple des salaires}
+\subsubsection{Le modèle linéaire}
+Quand elle demande d'écrire le modèle il faut écrire \begin{align*}
+    &Y_i = \alpha + \beta x_i + E_i \\
+    &E_i i.i.d., V(E_i) = \sigma ^2
+\end{align*}
+
+\subsubsection{Estimation de $ \alpha, \beta, \sigma  $ par les moindres carrés}
+La méthode des moindre carrés ordinaire (MCO), consiste à choisir $ a,b $ qui minimise $ \sum_{i=1}^{n}(y_i - (\alpha +x_i \beta ))^2 $. On pose donc la fonction de coût suivante 
+\[
+    F(\alpha, \beta ) = \sum_{i)1}^{n}(y_i - \alpha + \beta x_i)^2
+.\] 
+    
+\underline{Nouveau cours du 21/01} \\
+
+\begin{note}[]
+    y'a des belles images dans le diapo
+\end{note}
+
+Selon la méthode des moindres carrés ordinaire on estime $ \alpha  $ et $ \beta  $ par 
+\[
+    (a,b) = \arg \min _{(\alpha, \beta ) \in \mathbb{R}^2} F(\alpha ,\beta )
+.\]
+
+Pour trouver ça, on utilise la gradient comme l'année dernière :
+\begin{align*}
+    \frac{\partial F}{\partial \alpha } (\alpha; \beta ) &= \sum_{i=1}^{n} 2(-1)(y_i - \alpha -\beta x_i) = -2 (n \bar{y} - n \alpha - \beta n \bar{x})\\
+    \frac{\partial F}{\partial \beta } (\alpha ; \beta ) &= \sum_{i=1}^{n} 2(-x_i)(y_i - \alpha -\beta x_i) = -2 (n \bar{xy} - n \alpha \bar{x}- \beta n \bar{x^2})
+\end{align*}
+avec $ \bar{x} = \frac{1}{n}\sum_{i=1}^{n}x_i, \bar{y} = \frac{1}{n}\sum_{i=1}^{n}y_i, \bar{x^2} = \frac{1}{n}\sum_{i=1}^{n}x_i^2 $
+\begin{align*}
+                    &\nabla F(\alpha ,\beta ) = 0 \\
+    \Leftrightarrow & \systeme*{
+        \frac{\partial F}{\partial \alpha } (\alpha , \beta ) = 0,
+        \frac{\partial F}{\partial \beta } (\alpha , \beta ) = 0
+    } \Leftrightarrow \systeme*{
+        \bar{y} = \alpha + \beta \bar{x} = 0,
+        \bar{xy} = \alpha \bar{x} + \beta \bar{x^2} = 0
+    } \Leftrightarrow \systeme*{
+        a = \bar{y} - b \bar{x},
+        \bar{xy} = (\bar{y} - b \bar{x})^{\bar{x}} + b \bar{x^2}
+    }
+\end{align*}
+Focus sur la deuxième équation
+\begin{align*}
+                &\bar{x}\bar{y} = (\bar{y} - b \bar{x})^{\bar{x}} + b \bar{x^2} \\
+    \Leftrightarrow & \bar{xy} - \bar{y}\bar{x} = b (\bar{x^2} - \bar{x}^2) \\
+    \Leftrightarrow &b = \frac{}{} = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{\sum_{i=1}^{n} (x_i - \bar{x})^2}
+\end{align*}
+\begin{rem}[]
+    \begin{itemize}
+        \item $ b $ est la version empirique de $\frac{Cov(X,Y)}{V(X)}$
+        \item On pose $ y_i^* = a + b x_i = \bar{y} + b(x_i - \bar{x}) $, c'est l'estimation de $ E(Y_i | X = x_i) $ 
+    \end{itemize}
+\end{rem}
+
+\subsubsection{Variance des estimateurs}
+
+\begin{prop}[]
+    $ a,b, y_i^* $ sont des estimation sans biais de, respectivement, $ \alpha, \beta, E(Y |X = x_i) = \alpha + \beta x_i $ 
+
+    \begin{proof}[Preuve: ]
+        ...j'ai un tableau de retard... j'ai pas $ E(B) $ gros gros calcul\\
+        $ a $ est une réalisation de $ A = \bar{Y} - B \bar{X} $ 
+        \begin{align*}
+            E(A) = E(\bar{Y} - E(B) \bar{x}) &= E(\bar{Y} - E(B) \bar{x}) = \alpha + \beta  \bar{x}- \beta \bar{x} = \alpha  \\
+            E(Y_i^*) = E(A + B x_i) = E(A) + E(B) x_i = \alpha + \beta x_i
+        \end{align*}
+    \end{proof}
+\end{prop}
+
+\begin{prop}[Gauss-Markov]
+    Parmi les estimateur linéaires des $ Y_i, A,B $ sont de variance minimales. On dit que ce sont des estimateur BLUE (Best linear Unbiased Estimates). Ce sont les meilleurs estimateur linéaire que l'ont peut trouver en terme de variance.
+\end{prop}
+
+\textbf{Calcul de la variance des estimateurs}
+\begin{align*}
+    V(B) &= V(\frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{\sum_{i=1}^{n} (x_i - \bar{x})^2}) \\
+        & \frac{1}{(2(x_i - \bar{x}))^2} V(\sum_{i=1}^{n} (Y_i \bar{y})(x_i - \bar{x}) ) \\
+        &\text{ 2 tableaux de calculs horribles, voir moodle} \\
+        & \frac{\sigma ^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2} \\
+    V(A)&= V(\bar{Y} + \beta \bar{x}) = V(\bar{Y}) + \bar{x}^2 V(B) - \bar{x} Cov(\beta , \bar{Y})_{=0} \\
+        &= \frac{\sigma ^2}{n} + \bar{x}^2 \frac{\sigma ^2}{\sum_{i=1}^{n} (x_i - \bar{x})^2} \\
+        &= \sigma ^2 ( \frac{1}{n} + \frac{\bar{x}^2}{\sum_{i=1}^{n}(x_i - \bar{x}) ^2 }) \\
+    V(Y_i^*) &= V(A + \beta x_i) = V(A) + x_i^2 V(\beta ) + 2 x_i Cov(A,B) \\
+        &= \sigma ^2 (\frac{1}{n} + \frac{(x_i - \bar{x})^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2})
+\end{align*}
+
+\subsection{Le modèle linéaire Gaussien}
+On pense que les erreur suivent une gaussienne pour pouvoir faire des tests 
+
+
+\subsubsection{Exemple des salaires }
+Voir diapo 
+
+\underline{Nouveau cours du 28/01} \\
+\subsubsection{Décomposition de la variance}
+\begin{align*}
+    SCT &= SCM + SCR \\
+    \sum_{i=1}^{n}(y_i - \bar{y}) &= \sum_{i=1}^{n}( (y_i - y_i^*) + (y_i^* - \bar{y}) )^2 \\
+    \sum_{i=1}^{n}(y_i - \bar{y}) &= \sum_{i=1}^{n}(y_i - y_i^*)^2 + \sum_{i=1}^{n}(y_i^* - \bar{y})^2 + 2 \sum_{i=1}^{n}(y_i - y_i^*)(y_i^* - \bar{y}) \\
+\end{align*}
+Or $ 2 \sum_{i=1}^{n}(y_i - y_i^*)(y_i^* - \bar{y}) = 0$ (remplacer $ y_i^* $ par $ a+bx_i $ et $ a $ et $ b $ par leur estimation $\rightarrow$ Pythagore
+
+\subsubsection{Coeffficient de détermination $ R^2 $ }
+\begin{align*}
+    SCR &= \sum_{i=1}^{n}(y_i - y_i^*)^2 = \sum_{i=1}^{n}(y_i - a- bx_i)^2 \\
+        &= \sum_{i=1}^{n}(y_i - ( \bar{y} - b \bar{x}) - bx_i)^2 \\
+        &= \sum_{i=1}^{n}( (y_i - \bar{y}) - b (x_i - \bar{x}))^2 \\
+        &= \sum_{i=1}^{n}(y_i - \bar{y})^2 + b^2 \sum_{i=1}^{n}(x_i - \bar{x})^2 - 2b \sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})\\
+        &= S_y^2 + b^2 S_x^2 + 2b S_{xy}
+\end{align*}
+Or $ b = \frac{S_{xy}}{S_x^2} $, donc 
+\begin{align*}
+    SCR &= S_y^2 + \frac{S_{xy}^2}{(S_x^2)^2} S_x^2 - 2 \frac{S_{xy}}{S_x^2} S_{xy}\\
+        &= S_y^2 (1 - \frac{S_{xy}}{S_x^2 S_y^2}) \\
+        &= SCT ( 1 - R^2) \Rightarrow \frac{SCR}{SCT} = 1 - R^2
+\end{align*} 
+Or $SCM = SCT - SCR \Rightarrow 1 - R^2 = 1-r^2 \Rightarrow R^2 = r^2$
+
+\subsubsection{Solutions}
+Soient deux variable $ X $ et $ Y $ définies sur $ (\Omega, t, P) $ 
+\[
+    \rho _{X,Y} = \frac{E((X - E(X))(Y - E(Y)))}{\sqrt[]{V(X) V(Y)}} = \frac{E(XY) - E(X)E(Y)}{\sqrt[]{V(X)V(Y)}}
+.\]
+On dispose de $ n $ couple $ (x_i, y_i) $ iid et on suppose que $ (x_i,y_i) $ est une réalisation de $ (X,Y) $. L'estimation de Pearson de $ \rho _{X,Y} $ est
+\begin{align*}
+    r = \frac{ \frac{1}{n} \sum_{i=1}^{n} (x - \bar{x})(y - \bar{y})}{\sqrt[]{ ( \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2) (\frac{1}{n}\sum_{i=1}^{n} (y_i - \bar{y})^2 ) }}
+\end{align*}
+
+\subsubsection{Test d'analyse de la variance}
+\subsubsection{Intervalle de confiance pour $ E(Y_j | X=x_j) $ }
+\begin{align*}
+    Y_j^* &= A + Bx_j \\
+    V(Y_j^*) &= V(A + Bx_j) \\
+            &= V(\bar{Y} - B \bar{x} + Bx_j) \\
+            &= V(\bar{Y} + B(x_i - \bar{x})) = V(\bar{Y}) + (x_j - \bar{x})^2 V(B) \text{ car } B \text{ est non corrélé à } Y \\
+            &= \frac{\sigma ^2}{n} + (x_j - \bar{x}) \frac{\sigma ^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2} = \sigma ^2 (\frac{1}{n} + \frac{(x_j - \bar{x})^2}{\sum_{i=1}^{n}(x_i - \bar{x})^2})
+\end{align*}
+
+\subsubsection{Intervalle de prédiction pour une nouvelle donnée}
+\subsubsection{Validation des hypothèses du modèle}
+\begin{itemize}
+    \item $ y_i = \alpha + \beta x_i + E_i $ "les erreurs sont indépendantes
+    \item ....................
+\end{itemize}
+
+\subsubsection{Graphique des résidus vs valeurs prédites}
+
+\underline{Nouveau cours du 04/02} \\
+full diapo sur les espaces euclidiens 
+
+Dessin de projection dans onenote 
+
+Toutes la fin dans OneNote 
+
+\section{Régression linéaire multiple}
+\begin{itemize}
+    \item Est-ce que nos point sont aligné sur un plain
+    \item Même hypothèses qu'avant
+    \item On peut écrire $ \mathbb{Y} $  sont plusieurs forme (qu'on a vu avec la régression en DS)
+\end{itemize}
+\end{document}

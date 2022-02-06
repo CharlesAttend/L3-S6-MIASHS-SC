@@ -1,0 +1,5 @@
+{
+    "files.autoSaveDelay": 15000,
+    "files.autoSave": "afterDelay",
+    "latex-workshop.latex.autoBuild.interval": 15000
+}

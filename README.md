@@ -24,3 +24,4 @@ Pour plus d’info, une recherche Google sur les `Flash Cards`.
 ## Disclaimer :
 - Les fiches méthodes sont particulièrement personnalisées et n’expliquent pas tout ! Elles sont destinées à une meilleure mémorisation de ma part et à garder une trace dans le temps.
 - Certains cours ne sont pas prenables en LaTeX et/ou ont un format hybride (tablette + LaTeX) assez bancale (le LaTeX était plus adapté au cours du S5).
+- Il y a des fautes de frappe dans mes cours LaTeX, si c'est le cas, vous pouvez faire une Issue GitHub (si vous connaissez et sinon tentez ça vous servira plus tard!).

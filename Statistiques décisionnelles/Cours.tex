@@ -1,0 +1,959 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{systeme}
+\usepackage{bbm}
+
+\usepackage{bookmark}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Statistiques décisionnelles},
+    }
+\urlstyle{same} %\href{url}{Text}
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollaire}
+%\newtheorem*{KL}{Klein’s Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+% \newtheorem{xca}[exmp]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+%\newtheorem{case}{Case}
+
+%add paragraph to table of content
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+
+\title{Statistiques décisionnelles}
+\author{Charles Vin}
+\date{S6 2022}
+
+\begin{document}
+\maketitle
+
+\textbf{\large Plan du cours}
+\begin{enumerate}
+    \item Rappel du 1er semestre
+    \item Test d'ajustement : \\ 
+        $ X_1, \dots, X_n $ va. iid. de loi $ \mathbb{P}_X $ 
+        \begin{enumerate}
+            \item Est-ce que les $ X_i $ suivent la loi $ L $ ($ \mathbb{P}_X = L $) ?  
+            \item Est-ce que la loi des $ X_i $ appartient à une famille de loi ? Est-ce qu'il existe $ m, \sigma ^2 $ tel que $ X_i \sim \mathcal{N}(m, \sigma ^2) $ 
+        \end{enumerate}
+    \item Tests de comparaison : 
+        \begin{itemize}
+            \item Test non paramétriques : $ (\omega , \mathcal{F}, (\mathbb{P}_\theta )_{\theta \in \Theta}) $, On ne se restreint pas à une famille paramétrique de lois
+            \item Tests de comparaison : $ X_1, ..., X_n $ jeu de données 1 et $ Y_1, ..., Y_n $ jeu de données 2. Les $ X_i $ $ Y_i $ ont-il même loi ? Les $ X_i $ et $ Y_i $ sont-ils indépendants ?
+        \end{itemize}    
+    \item L'ANOVA, voir cours de Mme Lavigne
+    \item Etudes de cas
+\end{enumerate}
+
+\tableofcontents
+\newpage
+
+
+
+
+
+
+\section{Rappel sur les tests}
+On fixe un modèle $ (\Omega , \mathcal{F}, (\mathbb{P}_\theta )_{\theta \in \Theta}) $.\\
+On dit que le modèle est paramétrique s'il existe 
+\[
+    d \in \mathbb{N} \text{ tel que } \Theta \in \mathbb{R}^d
+.\]
+Sinon, on dira que le modèle est non-paramétrique. 
+\begin{exmp}[de modèle paramétrique]
+    \begin{enumerate}
+        \item $ \Theta \subset \mathbb{R} \times \mathbb{R}, \mathbb{P}_\theta = \mathcal{N}(m, \sigma ^2), \theta = (m, \sigma ^2)$ 
+        \item $ \Theta = [0,1], \mathbb{P}_\theta = Ber(\theta ), \theta \in [0,1] $ 
+        \item $ \Theta = \mathbb{R}^+_*, \mathbb{P}_\theta = \mathcal{E}(\theta ), \theta \in \mathbb{R}^+_* $ 
+    \end{enumerate}
+\end{exmp}
+\begin{exmp}[de modèle non-paramétrique]
+    \begin{enumerate}
+        \item $ \Theta = \text{ densité de probabilité sur } \mathbb{R}, \mathbb{P}_f = \text{ la loi de densité f}, f \in \Theta  $ 
+        \item $ \Theta = \{(p_i)_{i \in \mathbb{N}}, \forall i \in \mathbb{N}, p_i \in [0,1] \sum_{+\infty}^{i=0} p_i = 1\}, \theta = (p_i)_{i \in \mathbb{N}}, \mathbb{P}_theta = \text{ la loi discrète tq} \forall k \in \mathbb{N}, \mathbb{P}(X=k) = p_k , $ 
+        \item $ \Theta = \{ \text{ fonction de répartion de var.}\}, F \in \Theta,  \mathbb{P}_F = \text{loi de la va. dont la fonction de répartiton est } F, (\mathbb{P}_F)_{F \in \Theta } $ 
+    \end{enumerate}
+\end{exmp}
+
+\begin{defn}[Test d'hypothèse]
+    Soit $ \mathbb{X} = (X_1, \dots, X_n)$ un ensemble d'observations de loi $ \mathbb{P}_\theta  $  \\
+    On appelle test d'hypothèse de $ H_0 $ contre $ H_1 $ (à $ H_0 $ et $ H_1 $ sont des sous-ensemble de $ \Theta  $). toute fonction des observations à valeur dans $ \{0,1\} $ \begin{itemize}
+        \item à $ \phi (\mathbb{X}) = 0 $ correspond à conserver $ H_0 $ 
+        \item à $ \phi (\mathbb{X}) = 1 $ correspond à rejeter $ H_0 $ au profit de $ H_1 $ 
+    \end{itemize}
+    $ R= \phi (\{1\}) $ est la zone de rejet, c'est l'ensemble des observation qui ... à un rejet de $ H_0 $ 
+    \begin{rem}[]
+        Si $ \phi (\mathbb{X}) = \mathbbm{1}_{h(\mathbb{X}) \in \mathbb{R}} $ on dira que $ h $ est la statistique de test et $ R $ la zone de rejet
+    \end{rem}
+    \begin{exmp}[]
+        $ h(\mathbb{X}) = \sum_{i=1}^{n}X_i, R=[h, + \infty [ $. Test: $ \phi (\mathbb{X}) = \mathbbm{1}_{\sum_{i=1}^{n}X_i \geq k } $ 
+    \end{exmp}
+    \begin{exmp}[]
+        $ \phi (\mathbb{X}) = 0 $ le test que conserve toujours $ H_0 $ est un test.
+    \end{exmp}
+\end{defn}
+
+\begin{defn}[Erreur de première espèce \& Taille du test]
+    l'Erreur de 1ère espèce est la fonction : \begin{align*}
+        \alpha &: \Theta _0 \rightarrow [0,1] \\
+                & \theta \mapsto \mathbb{P}_\theta (\phi (\mathbb{X}=1))
+    \end{align*}
+    La taille du test $ \phi  $ est 
+    \[
+        \alpha ^* = \sup_{\theta \in \theta _0} \alpha (\theta)
+    .\]
+    On dit que $ \phi  $ est de niveau $ \alpha $ si 
+    \[
+        \alpha ^* \leq \alpha 
+    .\]
+    Une suite de test $ (\phi _n)_{n \in \mathbb{N}} $ est de niveau asymptotique $ \alpha  $ si 
+    \[
+        \limsup _n \alpha _n^* \leq \alpha 
+    .\]
+    En général on a : $ \lim_{n \to \infty} \alpha ^*_n = \alpha $
+    \begin{rem}[]
+        Pour l'erreur de 1ère espèce le meilleur test est $ \phi (\mathbb{X})=0 $. En effet $ \forall \theta \in \Theta _0, \mathbb{P}_\theta (\phi (\mathbb{X}) = 1 ) = 0 $ 
+    \end{rem}
+    \begin{rem}[Cours de M.Thiam, def 12]
+        Si vous préférez la formulation du 1er semestre, c'est tout aussi valable.
+    \end{rem}   
+\end{defn}
+
+\begin{defn}[Erreur de seconde espèce et puissance]
+    La fonction erreur de 2nd espèce d'un test $ \phi  $ est 
+    \begin{align*}
+        \underline{\beta} :& \Theta_1 \rightarrow [0,1] \\
+                & \theta \mapsto \mathbb{P}_\theta (\phi (\mathbb{X} = 0))
+    \end{align*}
+    C'est la probabilité de conserver à tort $ H_0 $. On appelle en général erreur de seconde espèce la quantité $ \beta = \sup_{\theta \in \Theta _1} \underline{\beta } (\theta ) $ 
+    
+    La fonction puissance $ \gamma  $ est $ 1 - \underline{\beta }  $.
+
+    \begin{exmp}[]
+        Le test $ \phi (\mathbb{X}) = 0 $ (le test stupide) a une erreur de seconde espèce qui vaut 1. 
+        \[
+            \mathbb{P}_\theta ( \phi (\mathbb{X}) = 0 ) = 1
+        .\]
+        et sa puissance vaut $ 0 $ 
+    \end{exmp}   
+\end{defn}
+
+\begin{defn}[p-valeur]
+    Si pour tout niveau $ \alpha $, on a construit un test $ \phi _\alpha  $ Soit $ \mathbb{X} $ une observation. 
+    \[
+        p(\mathbb{X}) = \inf \{\alpha \in [0,1] \text{tel que } \phi _\alpha (\mathbb{X}) = 1\}
+    .\]
+    Si on choisit un niveau $ \alpha $ 
+    \[
+        \alpha < p(\mathbb{X}), \text{ on conserve } H_0
+    .\]
+    Et si $ \alpha \geq p(\mathbb{X}) $ on rejette $ H_0 $ 
+\end{defn}
+
+\begin{defn}[Test consistent]
+    Une suite de tests $ \phi _n $ est dite consistent si pour tout $ \theta \in \Theta _1 $ 
+    \[
+        \gamma _n (\theta ) \to _{n \to \infty } 1
+    .\]    
+\end{defn}
+
+\section{Tests d'ajustement}
+Le but de ce chapitre est de répondre à la question suivante : \\
+Étant donnée un échantillon $ X_1, \dots, X_n $  et une loi de proba sur $ \mathbb{R} $ nommée $ \mathcal{L} $ 
+\[
+    \text{Est ce que les } X_i \sim \mathcal{L}
+.\]
+
+\begin{itemize}
+    \item $ H_0 = $ les $ X_i $ ont pour loi $ \mathcal{L} $ 
+    \item $ H_1 = $ les $ X_i $ n'ont pas pour loi $ \mathcal{L} $ 
+\end{itemize}
+Comment comprendre ce problème ? 
+\begin{enumerate}
+    \item En général, on peut utiliser les fonction de répartition. La question devient $ F_X = F $ contre $ F_X \neq F $ (en tout point de $ \mathbb{R} $ )
+    \item Si les $ X_i $ sont à support dans $ \{1,..., K\} $. La question devient $ \forall i \in \{1,..., K\}, \hat{p_i} = p_i $ contre $ \exists i \text{ tq } \hat{p_i} \neq p_i $ où $ \hat{p_i} = P(X=i) $ et $ p_i = P(L=i) $ 
+\end{enumerate}
+Énorme problème : On ne connaît pas la loi des $ X_i $, on connaît juste $ n $ réalisations. 
+
+Problème plus difficile : Ajustement à une famille de lois ? Est-ce que les $ X_i $ proviennent d'une loi normale ? (sans en connaître les paramètres)
+\begin{rem}[]
+    Cette question est fondamentale pour valider un modèle
+\end{rem}
+
+\subsection{Le test d'ajustement de Kolmogorov-Smirnov}
+\subsubsection{Rappels}
+\begin{defn}[Fonction de répartition]
+    Soit $ X $ une variable aléatoire réelle, sa fonction de répartition est la fonction \begin{align*}
+        F_X :& \mathbb{R} \to [0,1] \\
+            & t \mapsto P(X \leq t)
+    \end{align*}
+    Elle caractérise la loi de $ X $. \\
+    Si $ X $ est à densité, $ F_X $ est continue. Les discontinuité de $ F_X $ sont les valeurs $ t_0 \in \mathbb{R} $ tel que $ P(X = t_0) > 0 $. 
+    \begin{exmp}[]
+        \begin{itemize}
+            \item Si $ X \sim Unif({0,1}) $ 
+                \[
+                    F_X(t) = P(X \leq t) = \int_{0}^{t} \mathbbm{1}_{[0,1]}(x)dx = \systeme*{
+                        0 \text{ si } t \leq 0,
+                        t \text{ si } t \in [0;1],
+                        1 \text{ si } t \geq 1
+                    }
+                .\]
+            \item Si $ X \sim \mathcal{E}(\lambda ) $ 
+            \[
+                F_X(t) = \int_{0}^{t}\lambda e^{-\lambda x}dx = \systeme*{
+                    0 \text{ si } t < 0,
+                    1 - e^{- \lambda t} \text{ si } t \geq 0
+                }
+            .\]
+            \item Si $ X \sim \mathcal{B}(p) $ 
+            \begin{align*}
+                F_X(t) = \systeme*{
+                    0 \text{ si } t<0,
+                    {1-p} \text{ si } t \in [0;1[,
+                    0 \text{ si } t \geq 1
+                }
+            \end{align*}
+        \end{itemize}
+    \end{exmp}
+\end{defn}
+
+\begin{defn}[Pseudo inverse de la fonction de répartion]
+    Soit $ X $ une var. de fonction de répartition $ F_X $. On pose 
+    \begin{align*}
+        F_X^{-1} :& ]0,1[ \to \mathbb{R} \\
+                &x \mapsto \inf \{t \in \mathbb{R}, F_X (t) \geq x\}
+    \end{align*}
+    On l'appelle inverse généralisé de $ F_X $ et elle coincide avec l'inverse si $ F_X $ est bijective.
+
+    Elle vérifie la propriété fondamentale 
+    \[
+        \forall x \in ]0,1[, \forall t \in \mathbb{R}, F_X^{-1} \leq t \Leftrightarrow x \leq F_X(t)
+    .\]
+\end{defn}
+
+\begin{thm}[]
+    Soit $ X $ une var. de fonction de répartition $ F_X $ et une variable uniforme $ U $ sur $ [0,1] $ alors 
+    \[
+        X \text{ et } F_X^{-1}(U) \text{ ont même loi}
+    .\]
+
+    \begin{proof}[Preuve: ]
+        Soit $ t \in \mathbb{R} $ 
+        \[
+            P(F_X^{-1}(U) \leq t) = P(U \leq F_X(t)) \text{ comme } \{F_X^{-1} (U) \leq t\} = \{U \leq F_X(t)\}
+        .\]
+        Or $ F_X(t) \in [0,1] $ donc 
+        \[
+            P(U \leq F_X(t)) = F_X(t)
+        .\]
+        Ainsi $ F_X^{-1} $ et $ X $ ont la même fonction de répartition et donc la même loi
+    \end{proof}
+\end{thm}
+
+\underline{Nouveau cours du 20/01} \\
+
+\subsubsection{Le test de Kolmogorov-Smirnov}
+
+\textbf{But} : Si on a $ X_1, \dots, X_n $ observation iid. Est-ce que la fonction de répartition des $ X_i $ est une certaine fonction $ F_L $ \textbf{donnée} ? \\
+$ \Leftrightarrow F_X = F_L \Leftrightarrow $  La loi des $ X_i $ est la même que L \\
+
+\begin{exmp}[]
+    Se demander si les $  X_i \sim \mathcal{E}(1) $ revient à demander : Est-ce que $ \forall t \in \mathbb{R}, F_X(t) = (1 - e^{-t}) \mathbbm{1}_{t \geq 0} $ 
+\end{exmp}
+
+\textbf{Autre reformulation:} Est-ce que mes observations sont cohérentes avec l'hypothèse $ F_{X_i}= F $ ? Il va donc falloir estimer $ F_{X_i} $ et la comparer à $ F $ 
+
+\begin{defn}[Fonction de répartition empirique]
+    Soit $ X_1, \dots, X_n $ un échantillon iid. On appelle \textbf{fonction de répartition empirique} de $ X_1, \dots, X_n $ la fonction 
+    \begin{align*}
+        F_n :& \mathbb{R} \to [0,1] \\
+            & t \mapsto \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t}
+    \end{align*}
+    Illustration graphique \ref{fig1}:
+    \begin{figure}[!htbp]
+        \centering
+        \includegraphics*[width=.75 \textwidth]{fig1.png}
+        \caption{Exemple de fonction de répartion empirique}
+        \label{fig1}
+    \end{figure}
+\end{defn}
+
+\textbf{Rappels : }
+\begin{enumerate}
+    \item $ \forall t \in \mathbb{R}, F_n(t) \to ^{p.s}_{n \to +\infty } F_{X_1}(t) $ 
+    \item De plus $ \forall t \in \mathbb{R} $ fixé 
+    \[
+        \frac{\sqrt[]{n}}{\sqrt[]{F_X(t) (1 - F_X(t))}} (F_n(t) - (F_X(t))) \to ^\mathcal{L}_{n \to +\infty } Z \text{ de loi } \mathcal{N}(0,1)
+        .\]
+    Ce n'est rien d'autre que le TCL pour la suite de variables iid. $ (Y_i = \mathbbm{1}_{X_i \leq t})_{i \in \mathbb{N}} $ 
+\end{enumerate}
+
+\begin{thm}[Glivenko-Cantelli]
+    $ (X_i)_{i \in \mathbb{N}} $ une suite de va. iid. alors 
+    \[
+        \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right| \to^{p.s}_{n \to + \infty } 0
+    .\]
+    Illustration graphique \ref{fig2}: 
+    \begin{figure}[htbp]
+        \centering
+        \includegraphics*[width=.75 \textwidth]{fig2.jpg}
+        \caption{Illustration graphique de Glivenko-Cantelli}
+        \label{fig2}
+    \end{figure}
+\end{thm}
+
+Ce théorème montre que la bonne quantité pour savoir si $ F_X = F $ à $ F $ est une certaine fonction donnée est
+\[
+    h(F_n, F) = \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right|
+.\]
+\begin{itemize}
+    \item Si $ F=F_X $ alors d'après le théorème de Glivenko-Cantelli :
+    \[
+        h(F_n, F) \to^{p.s}_{n \to + \infty } 0
+    .\]
+    \item Si je me suis trompé et que $ F \neq F_X $, alors 
+    \[
+        h(F_n, F) \to^{p.s}_{n \to + \infty } \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right|
+    .\]
+    En effet $ F_n \to F_{X_i} $ donc \begin{align*}
+        h(F_n, F) &= \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right| \\
+                    & \to^{p.s}_{n \to + \infty } \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right| > 0
+    \end{align*}
+\end{itemize}
+De manière informelle, on a envie de dire \begin{itemize}
+    \item Si $ h(F_n, F) $ est petit alors $ F_X = F $ 
+    \item Si $ h(F_n, F) $ n'est pas petit alors $ F_X \neq F $ 
+\end{itemize}. \\
+
+\paragraph{Comment calculer en pratique $ h(F_n,F) $} ? \\ 
+
+Données : $ X_1, \dots, X_n $ des valeurs. $ F $ une fonction de répartition cible. \\
+\textbf{But:} Calculer $ h(F_n,F) $ de manière pratique. à $ h(F_n, F) = \sup_{t \in \mathbb{R}} \left| F_n(t) - F_{X_1}(t) \right| $ (Voir Figure. \ref{fig3})
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics*[width=.75\textwidth]{./fig3.png}
+    \caption{Figure pour trouver la fonction $ h(F_n, F) $ }
+    \label{fig3}
+\end{figure}
+\begin{note}[du dessin]
+    Le but de cette explication est de montrer graphiquement et instinctivement pourquoi on ne regarde pas pour tout $ t \in \mathbb{R} $ mais uniquement à chaque saut.
+\end{note}
+
+\begin{enumerate}
+    \item étape : avant $ X_(1) $ 
+    \[
+        \sup_{t \leq X_{(1)}} \left| F_n(t) - F_{X_1}(t) \right| = \max \{ \left| \frac{1}{n} - F(X_{(1)}) \right| , \left| F(X_{(1)}) - 0 \right| \}
+    .\]
+    On recommence pour les différentes valeurs de $ X_{(i)} $ et on voit que la plus grande distance entre les deux courbes est forcément atteinte à un des points de saut
+\end{enumerate}
+
+\begin{rem}[\textbf{attention}]
+    Pour chaque saut, il faut regarder 2 valeurs AVANT et APRES le saut.
+\end{rem}
+
+Formule de calcul de $ h(F_n, F) $ 
+\[
+    h(F_n, F) = \max _{1 \leq i \leq n} ( \max ( \left| \frac{i}{n} - F(X_{(i)}) \right| , \left| \frac{i-1}{n}- F(X_{(i)}) \right|  ))
+.\]
+\begin{note}[]
+    On fait le max pour tous les sauts du maximum entre la distance APRES (au moment du saut) et AVANT (juste avant le saut (i-1)).
+\end{note}
+
+\begin{exmp}[Cas concret]
+    $ X_1 = 0.06, X_2 = 0.8, X_3 = 0.27, X_4 = 0.67, X_5 = 0.38 $ 
+    \[
+        F(t) = F_U(t) = \systeme*{
+            0 \text{ si } t \leq 0,
+            t \text{ si } t \in [0,1],
+            1 \text{ si } t \geq 1
+        }
+    .\]
+    Etape 1 : On ordonne les valeurs
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+            $X_{(i)}$ & 0.06 & 0.27 & 0.38 & 0.67 & 0.8 \\ \hline
+            $F_n$ & 0.2 & 0.4 & 0.6 & 0.8 & 1 \\ \hline
+            $F$ & 0.06 & 0.27 & 0.38 & 0.67 & 0.8 \\ \hline
+            Après le saut : $\left| \frac{i}{n} - F(X_{(i)}) \right|$ & 0.14 & 0.13 & \textbf{0.22} & 0.13 & 0.2 \\ \hline
+            Avant le saut : $\left| \frac{i-1}{n}- F(X_{(i)}) \right|$ & 0.06 & 0.07 & 0.02 & 0.07 & 0 \\ \hline
+        \end{tabular}
+        \label{tab1}
+    \end{table}
+    Ici $ h(F_n,F_U) = 0.22 $ 
+\end{exmp}
+
+\paragraph{Comportement théorique de $ h(F_n,F) $}
+
+\[
+    h(F_n, F) = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i \leq t} - F(t)  \right| 
+.\]
+est une variable aléatoire. 
+
+A priori, la loi de $ h(F_n, F) $ dépend \begin{itemize}
+    \item de $ n $ 
+    \item de la loi des $ X_i $ 
+\end{itemize}
+\textbf{Rappel: } $ H_0: F = F_{X_o} $ contre $ H_1: F \neq F_{X_i} $ \\
+Sous $ H_O $ quel est la loi de $ h(F_n, F) $ ? 
+\[
+    h(F_n, F) = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i \leq t} - F_{X_1}(t)  \right| 
+.\]
+Soit $ U_1, \dots, U_n $ iid. uniforme sur $ [0,1] $ \\
+Soit $ F_{X_1}^{-1} $ l'inverse généralisé de $ F_X $ \\
+Alors $ F_{X_1}^{-1}(U_1), \dots, F_{X_1}^{-1}(U_n) $ ont même loi que $ X_1, \dots, X_n $. Ainsi en loi 
+\[
+    h(F_n, F) = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{F_X^{-1}(U_i) \leq t} - F_{X_1}(t)  \right| 
+.\]
+Or $ \{F_X^{-1} \leq t\} = \{U_i \leq F_{X_1}(t)\} $ donc $ \mathbbm{1}_{F_X^{-1}(U_i) \leq t} = \mathbbm{1}_{U_i \leq F_{X_1}(t)} $ et donc 
+\[
+    h(F_n, F) = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{U_i \leq F_{X_1}(t)} - F_{X_1}(t)  \right| 
+.\]
+Si $ F_{X_1} $ est continue, alors $  ]0,1[ \subset F_{X_1} (\mathbb{R}) \subset [0,1] $. Ainsi en reparamétrant le $ \sup $ on a 
+\[
+    h(F_n, F) =^{Loi} \sup _{s \in ]0,1[} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq s} - s \right| 
+.\]
+Dans cette formule, la loi de $ X $ (et sa fonction de répartition) n'apparaît pas ! \\
+\textbf{Bilan : La loi de $ h(F_n, F) $ ne dépend que de $ n $ sout $ H_0 $ }
+
+La loi de $ h(F_n, F) $ est tabulé pour toutes les valeurs de $ n $. On peut alors construire un test de niveau $ 1 - \alpha $
+
+\paragraph{Le test de Kolmogorov-Smirnov à 1 échantillon \\}
+
+Données : \begin{itemize}
+    \item $ X_1, \dots, X_n $
+    \item $ F $ une fonction de répartition continue
+    \item $\alpha$ un niveau
+    \item $ H_0: F_X = F $ contre $ H_1: F_{X_1} \neq F $
+\end{itemize}
+Soit $ h_\alpha $ le quantile de niveau $ 1 - \alpha $ de $ h(F_n, F) $
+\begin{itemize}
+    \item Si $ h(F_n, F) > h_\alpha $, on rejette $ H_0 $ 
+    \item Si $ h(F_n, F) \leq h_\alpha  $, on conserve $ H_0 $ 
+\end{itemize}
+De manière formelle : $ \phi (\mathbb{X}) = \mathbbm{1}_{h(F_n, F) > h_\alpha } $ 
+
+\begin{exmp}[retour sur l'exemple]
+    Dans le tableau, on avait lu $ h(F_n, F) = 0.22, n=5 $. \\
+    Test de niveau 90\% : la zone de rejet est $ h > 0.509 $ (d'après la table). Dans l'exemple on conserve $ H_0 $, les $ X_i $ proviennent d'une $ \mathcal{U}([0,1]) $ 
+\end{exmp}
+
+\begin{exmp}[Autre exemple]
+    $ X_1 = 1.67, X_2= 1.3, X_3=0.01, X_4=2.48, X_5=0.11 $ Est-ce que les $ X_i \sim \mathcal{E}(1) $ ? On applique le test de Kolmogorov-Smirnov. 
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+            $X_{(i)}$ & 0.01 & 0.11 & 1.3 & 1.67 & 2.48 \\ \hline
+            $F_n$ & 0.2  + 1/n & 0.4 & 0.6 & 0.8 & 1 \\ \hline
+            $F(t) = 1 - e^{-x}$ & 0.01 & 0.1 & 0.72 & 0.81 & 0.91 \\ \hline
+            Après le saut :$\left| \frac{i}{n} - F(X_{(i)}) \right|$ & 0.19 & 0.3 & 0.12 & 0.01 & 0.09 \\ \hline
+            Avant le saut : $\left| \frac{i-1}{n}- F(X_{(i)}) \right|$ & 0.01 & 0.1 & \textbf{0.32} & 0.21 & 0.11 \\ \hline
+        \end{tabular}
+        \label{tab2}
+    \end{table}
+    \[
+        h_{F_5,F} = 0.32
+    .\]
+    Test de niveau 99\% : Rejet si $ h \leq 0.6689 $ comme $ 0.32 \leq 0.6685 $ on conserve $ H_0 $ 
+\end{exmp}
+
+\underline{Nouveau cours du 27/01} \\
+
+\textbf{Rappel du cours précédent}
+
+On a vu le test de Kolmogorov-Smirnov : $ X_1, \dots, X_n $ iid. de fdr. $ F_{X_1} $. \\
+Fonction de répartion cible $ F $ 
+\[
+    H_0 = F_{X_1} = G \text{ contre } H_1 = F_{X_1} \neq F
+.\]
+On calcule $ h(F_n, F) = \sup _{t \in \mathbb{R}} \left| F_n(t) - F(t) \right| $. \\
+La loi de $ h(F_n, F) $ est tabimée, il suffit alors pour un niveau $ \alpha  $ donnée de vérifier si 
+\[
+    h(F_n, F) > S_\alpha \text{ le seuil au niveau } \alpha 
+.\]
+
+\textbf{Début du cours}
+
+Si $ n $ est grand, on ne dispose pas de la table de $ h(F_n,F) $. Solution : Utiliser un test asymptotique.
+
+\begin{thm}[]
+    Soit $ h_n = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq t} - t \right| $ à $ U_1, \dots, U_n $ sont des va. iid. de loi uniforme sur $ [0,1] $ 
+    \[
+        \sqrt[]{n}h_n \to ^{\mathcal{L}}_{n \to \infty } W_{\infty }
+    .\]
+    où $ P(W_\infty \leq t) = 1 - 2 \sum_{h=1}^{+\infty}(-1)^{k+1} e^{-2k^2t^2} $. 
+
+    Bonne nouvelle : La loi de $ W_\infty  $ est tabulée !! 
+\end{thm}
+\begin{exmp}[Théorique de l'utilisation]
+    Si $ n \geq 30 $. Pour avoir $ S_\alpha  $ tel que $ P(h_n > S_\alpha ) \approx 1 - \alpha $. \\
+    Si je prends $ k_\alpha  $ tel que $ P(W_\infty > k_\alpha ) = 1 - \alpha  $ ($ k_\alpha  $ est le quantile d'ordre $ 1-\alpha  $ de $ W_\infty  $ ). \\
+    Alors, si on pose $ S_\alpha = \frac{k_\alpha }{\sqrt[]{n}} $ on a : 
+    \[
+        P(h_n \geq S_\alpha ) = P(h_n \geq \frac{k_\alpha }{\sqrt[]{n}}) = P(\sqrt[]{n} h_n > k_\alpha ) \approx P(W_\infty \geq h_\alpha )
+    .\]
+    Conclusion : Si $ n $ est grand (pas dans la table), on prend $ s_\alpha  = \frac{k_\alpha }{\sqrt[]{n}}$ à $ h_\alpha  $ est le quantile d'ordre $ 1-\alpha  $ de $ W_\infty  $ 
+\end{exmp}
+
+\paragraph{Qu'est ce que $ W_\infty $ }
+
+\begin{gather*}
+    \sqrt{n} h_n = \sqrt{n}  \sup _{t \in \mathbb{R}}  \left| \frac{1}{n} \sum_{i=1}^{n} \mathbbm{1}_{U_i \leq t} - F(\mathbbm{1}_{U_i \leq t}) \right| \\
+        = \sup _{t \in \mathbb{R}} \left| \sqrt{n} (\frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{U_i \leq t}- F(\mathbbm{1}_{U_i \leq t}) \right| 
+\end{gather*}
+Cette quantité est approximativement une $ \mathcal{N}(0, t(1-t)) $ 
+\[
+    Gt\to \sqrt{n} (\frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{U_i \leq t}- F(\mathbbm{1}_{U_i \leq t})
+.\]
+Le graphe de $ G $ est aléatoire et est disponible sur moodle (ça resemble à un cours de la bourse, dans notre cas on appelle ça un pont Brownien).
+
+Pour la culture : un inégalité bien pratique 
+\begin{thm}[Inégalité DKW]
+    Inégalité de Dvoretsky-Kiefer-Wolfanitz : $ X_i $ va. iid.
+    \[
+        \forall n \in \mathbb{N}, \forall \epsilon > 0, \mathbb{P}(\sup _{t \in \mathbb{R}} \left| F_n(t) - F_{x_1}(t) \right| > \epsilon ) \leq 2 e^{-2n \epsilon ^2}
+    .\]
+    Cette inégalité est \begin{itemize}
+        \item Non asymptotique
+        \item Pas génial si $ n $ petit
+    \end{itemize}
+    Mais elle permet aussi de construire une zone de rejet.
+\end{thm}
+
+\paragraph{Kolmogorov-Smirnov en pratique}
+On fait ce test si 
+\begin{enumerate}
+    \item Les $ X_i $ semblent provenir d'une loi à fonction de répartition continue. $ \Rightarrow  $ on n'a pas plusieurs fois la même valeur (sauf si celle-ci on était arrondi).\\
+    Par exemple : si on voit 14 fois la même valeur $\rightarrow$ on utilise pas KS. Mais si on voit 2 fois la même valeur $\rightarrow$ c'est jouable
+    \item Fonctionne $ \forall n $ : même si $ n $ est petit, ce test est pertinent (alors qu'un test du khi-deux qu'on verra plus tard est exclusivement asymptotique)
+    \item Si $ n \geq 100 $, on fait le test asymptotique. Sinon on peut faire un test non asymptotique.
+\end{enumerate}
+
+\subsection{Ajustement à une famille de lois}
+On veut savoir si nos observations iid. proviennent d'une certaine famille de lois. 
+\begin{exmp}[]
+    \begin{itemize}
+        \item Est-ce que la loi $ X_i $ sont des $ \mathcal{E}(\lambda) $ pour $ \lambda >0 $ ?
+        \item Est-ce que la loi $ X_i $ sont des $ \mathcal{N}(m, \sigma ^2) $ pour $ m \in \mathbb{R, \sigma ^2 > 0} $ ?
+        \item Est-ce que la loi $ X_i $ sont des $ \mathcal{B}(n,p) $ pour $ m \in \mathbb{N}, p \in [0,1] $ ?
+    \end{itemize}
+\end{exmp}
+Malheureusement, il est impossible de répondre à cette question en toute généralité. 
+
+Cependant il y a deux exemple important qu'on peut traiter. 
+
+\paragraph{Adéquation à une famille d'exponentielle}
+Données : $ X_1, \dots, X_n $ iid. loi inconnue
+\begin{itemize}
+    \item $ H_0: $ les $ X_i $ sont $ \mathcal{E}(\lambda ) $ pour un certain $ \lambda \in \mathbb{R}^+_* $ 
+    \item $ H_1: $ les $ X_i $ ne sont pas exponentiels.
+\end{itemize}
+Idée : On utilise $ h(F_n, F_\lambda ) $ pour un $ F_\lambda  $ bien choisis:
+\[
+    F_\lambda = (1-e^{-\lambda x})\mathbbm{1}_{x>0}
+.\]
+Si on veut tester $ X_i \sim \mathcal{E}(\lambda ) $, $ \lambda  $ fixée, on regarde 
+\[
+    h(F_n, F_\lambda ) = \sup _{t \in \mathbb{R}} \left| F_n(t) - (1 - e^{-\lambda t}) \mathbbm{1}_{t>0} \right| 
+.\]
+Problème : $ \lambda$ est inconnu $\Rightarrow  $ On l'estime !
+\[
+    \overline{\lambda }_n = \frac{n}{\sum_{i=1}^{n}X_i} \text{ estimateur Maximum Vraisemblance de }\lambda 
+.\]
+On regarde : $ X_i $ iid $ \mathcal{E}(\lambda ) $ 
+\[
+    h(F_n, F_{\overline{\lambda }_n }) = \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t} - (1-e^{-\overline{\lambda}_n x})\mathbbm{1}_{t>0} \right| 
+.\]
+Miracle : La loi de $ h(F_n, F_{\overline{\lambda }_n}) $ ne dépend pas de $ \lambda  $, mais uniquement de $ n $. 
+
+Si les $ (Y_i)_{i \in \mathbb{N}} $ sont iid. de loi $ \mathcal{E}(1) $, les $ (\frac{1}{\lambda } Y_i)_{i \in \mathbb{N}} $ sont iid de loi $ \mathcal{E}(\lambda ) $. Pour comprendre la loi de $ h(F_n, F_{\overline{\lambda }_n}) $, je peux remplacer les $ X_i $ par $ \frac{1}{\lambda }Y_i $.
+\begin{align*}
+    h(F_n, F_{\overline{\lambda }_n}) &= ^{loi} \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{\frac{Y_i}{\lambda } \leq t} - (1 - e^{- \frac{n}{\sum_{i=1}^{n} Y_i /\lambda } t }\mathbbm{1}_{t > 0}) \right|  \\
+        &= \sup _{t \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{Y_i \leq  \lambda t} - (1 - e^{- \frac{n}{\sum_{i=1}^{n}Y_i} \lambda t }\mathbbm{1}_{\lambda  t > 0}) \right| \text{ or } \mathbbm{1}_{t>0} = \mathbbm{1}_{\lambda t} \\
+        &= \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{Y_i \leq s} - (1-e^{- \frac{n}{\sum_{i=1}^{n}Y_i} s})\mathbbm{1}_{s>0} \right| \text{ avec } s=\lambda t
+\end{align*}
+Cela ne dépend pas de $ \lambda  $ mais seulement de $ n $. On peut tabuler ! (Malheureusement elle n'a pas de nom) et construire un test de KS.
+
+\paragraph{Adéquation à une loi normale}
+On peut adapter le test précédent pour des gaussiennes en estimant $ m $ et $ \sigma ^2 $ avec $ \overline{X}_n = \frac{1}{n}\sum_{i=1}^{n}X_i $ et $ V_n = \frac{1}{n-1} \sum_{i=1}^{n}(X_i - \overline{X}_n)^2 $ et construire un test. \\
+Cela s'appelle le test de normalité de \textbf{Lilliefors} (voir exo de TD pour la suite)
+
+\subsection{Le test du $ \mathcal{X}^2 $ d'ajustement}
+La lettre grecque $ \mathcal{X} $ se prononce "khi". 
+
+On dispose de $ X_1, \dots, X_n $ va. iid. \\
+On se place dans le cas particulier où les $ X_i $ sont à valeurs dans un ensemble fini $ \{x_1, \dots, x_d\} $. La loi des $ X_i $ est donc entièrement déterminée par la donnée de $ p_k = P(X_1 = x_k) $ pour tout $ k $. Le vecteur $ p=(p_1, \dots, p_d) $ caractérise la loi des $ X_i $ 
+\begin{rem}[]
+    On sait que $ p_1 + \dots + p_d = 1 $
+\end{rem}
+Hypothèse : $ \forall h \in \{1,\dots,d\}, p_k > 0$. On ne s'est pas trompés dans le support, il faut prendre le plus petit $ d $. \\
+Ces restrictions ne sont pas si contraignantes dans beaucoup de cas pratiques, elles sont automatiquement vérifiées
+
+\begin{exmp}[]
+    \begin{itemize}
+        \item Réponse à un questionnaire QCM : la réponse prend un nombre fini de valeurs
+        \item Une notes sur 20 d'un examen
+        \item Des variables qualitatives : fille/garçons, couleur des yeux
+    \end{itemize}
+\end{exmp}
+
+On a des observations $ X_1, \dots, X_n $ de loi inconnue $ p=(p_1, \dots, p_d) $. On veut savoir si $ p=p^{ref} $ pour un vecteur $ p^{ref} $ fixé. 
+\begin{align*}
+    H_0 &= p = p^{ref} \text{ i.e. } \forall k \in \{1,\dots,d\}, p_k = p_k^{ref} \\
+    H_1 &= p \neq p^{ref} \text{ i.e. } \exists k \in \{1, \dots, d\}: p_k \neq p_k^{ref}
+\end{align*}
+
+\paragraph{Préparatifs, introduction } Si on trie nos valeurs 
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+    \hline
+        ~ & x1 & x2 & ... & xs \\ \hline
+        Nombre d'observation & 17 & 23 & ... & 12 \\ \hline
+    \end{tabular}
+\end{table}
+$ p^{ref} = (0;3, 0.1, 0.2, 0.2, 0.2) $ On a envie de regarder $ \overline{p}_1 = \frac{\text{Nombre de } n_1}{n}, \dots, \overline{p}_s = \frac{\text{Nombre de }n_s}{n}$. On a envie de construire quelque chose avec ces estimateurs 
+
+\paragraph*{Notation} 
+
+\[
+    \forall k \in \{1,\dots,d\}, N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i x_k}
+.\]
+Les $ N_{k,n} $ sont les effectifs observés.
+\[
+    \forall k \in \{1,\dots,d\} \overline{p}_{k,n} = \frac{N_{k,n}}{n} = \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i x_k}
+.\]
+Les $ \overline{p}_{k,n} $ sont les proportions observés. On note $ \overline{p}_n = (\overline{p}_{1,n}, \dots, \overline{p}_{d,n}) $ \\
+Sous $ H_0 $, les $ \overline{p}_{k,n} $ devraient être proches des $ p_k^{ref} $ 
+
+\begin{note}[]
+    Comme dans KS, on vas trouver une formule reliant les deux et pouvant être tabuler pour faire des tests. Mais elle est pas vraiment démontrable à notre niveau et utilise des vecteurs gaussiens
+\end{note}
+
+\begin{thm}[]
+    Sous $ H_0 $ on note 
+    \begin{align*}
+        D(\overline{p}_n, p^{ref}) &= n \sum_{k=1}^{d}\frac{(\overline{p}_{k,n} - p_k^{ref})^2}{p_k^{ref}} \\
+        D(\overline{p}_n, p^{ref}) &\to ^{\mathcal{L}}_{n \to \infty } \mathcal{X}^2(d-1)
+    \end{align*}
+    Sous $ H_1 $ 
+    \[
+        D(\overline{p}_n, p^{ref}) \to^{p.s}_{n \to \infty } + \infty 
+    .\]
+\end{thm}
+\begin{rem}[Autre formulation]
+    On peut aussi écrire 
+    \begin{align*}
+        D(\overline{p}_n, p^{ref}) = \sum_{k=1}^{d} \frac{(N_{k,n} - np_k^{ref})^2}{n p_k^{ref}}
+    \end{align*}
+    Si on note $ N_k^{ref} = np_k^{ref} $ l'effectifs attendu, alors cela devient 
+    \[
+        D(\overline{p}_n, p^{ref}) = \sum_{i=1}^{d} \frac{(N_{k,n} - N_k^{ref})^2}{N_k^{ref}}
+    .\]
+    $ N_k^{ref} $ n'est pas un entier en général
+\end{rem}
+
+\paragraph{Le test du $ \mathcal{X}^2 $} 
+\begin{itemize}
+    \item Données : $ X_1, \dots, X_n $ à valeur dans $ \{x_1, \dots, x_d\} $ 
+    \item $p^{ref} $ qu'on veut tester 
+    \item Niveau $ \alpha  $ 
+\end{itemize}
+Soit $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2 (d-1) $ alors 
+\begin{itemize}
+    \item Si $ D(\overline{p}_n, p^{ref}) \geq h_\alpha  $ on rejette $ H_0 $ 
+    \item Sinon $  D(\overline{p}_n, p^{ref}) < h_\alpha $ on conserve $ H_0 $ 
+\end{itemize}
+\textbf{Attention:} Ce test est uniquement asymptotique ! 
+
+Condition d'utilisation : 
+\[
+    \forall k \in \{1, \dots, d\}, np_k^{ref}(1-p_k^{ref}) \geq 5
+.\]
+Cela implique $ n \geq 20 $ mais en général il faut beaucoup plus 
+
+\begin{exmp}[dé truqué]
+    On dispose d'un dé douteux, on releve les résultats de 100 lancés et on veut determiner si il est pipé ou non.
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|l|}
+        \hline
+            ~ & 1 & 2 & 3 & 4 & 5 & 6 \\ \hline
+            Effectifs & 16 & 20 & 19 & 10 & 17 & 18 \\ \hline
+            Proportions & 0.16 & 0.2 & 0.19 & 0.1 & 0.17 & 0.18 \\ \hline
+        \end{tabular}
+    \end{table}
+
+    \textbf{Condition} : $ 100*\frac{1}{6}*\frac{5}{6} = \frac{500}{36} = 13.88 > 5 $ c'est bon le test du $ \mathcal{X}^2 $ est applicable.
+    \begin{itemize}
+        \item $ H_0: $ dè non truqué $ \Leftrightarrow p^{ref} =  (\frac{1}{6},\frac{1}{6},\frac{1}{6},\frac{1}{6},\frac{1}{6},\frac{1}{6},) $
+        \item $ H_1: $  dé truqué $ p \neq p^{ref} $ 
+    \end{itemize}
+    On calcule 
+    \begin{align*}
+        D &= 100 * [\frac{(0.16 - \frac{1}{6})^2}{1/6} + \frac{(0.2 - \frac{1}{6})^2}{1/6} + \dots + \frac{(0.18 - \frac{1}{6})^2}{1/6}] \\
+            &= 600 \sum_{k=1}^{6}(\overline{p}_k - \frac{1}{6})^2 = 3.8
+    \end{align*}
+    Pour faire un test à 90\%, on doit comparer cette valeur avec le quantile d'ordre d'une loi $ \mathcal{X}^2 (6-1) $ degrés de liberté. Lecture de table : $ k= 9.24 $.\\
+    Ainsi comme $ D=3.28 < 9.24 $, on conserve $ H_0 $ le dé est équilibré
+\end{exmp}
+
+\underline{Nouveau cours du 03/02} \\
+
+\textbf{Bilan jusqu'à présent} \\
+Le test du $ \mathcal{X}^2 $ "basique" permet de tester l'adéquation de données iid $ X_1, \dots, X_n $ à valeurs dans $ \{x_1, \dots, x_d\} $ à une loi discrète sur $\{x_1, \dots, x_d\}$ caractérisé par un vecteur de probabilité : $ p=(p_1, \dots, p_d) $ 
+
+\paragraph{Mise en place concrette :} 
+\begin{enumerate}
+    \item Etape 0 : On vérifie les conditions 
+    \[
+        \forall k \in \{1, \dots, d\}, n*p_k \geq 5
+    .\]
+    C'est la condition de Cochran (1954), il avait testé cas possible en observant l'approximation faites.
+    \item Etape 1 : On calcule les effectifs et proportions observées : $ N_{k,n} $ et $ \hat{p}_{k,n} $  
+    \item Etape 2 : Calcul de la statistique de test 
+    \[
+        D = n \sum_{d}^{k=1} \frac{(\hat{p}_{k,n} - p_k)^2}{p_k}
+    .\]
+    \item Etape 3 : Détermination de la zone de rejet au niveau $ \alpha  $. On lit $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2(d_1) $ 
+    \item Etape 4 : Décisions \begin{itemize}
+        \item si $ D > h_\alpha  $, on rejette $ H_0 $ (au niveau $ \alpha  $ ). 
+        \item Si $ D \leq h_\alpha  $ on conserve $ H_0 $ 
+    \end{itemize}
+\end{enumerate}
+
+\paragraph{Test du $ \mathcal{X}^2 $ avec fusion des classes} 
+Que fait-on si la condition $ np_k \geq 5 $ n'est pas vérifiée ? On fusionne des classes ! 
+
+\begin{exmp}[]
+    On a observé des réponses à un questionnaire. On veut tester l'adéquation à la loi $ p=(\frac{1}{4}, \frac{1}{4}, \frac{7}{16}, \frac{1}{16}) $ avec $ n=40 $
+
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|}
+        \hline
+            Modalité & 1 & 2 & 3 & 4 \\ \hline
+            Effectif & 10 & 18 & 11 & 1 \\ \hline
+        \end{tabular}
+    \end{table}
+
+    Vérification des conditions du test du $ \mathcal{X}^2 $ 
+    \begin{align*}
+        40*p_1 = \frac{40}{4} = 10 > 5
+        40*p_2 = \frac{40}{4} = 10 > 5
+        40*p_3 = \frac{40*7}{16} = 10 \geq  5
+        40*p_4 = \frac{40}{16} = 10 < 5 \text{ condition non vérifiée !}
+    \end{align*}
+    On fusionne des colonnes de manière à remplir les conditions. On fusionne les colonnes 3 et 4 pas exemple.
+
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+            Modalité & 1 & 2 & 3 ou 4 \\ \hline
+            Effectif & 10 & 18 & 12 \\ \hline
+        \end{tabular}
+    \end{table}
+
+    La nouvelle probabilité de référence devient 
+    \[
+        p^{ref}_{nouvelle} = ( \frac{1}{4}, \frac{1}{4}, \frac{7}{16} + \frac{1}{16}) = (\frac{1}{4}, \frac{1}{4}, \frac{1}{2})
+    .\]
+    Nouvelle condition : 
+    \begin{align*}
+        40 * p_1 = 10 > 5
+        40 * p_2 = 10 > 5
+        40 * p_3 = \frac{40}{2} = 20 > 5
+    \end{align*}
+    Si on applique le test du $ \mathcal{X}^2 $ "de base", on obtient un test asymptotique de niveau $ \alpha $ pour le cas à 3 classes (fait avec un $ \mathcal{X}^2(2) $ ), donc c'est aussi un test asymptotique de niveau $ \alpha  $ pour le cas à 4 classes.
+    
+    \begin{rem}[]
+        Si on prend $ q = (\frac{1}{4}, \frac{1}{4}, \frac{1}{4}, \frac{1}{4}) $ qui appartient à $ H_1^4 $ car $ q \neq p = (\frac{1}{4}, \frac{1}{4}, \frac{7}{16}, \frac{1}{16}) $. En fusionnant ce cas particulier, on se retrouve dans $ H_0^3 $.
+        \[
+            q \in H_1^4 \to q^{reduit} = (\frac{1}{4}, \frac{1}{4}, \frac{1}{2}) \in H_0^3
+        .\]
+        On perd donc en information quand on fusionne des colonnes. La puissance du test se réduit car on se retrouve avec des cas dans $ H_1 $ et dans $ H_0 $.\\
+        L'opération de fusion des colonnes permet toujours de construire un test de niveau asymptotique $ \alpha  $ au détriment de la puissance.
+    \end{rem}    
+\end{exmp}
+
+\subsection{Le test du $ \mathcal{X}^2 $ pour une loi discrète}
+Données : $ X_1, \dots, X_n $ observation iid. \\
+Loi cible à valeur dans $ \mathbb{N} $ caractérisée par 
+\[
+    p = (p_k)_{k \in \mathbb{N}}
+.\]
+Exemple pour une poisson 
+\[
+    p_k = \frac{\lambda^k e^{-\lambda }}{k!}
+.\]
+Est-ce que la loi des $ X_i $ est donnée par $ p $ ?  C'est à dire 
+\[
+    \forall k \in \mathbb{N}, P(X_1 = k) = p_k \text{ ?}
+\]
+
+\begin{exmp}[]
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+        \hline
+            Valeur & 0 & 1 & 2 & 3 & 4 & 5 & 6 & ... \\ \hline
+            Effectif & 5 & 8 & 12 & 7 & 2 & 1 & 0 & ... \\ \hline
+        \end{tabular}
+    \end{table}
+    "On ne peut pas faire un $ \mathcal{X}^2 $ avec une infinité de degrés de liberté" $\rightarrow$ On regroupe les classes à partir d'un certain rang
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+            Valeur & 0 & 1 & 2 & 3 & 4 et plus \\ \hline
+            Effectif & 5 & 8 & 12 & 7 & 4 \\ \hline
+        \end{tabular}
+    \end{table}
+    On voudrait regarder $ np_0, np_1, np_2, np_3 $ et pour la 4ème classe $ n(\sum_{k=4}^{+ \infty } p_k) $. Les classes sont déterminées afin que toutes les conditions soient satisfaites. 
+
+    En pratique, on regarde à partir de quel indice la condition $ np_k < 5 $ ne fonctionne plus, puis on regroupe à partir de la 
+\end{exmp}
+
+\paragraph{En pratique}
+    Donnée : $ X_1, \dots, X_n$ \\
+    Loi cible : $p = (p_k)_{k \in \mathbb{N}^*}$
+    \begin{enumerate}
+        \item Etape 0 : On détermine les classes en calculant $ np_1, np_2, ... $ et ainsi de suite.
+        \item On regroupe les classes qui ne vérifient pas la condition
+        \item On calcule les effectifs de chaque classes $ N_{1,n}, \dots, N_{c-1, n}, N_{c,n} $ avec $ c $ l'effectif dans la classe agglomérée
+        \item On calcule les proportions observées $ \hat{p}_{k,n} $ et la stat de test $ D = n \sum_{k=1}^{c} \frac{(\hat{p}_{k,n} - p_k)^2}{p_k^\prime } $ où $ p_k^\prime = p_k $ si $ k \leq c_1 $ et $ p^\prime _c = \sum_{k=c}^{+\infty } p_l $ 
+        \item On détermine la zone de rejet à l'aide du quantile d'ordre $ 1 - \alpha $ d'une loi $ \mathcal{X}^2(c-1) $, noté $ h_\alpha  $ Et on décide de conserver $ H_0 $ si $ D \leq h_\alpha  $, on rejette sinon.
+    \end{enumerate}
+
+\paragraph{Limite}
+Ce test permet de tester l'adéquation à n'importe quelle loi discrète au niveau $ \alpha  $. Cependant, dès lors qu'on regroupe des classes (ce qui est obligatoire ici) on perd la consistance du test. 
+
+
+\subsection{Le test du $ \mathcal{X}^2$ pour une loi discrète}
+Données: $ X_1, \dots, X_n $ iid. \\
+Loi cible : $ L $ la loi d'une v.a. $ L $ (par exemple de densité $ g $) \\
+Idée : Transformer les données en les regroupant par paquets. 
+
+Soient $ I_1, \dots, I_d $ des intervalles qui forment une partition du support de $ L $. (disjoints, dont l'union couvre toutes les valeurs de $ L $) Voir \ref{fig4} \\
+Condition 
+\[
+    \forall k \in \{1, \dots,d \} n * P(L \in I_k) \geq 5
+.\]
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics*[width=.75\textwidth]{fig4.png}
+    \caption{Illustration de la partition de L}
+    \label{fig4}
+\end{figure}
+On crée de nouvelle variables $ Y_i $ : Numéro de l'intervalle dans lequel est $ X_i $ 
+\[
+    P(Y_1=k) = P(X_i \in I_k) = p_k (\text{sous }H_0)
+.\]
+On a alors : $ Y_1, \dots, Y_n $ variables à valeur dans $ \{1,...,d\} $, avec comme proba cible : $ p=(p_i = P(L \in I_i), \dots, p_d = P(L \in I_d)) $. 
+
+On applique alors le test du $ \mathcal{X}^2 $ "basique" aux variable $ Y_i $. Cela fournit un test asymptotique de niveau $ \alpha  $. Le tableau à considérer est : 
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+        Intervale & $I_1$ & $I_2$ & $I_3$ & ... & $I_d$ \\ \hline
+        Effectif & . & . & . & ... & . \\ \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Bilan de la méthode}
+Aspects positifs : 
+\begin{itemize}
+    \item \textbf{Fonctionne pour toutes les lois}
+    \item Facile à faire
+\end{itemize}
+
+Aspects négatifs : 
+\begin{itemize}
+    \item Problème de consistance. Regrouper les variables par intervalle ruiner l'erreur de seconde espèce.
+    \item Asymptotique
+    \item Dépendant du choix des intervalles. Ce qui n'est pas canonique.
+\end{itemize}
+
+
+\subsection{Le $ \mathcal{X}^2 $ d'ajustement à une famille paramétrique de loi}
+On dispose d'observation iid. $ X_1, \dots, X_n $. \\ 
+On veut savoir si la loi des $ X_i $ fait partie d'une famille paramétrique $ \mathcal{F} =  (P_\theta )_{\theta \in \Theta} $ à $ \Theta \subset \mathbb{R}^M $.\\
+Par exemple \begin{itemize}
+    \item Lois de Poisson $ (\mathcal{P}ois(\lambda ))_{\lambda \in \mathbb{R}^+_*}, M=1 $ 
+    \item Lois Exponentielles : $ (\mathcal{E}(\lambda ))_{\lambda \in \mathbb{R}^+_*}, M=1 $
+    \item Lois géométrique : $ (\mathcal{G}eom(p))_{p \in ]0,1[}, M=1 $
+    \item Lois normales : $ (\mathcal{N}(m, \sigma ^2))_{m \in \mathbb{R}, \sigma ^2 \in \mathbb{R}^+_*}, M=2 $
+\end{itemize}
+Les hypothèses :
+\begin{itemize}
+    \item $ H_0 = $ la loi des $ X_i $ appartient à $ \mathcal{F} $ 
+    \item $ H_1 = $ la loi des $ X_i $ n'appartient pas à $ \mathcal{F} $ 
+\end{itemize}
+\begin{enumerate}
+    \item Etape 1 : Soit $ \hat{\theta }_n $ l'estimateur du maximum de vraisemblance de $ \theta  $ (pour $ P_\theta  $ ). On estime \textbf{tous} les paramètres de la loi $ (p_1^{\hat{\theta }_n}, \dots, p_d^{\hat{\theta }_n}) $ 
+    \item Etape 2 : On vas tester l'ajustement de $ X_1, \dots, X_n $ à $ P_{\hat{\theta }_n} $ On calcule les fréquences observées $ \hat{p}_{k,n} $.
+\end{enumerate}
+\textbf{Erreur à ne pas commettre :} il est faut de dire que 
+\[
+    D = n \sum_{k=1}^{d}\frac{(\hat{p}_{k,n} - p_k^{\hat{\theta }_n)^2}}{p_k^{\hat{\theta }_n}} \to \mathcal{X}^2(d-1)
+.\]
+\begin{thm}[]
+    Sous $ H_0 $ , 
+    \[
+        D = n \sum_{k=1}^{d}\frac{(\hat{p}_{k,n} - p_k^{\hat{\theta}_n})^2}{p_k^{\hat{\theta }_n}} \to \mathcal{X}^2 (d-1-M)
+    .\]
+    Avec \begin{itemize}
+        \item $ d= $ Nombre de classes à la fin, après regroupement éventuel
+        \item $ M =  $ nombre de paramètre
+    \end{itemize}
+\end{thm}
+
+\paragraph{En pratique}
+\begin{enumerate}
+    \item Etape 1 : Soit $ \hat{\theta }_n $ l'estimateur du maximum de vraisemblance de $ \theta  $ (pour $ P_\theta  $ ). On estime \textbf{tous} les paramètres de la loi $ (p_1^{\hat{\theta }_n}, \dots, p_d^{\hat{\theta }_n}) $ 
+    \item Etape 2 : On vas tester l'ajustement de $ X_1, \dots, X_n $ à $ P_{\hat{\theta }_n} $ On calcule les fréquences observées $ \hat{p}_{k,n} $.
+    \item Etape 3 : Vérification des conditions $ np_k^{\hat{\theta }_n} $ et possible regroupement en classes 
+    \item Etape 4 : Calcul de la stat de test $ D $ 
+    \item Etape 5 : Zone de rejet : lecture de $ H_\alpha  $ le quantile d'ordre $ 1-\alpha  $ d'une $ \mathcal{X}^2(d-1-M) $ 
+    \item Etape 6 : Décision 
+        \begin{itemize}
+            \item $ D > h_\alpha  $ on rejette $ H_0 $ 
+            \item $ D \leq h_\alpha  $ on conserve $ H_0 $ 
+        \end{itemize}
+\end{enumerate}
+
+
+
+
+\end{document}

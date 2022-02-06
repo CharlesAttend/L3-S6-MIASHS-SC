@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{systeme}
+\usepackage{bbm}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    % pdfpagemode=FullScreen,
+    }
+\urlstyle{same} %\href{url}{Text}
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollaire}
+%\newtheorem*{KL}{Klein’s Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+% \newtheorem{xca}[exmp]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+%\newtheorem{case}{Case}
+
+
+
+\title{Liste des Tests du cours}
+\author{Charles Vin}
+\date{2022}
+
+\begin{document}
+\maketitle
+
+\section{Test de Kolmogorov-Smirnov}
+\subsection*{Conditions}
+\begin{enumerate}
+    \item Les $ X_i $ semblent provenir d'une loi à fonction de répartition continue. $ \Rightarrow  $ on n'a pas plusieurs fois la même valeur (sauf si celle-ci on était arrondi).\\
+    \item Fonctionne $ \forall n $ : même si $ n $ est petit, ce test est pertinent
+    \item Si $ n \geq 100 $, on fait un test asymptotique.
+\end{enumerate}
+
+\subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = $ les $ X_i $ ont pour fdr. $ F_X $ 
+    \item $ H_1 = $ les $ X_i $ n'ont pas pour fdr. $ F_X $ 
+\end{itemize}
+
+\subsection*{Statistique de test} 
+\[
+    h(F_n, F) = \max _{1 \leq i \leq n} ( \max ( \left| \frac{i}{n} - F(X_{(i)}) \right| , \left| \frac{i-1}{n}- F(X_{(i)}) \right|  ))
+.\]
+
+\subsection*{Zone de Rejet}
+\[
+    \mathcal{R} = \{h(F_n, F_X) \leq h_{1-\alpha }\}
+.\]
+avec $ F_n $ fonction de réparation empirique, $ h_{1 -\alpha } $ le quantile à aller chercher dans la table 
+
+\subsection*{Méthode}
+Pour trouver la valeur de $ h(F_n, F_X) $ : Faire le grand tableau puis trouver le max. Exemple : 
+\begin{table}[!h]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+        i & 1 & 2 & 3 & 4 & 5 \\ \hline
+        $X_{(i)}$ & 0.3 & 0.7 & 0.9 & 1.2 & 1.4 \\ \hline
+        $X_{(i)} - 2$ & -1.70 & -1.30 & -1.10 & -0.80 & -0.60 \\ \hline
+        $F_0(X_{(i)})$ & 0.04 & 0.10 & 0.14 & 0.21 & 0.27 \\ \hline
+        $\frac{i}{n}$ & 0.05 & 0.1 & 0.15 & 0.2 & 0.25 \\ \hline
+        $|\frac{i}{n} - F_0(X_{(i)})|$ & 0.01 & 0.00 & 0.01 & 0.01 & 0.02 \\ \hline
+        $|\frac{i-1}{n} - F_0(X_{(i)})|$ & 0.04 & 0.05 & 0.04 & 0.06 & 0.07 \\ \hline
+    \end{tabular}
+    \caption{Ici le max c'est $0.07$ à la dernière case}
+\end{table}
+
+
+\section{Adéquation à une famille d'exponentielle}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{Adéquation à une loi normale}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{Le test du $ \mathcal{X}^2 $ d'ajustement}
+\subsection*{Conditions}
+\begin{enumerate}
+    \item Les $ X_i $ sont à valeur dans un ensemble fini (loi discrète)
+    \item Test asymptotique : $ \forall k \in \{1, \dots, d\}, np_k^{ref}(1-p_k^{ref}) \geq 5 \Leftrightarrow n \geq 20$ 
+\end{enumerate}
+
+\subsection*{Hypothèse}
+\begin{align*}
+    H_0 &= p = p^{ref} \text{ i.e. } \forall k \in \{1,\dots,d\}, p_k = p_k^{ref} \\
+    H_1 &= p \neq p^{ref} \text{ i.e. } \exists k \in \{1, \dots, d\}: p_k \neq p_k^{ref}
+\end{align*}
+Avec $ p^{ref} $ un vecteur fixé à tester (par exemple pour un lancé de dé $ (\frac{1}{6}, \dots, \frac{1}{6}) $ )
+
+\subsection*{Statistique de test}
+\[
+    D(\bar{p_n}, p^{ref}) = n \sum_{k=1}^{d}\frac{(\bar{p_{k,n}} - p_k^{ref})^2}{p_k^{ref}} \to ^{\mathcal{L}}_{n \to \infty } \mathcal{X}^2(d-1)
+.\]
+avec \begin{itemize}
+    \item $ N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i x_k} $ 
+    \item $ \bar{p_{k,n}} = \frac{N_{k,n}}{n} $ les proportions observés
+\end{itemize}
+
+\subsection*{Zone de Rejet}
+\[
+    \mathcal{R} = \{D(\bar{p_n}, p^{ref}) \geq h_\alpha\}
+.\]
+avec $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2(d-1) $
+
+\subsection*{Méthode}
+\begin{enumerate}
+    \item Etape 0 : On vérifie les conditions 
+    \[
+        \forall k \in \{1, \dots, d\}, n*p_k \geq 5
+    .\]
+    C'est la condition de Cochran (1954), il avait testé cas possible en observant l'approximation faites.
+    \item Etape 1 : On calcule les effectifs et proportions observées : $ N_{k,n} $ et $ \hat{p}_{k,n} $  
+    \item Etape 2 : Calcul de la statistique de test 
+    \[
+        D = n \sum_{d}^{k=1} \frac{(\hat{p}_{k,n} - p_k)^2}{p_k}
+    .\]
+    \item Etape 3 : Détermination de la zone de rejet au niveau $ \alpha  $. On lit $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2(d_1) $ 
+    \item Etape 4 : Décisions \begin{itemize}
+        \item si $ D > h_\alpha  $, on rejette $ H_0 $ (au niveau $ \alpha  $ ). 
+        \item Si $ D \leq h_\alpha  $ on conserve $ H_0 $ 
+    \end{itemize}
+\end{enumerate}
+
+
+
+\end{document}

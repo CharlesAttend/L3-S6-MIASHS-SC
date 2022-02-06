@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+
+\usepackage[default,scale=0.95]{opensans}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb} %math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{systeme}
+\usepackage{cases}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    % pdfpagemode=FullScreen,
+    }
+\urlstyle{same} %\href{url}{Text}
+
+\theoremstyle{plain}% default
+\newtheorem{thm}{Théorème}[section]
+\newtheorem{lem}[thm]{Lemme}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem*{cor}{Corollaire}
+%\newtheorem*{KL}{Klein’s Lemma}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Définition}[section]
+\newtheorem{exmp}{Exemple}[section]
+% \newtheorem{xca}[exmp]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remarque}
+\newtheorem*{note}{Note}
+%\newtheorem{case}{Case}
+
+
+
+\title{Cours}
+\author{Charles Vin}
+\date{Date}
+
+\begin{document}
+\maketitle
+
+\subsection{Modéliser un problème}
+\begin{enumerate}
+    \item Les variables qui interviennent
+    \item La fonction objectif
+    \item Les contraintes
+    \item Résumer le tout correctement sous un problème d'optimisation (P)
+\end{enumerate}
+
+\subsection{Résoudre un problème}
+Pour un problème sous forme standard on a 
+\begin{align*}
+    A &= \text{ la matrice du système de contraintes} \\ 
+    B &= \text{ la matrice des constantes à droite des contraintes} \\
+    f^T &= \text{ matrice de la fonction à optimiser}
+\end{align*}
+
+\begin{enumerate}
+    \item Résolution graphique ?
+    \item Max de sommet : $ \binom{q}{n-p} $ avec $ n $ nombre de variable, $ p $ nombre de contraintes d'égalité, $ q $ nombre de contraintes d'inégalités.
+    \item Mettre sous forme standard 
+    \item Trouver toutes les bases possibles
+    \item Pour chaque base : \begin{itemize}
+        \item Vérifier si c'est réalisable : $ \det A \neq 0 \Leftrightarrow \exists A^{-1} $ puis il faut que $ X(B_i) = A^{-1}b > 0 $
+        \item dégénéré ou non dégénéré : si une des variables de la base $ =0 $ (invalide la résolution du système plus tard)
+        \item Correspond au sommet : $ (0,0, [X(B_i)], 0, 0, \dots) $ 
+    \end{itemize}
+    \item Trouver la solution optimale parmi les bases réalisables : Il faut que 
+    \[
+        C^{H_i} = f^T_{H_i} - f^T_{B_i} (A^{B_i})^{-1} A^{H_i} \geq 0
+    .\]
+\end{enumerate}
+
+\subsubsection{Autre méthode pas encore trop compris}
+\begin{itemize}
+    \item Trouver $ X(B_i) $ avec
+    \begin{align*}
+        AX(B_i) = b &\Leftrightarrow \begin{pmatrix} A^{B_i} & A^{H_i} \end{pmatrix} \begin{pmatrix} X_{B_i} \\ X_{H_i} \end{pmatrix} = b \\
+        &\Leftrightarrow X_{b_i}(\theta ) = (A^{B_2})^{-1}b - (A^{B_i})^{-1} A^{H_i} X_{H_i}(\theta )
+    \end{align*}
+    \item On se retrouve avec un vecteur dépendant de $ \theta  $, il faut trouver les bornes de $ \theta $ tel que \begin{itemize}
+        \item $ X_{B_i} \leq 0 $
+        \item $ X_{H_i} \leq 0 $
+    \end{itemize}
+    \item Conclure sur les points admissibles 
+\end{itemize}
+
+\end{document}
