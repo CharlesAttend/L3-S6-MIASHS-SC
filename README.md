@@ -18,8 +18,10 @@ Code couleur :
 S’il n’y a pas de correction à mes recherches (en noir) c’est que normalement j’ai eu la bonne réponse et bien rédigé (souvent une tick rouge confirme que j’ai bon).
 
 ## Anki
-Je fais des cartes Anki pour la mémorisation dans certains cours, c’est re-dou-table pour apprendre presque n’importe quoi. Quand je dois apprendre un cours "par cœur", j’utilise uniquement ça, je lis le cours uniquement pour la compréhension.
-Pour plus d’info, une recherche Google sur les `Flash Cards`.
+Je fais des cartes Anki pour la mémorisation dans certains cours, c’est re-dou-table pour apprendre presque n’importe quoi. Quand je dois apprendre un cours "par cœur", j’utilise uniquement ça, je lis le cours uniquement pour la compréhension. Pour plus d’info sur la méthode, une recherche Google sur les `Flash Cards`.
+
+Le packet à la racine du repo est mis à jour manuellement, je n'ai pas trouvé de moyen de le synchroniser facilement.
+Globalement je fais beaucoup beaucoup de carte avant les partiels, j'essaye de garder le rythme pour éviter un gros rush pré-partiel.
 
 ## Disclaimer :
 - Les fiches méthodes sont particulièrement personnalisées et n’expliquent pas tout ! Elles sont destinées à une meilleure mémorisation de ma part et à garder une trace dans le temps.
