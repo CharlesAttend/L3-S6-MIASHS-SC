@@ -538,6 +538,30 @@ Soit $ t \in \mathbb{R}^+ $, Il faut que
     Voir one note
 \end{exmp}
 
+\underline{Nouveau cours du 07/02} \\
 
-
+\section{Mise en oeuvre de l'algo du simplexe}
+\begin{enumerate}
+    \item Initialisation d'une base réalisable non-dégénérée 
+        \begin{itemize}
+            \item Choix triviale, s'il existe 
+            \item Méthode à deux phases (voir plus tard)
+            \item A partir d'une base de données
+        \end{itemize}
+    \item Construire le tableau correspondant : voir poly 2.5.4
+        \begin{align*}
+            T &= (A^B)^{-1}A = [I, (A^B)^{-1}A^H] \\
+            X_b &= (A^B)^{-1} \\
+            C &= f^T - f^T_{B}T = [0, f^T_H - f^T_{B}T^H] \\
+            Z &= f^T_B X_B
+        \end{align*}
+    \item Tester la base ($ C^H \geq 0 $ ?)
+    \item Tant que la base ne satisfait pas les CSL, faire 
+        \begin{enumerate}
+            \item Déterminer la variable entrante 
+            \item Déterminer la variable sortante
+            \item Mise à jour du tableai correspondant 
+            \item Tester la base
+        \end{enumerate}
+\end{enumerate}
 \end{document}
