@@ -203,9 +203,43 @@ Voir OneNote
     .\]
 \end{defn}
 
+\underline{Nouveau cours du 07/02} \\
 
+Soit 
+\begin{align*}
+    (P) &min f(x) \\
+    S.C & \begin{cases}
+        g(x) = 0   \\
+        h(x)\leq 0 \\
+        X \in \Omega 
+    \end{cases}
+\end{align*}
 
+\subsection{Qualification des contraintes}
+\begin{itemize}
+    \item On dit que les contraintes sont qualifiées en $ X \in \mathcal{A} $ si (au moins) un critère parmis les deux critères (Fromovitz ou Fiacco) est vrai en $ X $ 
+    \item On dit que les contraintes sont qualifiées en tout point admissible si (au moins) un critère parmis les deux critères (affinité ou Slaten) est vrai.
+\end{itemize}
 
+\subsection{CNO}
+\begin{thm}[]
+    Si $ X^* $ est une solution optimalité de $ (P) $  et si les contraintes sont qualifiées en $ X^* $, alors $ X^* $ est solution du système KKT 
+    \[
+        \begin{cases}
+        3 \text{ condition KKT}\\
+        X \in \mathcal{A}\\
+        \end{cases} 
+    .\]
+\end{thm}
+
+\subsubsection{Résoudre un problème d'optimisation avec contraintes}
+\begin{enumerate}
+    \item Déterminer les points admissible où les contraintes \textbf{ne sont pas} qualifiées 
+    \item Déterminer les points admissibles qui vérifient les 3 conditions KKT
+\end{enumerate}
+\begin{thm}[numéros 6]
+    Cas particulier : $ (P) $ problème convexe
+\end{thm}
 
 
 \end{document}
