@@ -646,11 +646,11 @@ $ p^{ref} = (0;3, 0.1, 0.2, 0.2, 0.2) $ On a envie de regarder $ \overline{p}_1 
 \paragraph*{Notation} 
 
 \[
-    \forall k \in \{1,\dots,d\}, N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i x_k}
+    \forall k \in \{1,\dots,d\}, N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i = x_k}
 .\]
 Les $ N_{k,n} $ sont les effectifs observés.
 \[
-    \forall k \in \{1,\dots,d\} \overline{p}_{k,n} = \frac{N_{k,n}}{n} = \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i x_k}
+    \forall k \in \{1,\dots,d\} \overline{p}_{k,n} = \frac{N_{k,n}}{n} = \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i = x_k}
 .\]
 Les $ \overline{p}_{k,n} $ sont les proportions observés. On note $ \overline{p}_n = (\overline{p}_{1,n}, \dots, \overline{p}_{d,n}) $ \\
 Sous $ H_0 $, les $ \overline{p}_{k,n} $ devraient être proches des $ p_k^{ref} $ 
@@ -670,7 +670,7 @@ Sous $ H_0 $, les $ \overline{p}_{k,n} $ devraient être proches des $ p_k^{ref}
         D(\overline{p}_n, p^{ref}) \to^{p.s}_{n \to \infty } + \infty 
     .\]
 \end{thm}
-\begin{rem}[Autre formulation]
+\begin{rem}[Autre formulation, qu'on utilise en TD !]
     On peut aussi écrire 
     \begin{align*}
         D(\overline{p}_n, p^{ref}) = \sum_{k=1}^{d} \frac{(N_{k,n} - np_k^{ref})^2}{n p_k^{ref}}
