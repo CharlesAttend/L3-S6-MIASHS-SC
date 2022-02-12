@@ -306,5 +306,119 @@ Toutes la fin dans OneNote
     \item Est-ce que nos point sont aligné sur un plain
     \item Même hypothèses qu'avant
     \item On peut écrire $ \mathbb{Y} $  sont plusieurs forme (qu'on a vu avec la régression en DS)
+    \item On utilise la méthode des moindres carrées again
 \end{itemize}
+\begin{exmp}[Exercice diapo]
+    \begin{enumerate}
+        \item $ X $ matrice avec $ n $ lignes et $ p+1 $ colonnes. Si le modèle est bien posé, toutes les colonnes de $ X $ sont linéairement indépendantes : $ rg(X^TX) = rg(X) = p+1 $ 
+        \item $ X^T X \to (p+1 \times n)(n \times p+1) $.. $ (X^TX)^T = X^T X = $ Symétrique. \\ 
+            Soit $ u \in \mathbb{R}^{p+1}, u^T X^T X u = (Xu)^T(Xu) = <Xu, Xu> = \left\| Xu \right\| ^2 > 0 $ 
+        \item Si $ p=1 $ : \begin{align*}
+            X^TX = \begin{pmatrix}
+                1& \dots &1 \\
+                x_{11} & \dots & x_{n1}
+            \end{pmatrix} \begin{pmatrix}
+                1 & X_{11} \\
+                \vdots & \vdots \\
+                1 & x_{n1}
+            \end{pmatrix}
+            = \begin{pmatrix}
+                n & \sum x_{i1} \\
+                \sum_{}^{}x_{i1} & \sum_{}^{}x_{i1}^2
+            \end{pmatrix}            
+        \end{align*}
+        Si $ p=3 $ 
+        \[
+            X^T X = \begin{pmatrix}
+                n & \sum x_{i1} & \sum x_{i2} & \sum x_{i3} \\
+                ~ & \sum x_{i1}^2 & \sum x_{i1}x_{i2} & \sum x_{i1}x_{i3} \\
+                ~ & ~ & \sum x_{i2}^2 & \sum x_{i2}x_{i3} \\
+                ~ & ~ & ~ & \sum x_{i3}^2
+            \end{pmatrix}
+        .\]
+        \begin{align*}
+            X^T Y = \begin{pmatrix}
+                1& \dots &1 \\
+                x_{11} & \dots & x_{n1}
+            \end{pmatrix} \begin{pmatrix}
+                y_1 \\
+                y_2 \\
+                \dots \\
+                y_n \\
+            \end{pmatrix} = \begin{pmatrix}
+                \sum
+            \end{pmatrix}
+        \end{align*}
+        elle a effacé bruh, pourtant j'ai pas trainé
+    \end{enumerate}
+\end{exmp}
+ESTIMATEUR DE $ \beta  $ A RETENIR PAR COEUR 
+\[
+    \hat{\beta }  = (X^TX)^{-1}X^T Y
+.\]
+Sa variance : 
+\begin{align*}
+    V (\hat{\beta }) = V((X^TX)^{-1}X^T Y) &= ((X^TX)^{-1}X^T)V(Y)((X^TX)^{-1}X^T)^T \\
+        &= ((X^TX)^{-1}X^T) \sigma I_n (X (X^TX)^{-1}) \text{ car } V(AX) = AV(X)A^T \\
+        &= \sigma ^2 (X^TX)^{-1}(X^T X)(X^T X)^{-1} \\
+        &= \sigma ^2 (X^T X)^{-1}
+\end{align*}
+
+\subsection{Propriété de l'EMC}
+\begin{thm}[Gauss-]
+    Point (ii) : On montre que $ \forall \tilde{\beta }, \forall c \in \mathbb{R}^{p+1}, V(c \tilde{\beta } \leq V(c \tilde{\beta })) $ avec $ \tilde{\beta } $ un autre estimateur linéaire sans biais de $ \beta  $ \begin{itemize}
+        \item $ \hat{\beta } $ est un estimateur linéaire $ \hat{\beta } = (X^TX)^{-1} X^T Y \to \hat{\beta } $ est bien conbinaison linéaire de $ Y $  
+        \item $ \hat{\beta } $ est sans biais $ E(\hat{\beta }) = E((X^T X)^{-1}X^T Y) = (X^TX)^{-1}X^T E(Y) = (X^TX)^{-1} X^T X \beta  = \beta $ car $ Y= X \beta + E, E \sim \mathcal{N}(0, \sigma ^2 I_n), E(Y)= E(X \beta ) + E(E) = X \beta  $ 
+    \end{itemize}
+    Soit $ \tilde{\beta } $ un autre estimateur linéaire sans biais de $ \beta , \exists A : \tilde{\beta } = AY $ comme $ \tilde{\beta } $ sans biais $ AE(Y)=AX \beta = \beta \to AX = I_{p+1} $ \begin{align*}
+        V(\tilde{\beta }) &= V(\tilde{beta} - \hat{\beta } + \hat{\beta }) = V(\tilde{\beta } - \hat{\beta }) + V(\hat{\beta }) + 2 Cov(\tilde{beta} - \hat{\beta }, \hat{\beta }) \\
+        Cov(\tilde{beta} - \hat{\beta }, \hat{\beta }) &= Cov(\tilde{\beta}, \hat{\beta}) - V(\hat{\beta}) = A Cov(Y,Y) ( (X^TX)^{-1} X^T)^T - V(\hat{\beta}) \\
+            &= \sigma ^2 A X (X^2X)^{-1} - V(\hat{\beta}) = 0
+    \end{align*}
+    Soit $ u \in \mathbb{R}^{p+1}$ \begin{align*}
+        V(u \tilde{\beta}) &= u V(\tilde{\beta})u^T \\
+            & u (V(\tilde{\beta } - \hat{\beta}) + V(\hat{\beta})) u^T \\
+            &= V(u(\tilde{\beta} - \hat{\beta})) + V(u \hat{\beta})
+    \end{align*} 
+\end{thm}
+
+\subsection{Etude des erreurs}
+démo SCT = SCR + SCM
+\begin{align*}
+    \left\| Y - \hat{Y}1_{n} \right\|^2 = SCT &= (Y - \hat{Y})^T (Y - \hat{Y} 1_{n} )\\
+    &= ( (Y - \hat{Y}) + (\hat{Y} - \hat{Y} 1_{n}))^T ( (Y - \hat{Y}) + (\hat{Y} - \hat{Y} 1_{n} )) \\
+    &= (Y - \hat{Y})^T - (Y-\hat{Y}) + (\hat{Y} - \hat{Y} 1_{n})^T (\hat{Y} - \hat{Y}1_{n}) + 2 (\hat{Y} - \hat{Y}1_{n})^T (Y - \hat{Y}) \\
+    &= \left\| Y - \hat{Y} \right\| ^2 + \left\| \hat{Y} - \hat{Y} 1_{n} \right\| ^2 + 2 ( X \hat{\beta } - \hat{Y} 1_{n})^2 (Y - X \hat{\beta }) \\
+    &= SCR + SCM + 2 ( X \hat{\beta } - \hat{Y} 1_{n})^2 (Y - X \hat{\beta })
+\end{align*}
+\begin{exmp}[]
+    $ H_x = $ hat matrix : $ H_x Y = \hat{Y} = X(X^TX)^{-1}X^T Y$ \begin{enumerate}
+        \item \begin{align*}
+            H_x * H_x &= X(X^TX)^{-1} X^T X(X^TX)^{-1} X^T \\
+            &= X(X^TX)^{-1} I_{p+1} X^T = H_x \rightarrow \text{ projecteur } \\
+%
+            H_x^T &= (X (X^TX)^{-1} X^T)^T = X(X^TX)^{-1} X^T \rightarrow \text{ orthogonal} \\ 
+%
+            rg(H_x) &= J_n (H_x) \\ 
+                    &= T_n ( X(X^TX)^{-1} X^T) \\
+                    &= T_n (X^T X(X^TX)^{-1}) = T_n I_{p+1} = p+1
+        \end{align*}
+        \item $ H_x X = X (X^TX)^{-1} X^T X = X $ \\ 
+        Chaque vecteur colonne de $ X $ appartient à $ Im(H_x) $. Or $ \dim (Im(H_x) ) = p+1 $ et les $ p+1 $ vecteurs colonnes de $ X $ étant indépendants, ils forment une base de $ Im(H_x) $. $ H_x $ est le projecteur orthogonal dans le sous espace vectoriel engendré par les colonnes de $ X $, on le note $ \mathcal{L}(X) $ \\ 
+        Ainsi $ H_x Y = \hat{Y} $ donc $ \hat{Y} $ est le projeté orthogonal de $ Y $ dans l'espace engendré par les colonnes de $ X $ 
+        \item Calcul matriciel 
+        \begin{align*}
+            (Y - \hat{Y})^T (\hat{Y} - \bar{Y}1_{n}) &= ( (1_{n} - H_x) Y )^T (H_x - J_n)Y \\
+            &= Y^T (1_{n} - H_x)^T (H_x - J_n )Y 
+        \end{align*}
+        Or soit $ u \in \mathbb{R}^n $ 
+        \begin{align*}
+            J_n u = \dots, J_n u \in Im(H_x) = \mathcal{L}(X)
+        \end{align*}
+        Car la première colonne de $ X $ est le vecteur $ (1_n ,1_n \dots, 1_n) $. Donc $ (1_X - J_n)Y \in \mathcal{L}(X)$ et $ (1_n - H_x)Y \in \mathcal{L}(X) $ (J'suis pas sur de bien lire ce qu'elle écrit entre les 1 et les J)
+    \end{enumerate}
+\end{exmp}
+
+
+
 \end{document}
