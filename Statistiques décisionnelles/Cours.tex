@@ -953,7 +953,208 @@ Les hypothèses :
         \end{itemize}
 \end{enumerate}
 
+\underline{Nouveau cours du 10/02} \\
 
+\begin{exmp}[Test d'ajustement à un loi de Poisson]
+    On dispose d'observation $ X_1, \dots, X_n $ iid. (représentant le nombre d'heure entre 2 pannes de métro). On veut tester pour savoir si les données proviennent d'une loi de Poisson. \\
+    \begin{rem}[Rappel]
+        $ Z \sim Pois(\lambda), P(Z=k) = \frac{\lambda^k e^{-\lambda}}{k!}, \lambda \in \mathbb{R}^* $ \begin{itemize}
+            \item $ H_0 $ La loi des observation est $ Pois(\lambda ) $ pour un certain $ \lambda > 0 $ 
+            \item $ H_1 $ la loi des $ X_i $ n'est pas une loi de Poisson
+        \end{itemize}
+    \end{rem}
+    \begin{enumerate}
+        \item Estimer les paramètres (par un maximum de vraisemblance) : \\
+            On rappelle (1er semestre) que l'EMV pour $ \lambda  $ est 
+            \[
+                \bar{\lambda }_n = \frac{1}{n}\sum_{i=1}^{n}X_i
+            .\]
+            Données : 
+            \begin{table}[!h]
+                \centering
+                \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|}
+                \hline
+                    Valeurs & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & ... \\ \hline
+                    Effectif & 14 & 22 & 20 & 25 & 7 & 9 & 2 & 1 & 0 & 0 & 0 \\ \hline
+                \end{tabular}
+            \end{table}
+            Sur ces 100 données, on calcule $ \bar{\lambda } _n $ : 
+            \[
+                \bar{\lambda } = \frac{1}{100}(14*0 + 22*1 + \dots + 1*7) = 2.29
+            .\]
+        \item Calcul de la statistique de test comme si on faisait un $ \mathcal{X}^2 $ d'ajustement à une $ \mathcal{P}(2.29) $. \\
+            Si $ Z \sim \mathcal{P}(2.29), P(X=k) = (2.29)^k \frac{e^{-2.29}}{k!} = p_k $. On calcule les $ np_k $ 
+            \begin{table}[!h]
+                \centering
+                \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+                \hline
+                    k & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & ... \\ \hline
+                    $100p_k$ & 10.13 & 23.19 & 26.55 & 20.27 & 11.6 & 5.3 & 2.03 & 0.66 & ... \\ \hline
+                \end{tabular}
+            \end{table}
+            On détermine les classes à regrouper pour avoir $ np_k \geq 5 $. On se rend compte rapidement qu'il faut regrouper $ 5 $ à $ +\infty $
+            \begin{table}[!h]
+                \centering
+                \begin{tabular}{|l|l|l|l|l|l|l|}
+                \hline
+                    k & 0 & 1 & 2 & 3 & 4 & 5 et + \\ \hline
+                    $100p_k$ & 10.13 & 23.19 & 26.55 & 20.27 & 11.6 & $100 - \sum autres = 8.26$ \\ \hline
+                \end{tabular}
+            \end{table}
+            Calcul de la statistique de test : 
+            \[
+                D = 100 \sum_{k=0}^{5}\frac{(p_{k,n} - p_k)^2}{p_k} = \sum_{k=0}^{5}\frac{(N_{k,n} - 100 p_k)^2}{100 p_k} = 7.78
+            .\]
+        \item Zone de rejet au niveau $ \alpha = 5\% $ \\
+            On li dans la table le quantile d'ordre $ 1 - \alpha = 0.95 $ de la loi $ \mathcal{X}^2(6 - \text{ Nombre de classe } - \text{ Nombre de paramètre estimé }) = \mathcal{X}^2(6-1-1) $. Ici $ k_{0.95} = 9.48$. \\
+            CCL : Comme $ D = 7.78 \leq k_{0.95} = 9.48 $ on conserve $ H_0 $.
+    \end{enumerate}
+\end{exmp}
+
+\begin{rem}[Chapitre 1]
+    \begin{itemize}
+        \item Remarque sur le $ \mathcal{X}^2 $ d'ajustement à une formule paramétrique de lois : \\
+            Principe : \begin{enumerate}
+                \item On estime
+                \item On calcule comme si on faisait un $ \mathcal{X}^2 $ d'ajustement à une seule loi
+                \item Attention au degrés de liberté dans la zone de rejet ! 
+            \end{enumerate}
+            \item Remarque sur la consistance : Si le nombre de classes utilisées tend vers $ + \infty  $ quand $ n \to +\infty  $, le test du $ \mathcal{X}^2 $ est consistant.
+    \end{itemize}
+\end{rem}
+
+\subsection{Bilan du chapitre}
+On a deux test d'ajustement : Kolmogorov-Smirnov et $ \mathcal{X}^2 $ \begin{itemize}
+    \item KS : ajustement à une loi de fdr. continue. Fonctionne pour toutes valeurs de $ n $. Si $ n $ grand, on prend $ \frac{1}{\sqrt[]{n}} $ quantile de $ W_\infty  $.\\
+        \textbf{Attention : } Si $ n $ est grand sur des données réelles, KS est très sensible au bruit et rejette très souvent. Une erreur de $0.01$ sur la fdr. des données mène vite à un ... si $ n \geq 10^5 $.
+    \item $ \mathcal{X}^2 $ : Test asymptotique, $ n \geq 50 $ au minimum + Condition. fonction dans tous les cas.
+\end{itemize}
+
+\section{Loi de comparaison}
+Dans ce chapitre, on dispose de deux jeux de données \begin{itemize}
+    \item $ X_1, \dots, X_n $ avec $ n>0 $ iid.
+    \item $ Y_1, \dots, Y_n $ avec $ n>0 $ iid.
+\end{itemize}
+On cherche à comparer les lois sous-jacentes. \begin{enumerate}
+    \item Est-ce que les $ X_i $ et $ Y_j $ ont la même loi ? (homogénéité)
+    \item Est-ce que les $ X_i $ sont indépendants des $ Y_j $ (indépendance)
+    \item Est-ce que les loi de $ X_i $ et $ Y_j $ ont la même moyenne ou la même médiane ? 
+\end{enumerate}
+Deux cas de figure : 
+\begin{itemize}
+    \item Échantillon appariés : les $ X_i $ et $ Y_j $ proviennent d'une même mesure / tirage $ (X_i, Y_j) $. Cela implique $ n=m $. 
+        \begin{exmp}[]
+            On mesure la taille et le poids de pluviomètres à Roubaix et à Croix
+        \end{exmp}
+        
+    \item Echantillons indépendants : si $ (X_1, \dots, X_n) $ est indépendant de $ (Y_1, \dots, Y_n) $ , on dira que les échantillons sont indépendants. 
+\end{itemize}
+
+\subsection{Le test d'homogénéité de Kolmogorov-Smirnov}
+On dispose des données iid. $ (X_1, \dots, X_n) $ et $ (Y_1, \dots, Y_n) $. Les échantillons sont indépendants. On veut tester
+\begin{itemize}
+    \item $ H_0 $ : les $ X_i $ et $ Y_i $ ont la même loi, c'est à dire $ F_{X_1} = F_{V_1} $ où $ F_{X_1}, F_{Y_1} $ sont continues.
+    \item $ H_1 $ les lois sont différentes
+\end{itemize}
+Comme pour le test d'ajustement de KS, on va construire un test non asymptotique se basant sur les fdr. empirique.\\
+Notation : 
+\begin{align*}
+    F_n : &\mathbb{R} \to [0,1] & G_n: &\mathbb{R} \to [0,1] \\
+        & t \mapsto \frac{1}{n}\sum_{i=1}^{n}\mathbbm{1}_{X_i \leq t} & & t \mapsto \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{Y_j \leq t}
+\end{align*}
+
+\begin{thm}[].
+    \begin{enumerate}
+        \item Si $ F_{X_1} = F_{Y_1} $ alors la variable 
+        \[
+            h(F_n, G_n) = \sup _{t \in \mathbb{R}} \left| F_n(t) - G_n(t) \right| 
+        .\]
+        a même loi que la variable 
+        \[
+            h_{n,m} = \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq s} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{V_i \leq s} \right| 
+        .\]
+        avec $ (U_1, ..., U_n) $ et $ (V_1, \dots, V_n) $ sont deux échantillons indépendants de variable iid. uniformes sur $ [0,1] $.
+        \item De plus si $ F_{X_1} \neq F_{Y_1} $ alors 
+        \[
+            h(F_n, G_n) \to _{n,m \to \infty } \left\| F_{X_1} - F_{V_1} \right\|_{\infty } = \sup _{t \in \mathbb{R}} \left| F_{X_1}(t) - F_{Y_1}(t) \right| > 0
+        .\]
+        \begin{proof}[Preuve: ]
+            \begin{enumerate}
+                \item D'après le théorème de simulation par inversion de la fdr. si $ U_1, \dots, U_n $ sont des variables aléatoire iid. uniforme sur $ [0,1], (F_{X_1}^{-1}(U_1), \dots, F_{X_1}^{-1}(U_n))$ a même loi que $ (X_1, \dots, X_n) $. \\
+                Si $ U_1, \dots, U_n $ sont des variables aléatoire iid. uniforme sur $ [0,1], (F_{X_1}^{-1}(V_1), \dots, F_{X_1}^{-1}(V_n))$ a même loi que $ (Y_1, \dots, Y_n) $.
+
+                Ainsi , $ h(F_n, G_n) $ a même loi que $ \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{F_{X_1}^{-1}(U_i) \leq t} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{F_{X_1}^{-1}(V_i) \leq t} \right|$ 
+
+                Par les propriétés classique de l'inverse généralisée,
+                \begin{align*}
+                    F_{X_1}^{-1} (U_i) \leq t &\Leftrightarrow U_i \leq F_{X_1} (t) \\
+                    F_{X_1}^{-1} (V_j) \leq t &\Leftrightarrow V_j \leq F_{X_1}(t) \\
+                \end{align*}
+
+                Ainsi $ A = \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq F_{X_1}(t)} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{V_i \leq F_{X_1}(t)} \right|  $ 
+                \item Conséquence immédiate du théorème de Glivenko Cantelli.
+            \end{enumerate}
+        \end{proof}
+    \end{enumerate}
+\end{thm}
+
+\subsubsection{Test d'homogénéité de Kolmogorov-Smirnov}
+Données : $ (X_1, \dots, X_n) $ et $ (Y_1, \dots, Y_n) $ iid deux échantillon indépendants. $ H_0 : F_{X_1} = F_{Y_1} $ contre $ H_1 : F_{X_1} \neq F_{Y_1} $. \\ 
+Statistique de test : on calcule 
+\[
+    \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{X_i \leq t} \right| 
+.\]
+Zone de rejet au niveau $ \alpha  $ : \\
+Soit $ k_\alpha  $ le quantile d'ordre $ 1 - \alpha  $ de la loi de 
+\[
+    \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq s} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{V_j \leq s} \right| 
+.\]
+où $ (U_1, \dots, U_n) \bot (V_1, \dots, V_n) $ iid. $ \sim U([0,1]) $
+
+CCL : Si $ h(F_n, G_n) \leq k_\alpha  $, on conserve $ H_0 $ au niveau $ \alpha  $. Sinon on rejette $ H_0 $ 
+
+\begin{rem}[].
+    \begin{enumerate}
+        \item Ce test est de taille $ \alpha  $, si on utilise la table de $ h_{n,m} $.
+        \item Si $ n $ et $ m $ sont trop grands, on utilise le résultat suivant : \\
+            Sous $ H_0 $ 
+            \[
+                \sqrt[]{\frac{nm}{n+m}}h(F_n, G_n) \to ^{\alpha }_{n,m \to +\infty } W_\infty \text{ voir KS asymptotique}
+            .\]
+            On utilise alors comme zone de rejet $ \sqrt[]{\frac{n+m}{nm}}W_\infty  $ avec $ W_\infty  $ le quantile d'ordre $ 1 - \alpha  $ de $ W_\infty  $.
+
+            \paragraph{En pratique (cas n et m grand)} : \\ 
+            En R : $ X,Y $ vecteur, ks.test(X,Y) \\
+            A la main : 
+            \[
+                F_n(t) - G_n(t) = \frac{\text{nb de } X_i \leq t}{n} - \frac{\text{nb de } Y_i \leq t}{m}
+            .\]
+            On range par ordre croissant : 
+
+            \begin{table}[!h]
+                \centering
+                \begin{tabular}{|l|l|l|l|l|l|l|}
+                \hline
+                    $ X_{(1)} $ & $ X_{(2)} $ & $ X_{(1)} $ & $ X_{(3)} $ & $ Y_{(2)} $ & $ X_{(4)} $ & ... \\ \hline
+                    $ \left| \frac{1}{n} - \frac{0}{m} \right|  $  & $ \left| \frac{2}{n} \right| $  & $ \left| \frac{2}{n} - \frac{1}{m} \right|  $  & $ \left| \frac{3}{n} - \frac{1}{m} \right|  $ & $ \left| \frac{3}{n} - \frac{2}{m} \right|  $ & $ \left| \frac{4}{n} - \frac{2}{m}\right|  $ & ... \\ \hline
+                \end{tabular}
+            \end{table}
+
+            Je calcules les $ n+m $ quantités et je garde la plus grande valeur. \\
+            Méthode inefficace : 
+            \begin{table}[!h]
+                \centering
+                \begin{tabular}{|l|l|l|l|l|l|l|l|}
+                \hline
+                    $ X_i $  & $ X_{(1)} $ & $ X_{(2)} $ & ~ & $ X_{(3)} $ & ~ & $ X_{(4)} $ & ~ \\ \hline
+                    $ Y_i $  & ~ & ~ & $ Y_{(1)} $ & ~ & $ Y_{(2)} $ & ~ & ~ \\ \hline
+                    $ F_n $  & $ \frac{1}{n} $  & $ \frac{2}{n} $  & $ \frac{2}{n} $  & $ \frac{3}{n} $  & $ \frac{3}{n} $  & $ \frac{4}{n} $  & ... \\ \hline
+                    $ G_m $  & 0 & 0 & $ \frac{1}{m} $  & $ \frac{1}{m} $  & $ \frac{2}{m} $  & $ \frac{2}{m} $  & ... \\ \hline
+                \end{tabular}
+            \end{table}
+
+    \end{enumerate}
+\end{rem}
 
 
 \end{document}
