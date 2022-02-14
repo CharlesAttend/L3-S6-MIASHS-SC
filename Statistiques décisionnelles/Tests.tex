@@ -49,7 +49,16 @@
 \maketitle
 \tableofcontents
 
+\section{Template}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
 \section{Test de Kolmogorov-Smirnov}
+
+
 \subsection*{Conditions}
 \begin{enumerate}
     \item Les $ X_i $ semblent provenir d'une loi à fonction de répartition continue. $ \Rightarrow  $ on n'a pas plusieurs fois la même valeur (sauf si celle-ci on était arrondi).\\
@@ -64,15 +73,30 @@
 \end{itemize}
 
 \subsection*{Statistique de test} 
-\[
-    h(F_n, F) = \max _{1 \leq i \leq n} ( \max ( \left| \frac{i}{n} - F(X_{(i)}) \right| , \left| \frac{i-1}{n}- F(X_{(i)}) \right|  ))
-.\]
+\begin{align*}
+    h(F_n, F) &= \sup _{t \in \mathbb{R}} \left| F_n(t) - F(t) \right| \\
+        &= \max _{1 \leq i \leq n} ( \max ( \left| \frac{i}{n} - F(X_{(i)}) \right| , \left| \frac{i-1}{n}- F(X_{(i)}) \right|  ))
+\end{align*}    
 
 \subsection*{Zone de Rejet}
+\subsubsection*{Si n est petit}
+La loi de $ h(F_n, F) $ est tabulé alors :
 \[
     \mathcal{R} = \{h(F_n, F_X) \leq h_{1-\alpha }\}
 .\]
 avec $ F_n $ fonction de réparation empirique, $ h_{1 -\alpha } $ le quantile à aller chercher dans la table 
+
+\subsubsection{Si n est grand $ n \geq 30 $ }
+Attention pas souvenir de l'avoir fait en TD. \\
+On a pas la table de $ h(F_n, F) $ mais on sait que 
+\[
+    \sqrt[]{n}h_n \to ^{\mathcal{L}}_{n \to \infty } W_{\infty }
+.\]
+Donc on pose la zone de rejet 
+\[
+    \mathcal{R} = \{h(F_n, F_X) \leq \frac{k_\alpha }{\sqrt[]{n}}
+.\]
+avec $ F_n $ fonction de réparation empirique, $ k_{\alpha } $ le quantile de $ W_\infty  $ à aller chercher dans sa table 
 
 \subsection*{Méthode}
 Pour trouver la valeur de $ h(F_n, F_X) $ : Faire le grand tableau puis trouver le max. Exemple : 
@@ -92,19 +116,6 @@ Pour trouver la valeur de $ h(F_n, F_X) $ : Faire le grand tableau puis trouver 
 \end{table}
 
 
-\section{Adéquation à une famille d'exponentielle}
-\subsection*{Conditions}
-\subsection*{Hypothèse}
-\subsection*{Statistique de test}
-\subsection*{Zone de Rejet}
-\subsection*{Méthode}
-
-\section{Adéquation à une loi normale}
-\subsection*{Conditions}
-\subsection*{Hypothèse}
-\subsection*{Statistique de test}
-\subsection*{Zone de Rejet}
-\subsection*{Méthode}
 
 \section{Le test du $ \mathcal{X}^2 $ d'ajustement}
 \subsection*{Conditions}
