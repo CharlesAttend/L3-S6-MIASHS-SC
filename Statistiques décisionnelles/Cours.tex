@@ -1027,7 +1027,7 @@ Les hypothèses :
 On a deux test d'ajustement : Kolmogorov-Smirnov et $ \mathcal{X}^2 $ \begin{itemize}
     \item KS : ajustement à une loi de fdr. continue. Fonctionne pour toutes valeurs de $ n $. Si $ n $ grand, on prend $ \frac{1}{\sqrt[]{n}} $ quantile de $ W_\infty  $.\\
         \textbf{Attention : } Si $ n $ est grand sur des données réelles, KS est très sensible au bruit et rejette très souvent. Une erreur de $0.01$ sur la fdr. des données mène vite à un ... si $ n \geq 10^5 $.
-    \item $ \mathcal{X}^2 $ : Test asymptotique, $ n \geq 50 $ au minimum + Condition. fonction dans tous les cas.
+    \item $ \mathcal{X}^2 $ : Test asymptotique, $ n \geq 50 $ au minimum + Condition. Fonctionne dans tous les cas.
 \end{itemize}
 
 \section{Loi de comparaison}
@@ -1071,7 +1071,7 @@ Notation :
         .\]
         a même loi que la variable 
         \[
-            h_{n,m} = \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq s} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{V_i \leq s} \right| 
+            h_{n,m} = \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{\mathbf{U_i} \leq s} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{\mathbf{V_i} \leq s} \right| 
         .\]
         avec $ (U_1, ..., U_n) $ et $ (V_1, \dots, V_n) $ sont deux échantillons indépendants de variable iid. uniformes sur $ [0,1] $.
         \item De plus si $ F_{X_1} \neq F_{Y_1} $ alors 
@@ -1102,7 +1102,7 @@ Notation :
 Données : $ (X_1, \dots, X_n) $ et $ (Y_1, \dots, Y_n) $ iid deux échantillon indépendants. $ H_0 : F_{X_1} = F_{Y_1} $ contre $ H_1 : F_{X_1} \neq F_{Y_1} $. \\ 
 Statistique de test : on calcule 
 \[
-    \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{X_i \leq t} \right| 
+    \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{Y_j \leq t} \right| 
 .\]
 Zone de rejet au niveau $ \alpha  $ : \\
 Soit $ k_\alpha  $ le quantile d'ordre $ 1 - \alpha  $ de la loi de 
@@ -1129,13 +1129,21 @@ CCL : Si $ h(F_n, G_n) \leq k_\alpha  $, on conserve $ H_0 $ au niveau $ \alpha 
             \[
                 F_n(t) - G_n(t) = \frac{\text{nb de } X_i \leq t}{n} - \frac{\text{nb de } Y_i \leq t}{m}
             .\]
+
+            \begin{figure}[!htb]
+                \centering
+                \includegraphics*[width=0.5\textwidth]{fig5.jpg}
+                \caption{<caption>}
+                \label{<label>}
+            \end{figure}
+            
             On range par ordre croissant : 
 
             \begin{table}[!h]
                 \centering
                 \begin{tabular}{|l|l|l|l|l|l|l|}
                 \hline
-                    $ X_{(1)} $ & $ X_{(2)} $ & $ X_{(1)} $ & $ X_{(3)} $ & $ Y_{(2)} $ & $ X_{(4)} $ & ... \\ \hline
+                    $ X_{(1)} $ & $ X_{(2)} $ & $ Y_{(1)} $ & $ X_{(3)} $ & $ Y_{(2)} $ & $ X_{(4)} $ & ... \\ \hline
                     $ \left| \frac{1}{n} - \frac{0}{m} \right|  $  & $ \left| \frac{2}{n} \right| $  & $ \left| \frac{2}{n} - \frac{1}{m} \right|  $  & $ \left| \frac{3}{n} - \frac{1}{m} \right|  $ & $ \left| \frac{3}{n} - \frac{2}{m} \right|  $ & $ \left| \frac{4}{n} - \frac{2}{m}\right|  $ & ... \\ \hline
                 \end{tabular}
             \end{table}

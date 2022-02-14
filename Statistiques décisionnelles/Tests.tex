@@ -47,6 +47,7 @@
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \section{Test de Kolmogorov-Smirnov}
 \subsection*{Conditions}
@@ -121,11 +122,12 @@ Si on ne remplis pas les conditions, on peut fusionner les classes
 Avec $ p^{ref} $ un vecteur fixé à tester (par exemple pour un lancé de dé $ (\frac{1}{6}, \dots, \frac{1}{6}) $ )
 
 \subsection*{Statistique de test}
-\[
-    D(\bar{p_n}, p^{ref}) = n \sum_{k=1}^{d}\frac{(\bar{p_{k,n}} - p_k^{ref})^2}{p_k^{ref}} \to ^{\mathcal{L}}_{n \to \infty } \mathcal{X}^2(d-1)
-.\]
+\begin{align*}
+    D(\bar{p_n}, p^{ref}) &= n \sum_{k=1}^{d}\frac{(\bar{p_{k,n}} - p_k^{ref})^2}{p_k^{ref}} \to ^{\mathcal{L}}_{n \to \infty } \mathcal{X}^2(d-1) \\
+        &= \sum_{k=1}^{d} \frac{(N_{k,n} - np_k^{ref})^2}{n p_k^{ref}}
+\end{align*}
 avec \begin{itemize}
-    \item $ N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i x_k} $ 
+    \item $ N_{k,n} = \sum_{i=1}^{n}\mathbbm{1}_{X_i x_k} $ (ce qu'il y a dans le tableau de la consigne)
     \item $ \bar{p_{k,n}} = \frac{N_{k,n}}{n} $ les proportions observés
 \end{itemize}
 
@@ -153,7 +155,8 @@ avec $ h_\alpha  $ le quantile d'ordre $ 1-\alpha  $ de la loi $ \mathcal{X}^2(d
         \item Si $ D \leq h_\alpha  $ on conserve $ H_0 $ 
     \end{itemize}
 \end{enumerate}
-\subsubsection{Bilan de la méthode}
+
+\subsubsection*{Bilan de la méthode}
 Aspects positifs : 
 \begin{itemize}
     \item \textbf{Fonctionne pour toutes les lois}
@@ -181,4 +184,36 @@ Pratiquement comme avant, pas encore fait en TD, mais copier collé du cours qua
             \item $ D \leq h_\alpha  $ on conserve $ H_0 $ 
         \end{itemize}
 \end{enumerate}
+
+
+\section{Le test d'homogénéité de Kolmogorov-Smirnov}
+\subsection*{Conditions}
+\begin{itemize}
+    \item Deux échantillons indépendants de variable iid.
+\end{itemize}
+
+\subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 $ : les $ X_i $ et $ Y_i $ ont la même loi, c'est à dire $ F_{X_1} = F_{V_1} $ où $ F_{X_1}, F_{Y_1} $ sont continues.
+    \item $ H_1 $ les lois sont différentes
+\end{itemize}
+
+\subsection*{Statistique de test}
+\[
+    \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{X_i \leq t} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{Y_j \leq t} \right| 
+.\]
+\subsection*{Zone de Rejet}
+\begin{itemize}
+    \item Ce test est de taille $ \alpha  $, si on utilise la table de $ h_{n,m} = \sup _{s \in \mathbb{R}} \left| \frac{1}{n}\sum_{i=1}^{n} \mathbbm{1}_{U_i \leq s} - \frac{1}{n}\sum_{j=1}^{n} \mathbbm{1}_{V_j \leq s} \right| $.
+    \item Si $ n $ et $ m $ sont trop grands, on utilise le résultat suivant : \\
+        Sous $ H_0 $ 
+        \[
+            \sqrt[]{\frac{nm}{n+m}}h(F_n, G_n) \to ^{\alpha }_{n,m \to +\infty } W_\infty \text{ voir KS asymptotique}
+        .\]
+        On utilise alors comme zone de rejet $ \sqrt[]{\frac{n+m}{nm}}W_\infty  $ avec $ W_\infty  $ le quantile d'ordre $ 1 - \alpha  $ de $ W_\infty  $.
+\end{itemize}
+
+\subsection*{Méthode}
+
+
 \end{document}

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  14 FEB 2022 12:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  14 FEB 2022 12:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/Charles/OneDrive - univ-lille.fr/L3/S6/Statistiques dÃ©cisionnelles/Cours.tex"
-(c:/Users/Charles/OneDrive - univ-lille.fr/L3/S6/Statistiques dÃ©cisionnelles/Cours.tex
+**"c:/Users/Charles/OneDrive - univ-lille.fr/L3/S6/Statistiques dÃ©cisionnelles/Tests.tex"
+(c:/Users/Charles/OneDrive - univ-lille.fr/L3/S6/Statistiques dÃ©cisionnelles/Tests.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2021-11-22> (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
@@ -229,9 +229,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
 (Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
 LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
 (Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
-) (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bookmark.sty
-Package: bookmark 2020-11-06 v1.29 PDF bookmarks (HO)
- (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+) (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
@@ -334,39 +332,36 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
 )
 \Hy@SectionHShift=\skip55
-) (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/bookmark\bkm-pdftex.def
-File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
-\BKM@id=\count295
-))
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
-\c@thm=\count296
-\c@defn=\count297
-\c@exmp=\count298
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 22.
+\c@thm=\count295
+\c@defn=\count296
+\c@exmp=\count297
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count299
+\l__color_backend_stack_int=\count298
 \l__pdf_internal_box=\box52
-) (Cours.aux)
-\openout1 = `Cours.aux'.
+) (Tests.aux)
+\openout1 = `Tests.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -404,16 +399,16 @@ LaTeX Font Info:    ... okay on input line 52.
 
 (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count300
+\scratchcounter=\count299
 \scratchdimen=\dimen171
 \scratchbox=\box53
-\nofMPsegments=\count301
-\nofMParguments=\count302
+\nofMPsegments=\count300
+\nofMParguments=\count301
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count303
+\MPscratchCnt=\count302
 \MPscratchDim=\dimen172
-\MPnumerator=\count304
-\makeMPintoPDFobject=\count305
+\MPnumerator=\count303
+\makeMPintoPDFobject=\count304
 \everyMPtoPDFconversion=\toks38
 ) (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -421,10 +416,10 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \degres on input line 52.
-LaTeX Info: Redefining \up on input line 52.
-\c@mv@tabular=\count306
-\c@mv@boldtabular=\count307
+LaTeX Info: Redefining \degres on input line 48.
+LaTeX Info: Redefining \up on input line 48.
+\c@mv@tabular=\count305
+\c@mv@boldtabular=\count306
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
@@ -432,7 +427,7 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
 )
-Package hyperref Info: Link coloring ON on input line 52.
+Package hyperref Info: Link coloring ON on input line 48.
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -440,299 +435,107 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count308
+\c@section@level=\count307
 )
-LaTeX Info: Redefining \ref on input line 52.
-LaTeX Info: Redefining \pageref on input line 52.
-LaTeX Info: Redefining \nameref on input line 52.
+LaTeX Info: Redefining \ref on input line 48.
+LaTeX Info: Redefining \pageref on input line 48.
+LaTeX Info: Redefining \nameref on input line 48.
+ (Tests.out) (Tests.out)
+\@outlinefile=\write3
+\openout3 = `Tests.out'.
+
 LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
-(Font)              scaled to size 16.41594pt on input line 54.
+(Font)              scaled to size 16.41594pt on input line 50.
 LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
-(Font)              scaled to size 11.39996pt on input line 54.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 54.
+(Font)              scaled to size 11.39996pt on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 54.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
  (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
-(Font)              scaled to size 9.49997pt on input line 55.
-LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
-(Font)              scaled to size 11.39996pt on input line 55.
 LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
-(Font)              scaled to size 13.67995pt on input line 73.
+(Font)              scaled to size 13.67995pt on input line 50.
 LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
-(Font)              scaled to size 13.67995pt on input line 73.
- (Cours.toc [1
+(Font)              scaled to size 13.67995pt on input line 50.
+ (Tests.toc
+LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
+(Font)              scaled to size 9.49997pt on input line 2.
+)
+\tf@toc=\write4
+\openout4 = `Tests.toc'.
 
-{C:/Users/Charles/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}])
-\tf@toc=\write3
-\openout3 = `Cours.toc'.
+LaTeX Font Info:    Font shape `T1/opensans-TLF/b/n' will be
+(Font)              scaled to size 11.39996pt on input line 53.
 
- [2]
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
-(Font)              scaled to size 6.64998pt on input line 85.
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
-(Font)              scaled to size 4.74998pt on input line 85.
-
-Overfull \hbox (50.80222pt too wide) in paragraph at lines 97--98
-[]$\OT1/cmr/m/n/10  = []\U/msb/m/n/10 R\OML/cmm/m/it/10 ; \U/msb/m/n/10 P[] \OT1/cmr/m/n/10 = []\OML/cmm/m/it/10 ; f \OMS/cmsy/m/n/10 2
- []
-
-
-Overfull \hbox (48.21204pt too wide) in paragraph at lines 99--100
-[]$\OT1/cmr/m/n/10  = \OMS/cmsy/m/n/10 f[]g\OML/cmm/m/it/10 ; F \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 \OML/cmm/m/it/10 ; \U/msb/m/n/10 P[] \OT1/cmr/m/n/10 = []\OML/cmm/m/it/10 F; \OT1/cmr/m/n/10 (\U/msb/m/n/10 P[]\OT1/cmr/m/n/10 )[]$ 
- []
-
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/it' will be
-(Font)              scaled to size 9.49997pt on input line 110.
-LaTeX Font Info:    Trying to load font information for U+bbm on input line 111.
-(C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/bbm\ubbm.fd
-File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-) [3] [4]
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/it' will be
-(Font)              scaled to size 6.64998pt on input line 263.
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/it' will be
-(Font)              scaled to size 4.74998pt on input line 263.
-
-Underfull \hbox (badness 10000) in paragraph at lines 279--280
+Underfull \hbox (badness 10000) in paragraph at lines 55--56
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--285
-
- []
-
-<fig1.png, id=123, 460.72125pt x 286.06876pt>
-File: fig1.png Graphic file (type png)
-<use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 301.
-(pdftex.def)             Requested size: 341.43307pt x 211.99748pt.
 
 LaTeX Font Warning: Font shape `T1/opensans-TLF/m/sc' undefined
-(Font)              using `T1/opensans-TLF/m/n' instead on input line 302.
-
-<fig2.jpg, id=127, 2655.1697pt x 1368.61313pt>
-File: fig2.jpg Graphic file (type jpg)
-<use fig2.jpg>
-Package pdftex.def Info: fig2.jpg  used on input line 325.
-(pdftex.def)             Requested size: 341.43307pt x 175.9838pt.
-LaTeX Font Info:    Font shape `T1/opensans-TLF/m/sc' will be
-(Font)              scaled to size 9.49997pt on input line 326.
-[5] [6 <./fig1.png> <./fig2.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 352--353
-
- []
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 354.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 354.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 354.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 354--355
-
- []
-
-<./fig3.png, id=149, 722.7pt x 542.025pt>
-File: ./fig3.png Graphic file (type png)
-<use ./fig3.png>
-Package pdftex.def Info: ./fig3.png  used on input line 361.
-(pdftex.def)             Requested size: 341.43307pt x 256.07507pt.
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 416.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 416.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 416.
-
-[7] [8 <./fig3.png>]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\\' on input line 451.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 489--490
-
- []
-
-[9]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 529.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 529.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\infty' on input line 529.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 529.
-
-[10]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 610.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 610.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 610.
-
-[11]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 686.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 686.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 686.
+(Font)              using `T1/opensans-TLF/m/n' instead on input line 91.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[12]
-Underfull \hbox (badness 10000) in paragraph at lines 730--731
 
- []
-
-
-Overfull \hbox (9.95837pt too wide) in paragraph at lines 732--734
-\T1/opensans-TLF/m/sc/10 Le test du $\OMS/cmsy/m/n/10 X[]$ \T1/opensans-TLF/m/sc/10 "ba-sique" per-met de tes-ter l'adé-qua-tion de don-nées iid $\OML/cmm/m/it/10 X[]; [] ; X[]$ \T1/opensans-TLF/m/sc/10 à va-leurs dans $\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 x[]; [] ; x[]\OMS/cmsy/m/n/10 g$
- []
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 109.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 755.
+(hyperref)                removing `superscript' on input line 109.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 755.
+(hyperref)                removing `math shift' on input line 109.
+
+[1
+
+{C:/Users/Charles/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
+(Font)              scaled to size 6.64998pt on input line 121.
+LaTeX Font Info:    Font shape `T1/opensans-TLF/m/n' will be
+(Font)              scaled to size 4.74998pt on input line 121.
+ [2]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 130.
+ (C:\Users\Charles\AppData\Local\Programs\MiKTeX\tex/latex/bbm\ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 173.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 755.
-
-
-Overfull \hbox (47.5136pt too wide) detected at line 775
-[]
- []
-
-[13]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 809.
+(hyperref)                removing `superscript' on input line 173.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 809.
+(hyperref)                removing `math shift' on input line 173.
 
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 809.
-
-[14]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 862.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 862.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 862.
-
-<fig4.png, id=217, 811.23074pt x 522.753pt>
-File: fig4.png Graphic file (type png)
-<use fig4.png>
-Package pdftex.def Info: fig4.png  used on input line 874.
-(pdftex.def)             Requested size: 341.43307pt x 220.0174pt.
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 909.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 909.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 909.
-
-[15 <./fig4.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 956--957
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 959--960
-
- []
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[16]
-Overfull \hbox (92.55379pt too wide) in paragraph at lines 1008--1011
-\T1/opensans-TLF/m/sc/10 On li dans la table le quan-tile d'ordre $\OT1/cmr/m/n/10 1 \OMS/cmsy/m/n/10   \OML/cmm/m/it/10  \OT1/cmr/m/n/10 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 95$ \T1/opensans-TLF/m/sc/10 de la loi $\OMS/cmsy/m/n/10 X[]\OT1/cmr/m/n/10 (6 \OMS/cmsy/m/n/10   []   []\OT1/cmr/m/n/10 ) =
- []
-
-[17]
-Overfull \hbox (4.90244pt too wide) in paragraph at lines 1083--1085
-\T1/opensans-TLF/m/sc/10 Si $\OML/cmm/m/it/10 U[]; [] ; U[]$ \T1/opensans-TLF/m/sc/10 sont des va-riables aléa-toire iid. uni-forme sur $\OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 1]\OML/cmm/m/it/10 ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; [] ; F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 V[]\OT1/cmr/m/n/10 ))$ \T1/opensans-TLF/m/sc/10 a même
- []
-
-[18]
-<fig5.jpg, id=265, 589.4522pt x 270.25969pt>
-File: fig5.jpg Graphic file (type jpg)
-<use fig5.jpg>
-Package pdftex.def Info: fig5.jpg  used on input line 1135.
-(pdftex.def)             Requested size: 227.62206pt x 104.36163pt.
- [19 <./fig5.jpg>] (Cours.aux)
+[3] [4] (Tests.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+Package rerunfilecheck Info: File `Tests.out' has not changed.
+(rerunfilecheck)             Checksum: 73F9AEE6E727A4F72E2D2B6063E3E8CC;1484.
  ) 
 Here is how much of TeX's memory you used:
- 13471 strings out of 480548
- 215600 string characters out of 2895278
- 536269 words of memory out of 3000000
- 30985 multiletter control sequences out of 15000+600000
- 419749 words of font info for 82 fonts, out of 8000000 for 9000
+ 13020 strings out of 480548
+ 209361 string characters out of 2895278
+ 525831 words of memory out of 3000000
+ 30633 multiletter control sequences out of 15000+600000
+ 418160 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,16n,77p,821b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
- <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Cours.pdf (19 pages, 1745271 bytes).
+ 60i,11n,63p,487b,540s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on Tests.pdf (4 pages, 175377 bytes).
 PDF statistics:
- 480 PDF objects out of 1000 (max. 8388607)
- 139 named destinations out of 1000 (max. 500000)
- 296 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 55 named destinations out of 1000 (max. 500000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
