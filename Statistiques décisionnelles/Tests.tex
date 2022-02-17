@@ -82,11 +82,11 @@
 \subsubsection*{Si n est petit}
 La loi de $ h(F_n, F) $ est tabulé alors :
 \[
-    \mathcal{R} = \{h(F_n, F_X) \leq h_{1-\alpha }\}
+    \mathcal{R} = \{h(F_n, F_X) \geq h_{1-\alpha }\}
 .\]
 avec $ F_n $ fonction de réparation empirique, $ h_{1 -\alpha } $ le quantile à aller chercher dans la table 
 
-\subsubsection{Si n est grand $ n \geq 30 $ }
+\subsubsection*{Si n est grand $ n \geq 30 $ }
 Attention pas souvenir de l'avoir fait en TD. \\
 On a pas la table de $ h(F_n, F) $ mais on sait que 
 \[
@@ -94,7 +94,7 @@ On a pas la table de $ h(F_n, F) $ mais on sait que
 .\]
 Donc on pose la zone de rejet 
 \[
-    \mathcal{R} = \{h(F_n, F_X) \leq \frac{k_\alpha }{\sqrt[]{n}}
+    \mathcal{R} = \{h(F_n, F_X) \geq \frac{k_\alpha }{\sqrt[]{n}} \}
 .\]
 avec $ F_n $ fonction de réparation empirique, $ k_{\alpha } $ le quantile de $ W_\infty  $ à aller chercher dans sa table 
 
