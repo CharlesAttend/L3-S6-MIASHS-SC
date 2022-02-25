@@ -420,5 +420,76 @@ démo SCT = SCR + SCM
 \end{exmp}
 
 
+\underline{Nouveau cours du 25/02} \\
+
+\subsection{Le modèle étudié}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics*[width=.75\textwidth]{Figures/fig2.png}
+\end{figure}
+
+
+\[
+    X = \begin{pmatrix}
+        \text{Un} & \text{Poids} & \text{Age} \\
+        1 & x_{1,1} & x_{1,2} \\
+        \vdots  & \vdots  & \vdots  \\
+        1 & x_{n,1} & x_{n,2} \\
+    \end{pmatrix} , Y = \begin{pmatrix}
+        Y_1 \\
+        \vdots  \\
+        Y_n
+    \end{pmatrix}, Y = X \beta + E 
+.\]
+$ Y_i = $  pression artérielle pour le i ème individu \\
+$ x_{i,1} = $  poids pour le i ème individu \\
+$ x_{i,2} = $  age pour le i ème individu
+\[
+    \beta  = \begin{pmatrix}
+        \beta _0 \rightarrow \text{ Intercept} \\
+        \beta _1 \rightarrow \text{ Pente pour le poids} \\
+        \beta _2 \rightarrow \text{ Pente pour l'âge} \\
+    \end{pmatrix}, E = \begin{pmatrix}
+        E_1 \\
+        \vdots \\
+        E_n
+    \end{pmatrix}
+.\]
+Avec $ E_i \sim \mathcal{N}(0, \sigma ^2) $ iid. Finalement, $ E $  est un vecteur gaussien $ E \sim \mathcal{N}(0, \sigma ^2 I_n) $ \\
+$ Y_1 \sim \mathcal{N}(\beta _0+ \beta _1 x_{1,1} + \beta _2 x_{1,2}, \sigma ^2 ) $ 
+
+\subsection{Estimation de $ \beta  $ par la méthode MCO}
+On a vu qu'on cherche à minimiser les $ \beta  $ (je crois) puis que finalement que la solution est (diapo 23/91)(a retenir par coeur)
+\[
+    \hat{\beta } = (X^T X )^{-1} X^T Y
+.\]
+et sa variance 
+\[
+    V(\hat{\beta }) = \sigma (X^TX)^{-1}
+.\]
+On a résumé les diapo suivante 
+
+\begin{exmp}[Exercice important diapo 31/91]
+    $ H_X $ matrice qui met le chapeau sur $ Y $ : $ \hat{Y} = X \hat{\beta } = X (X^TX)^{-1} X^T Y = H_X Y $ 
+    \begin{enumerate}
+        \item Il parrait qu'on a déjà fait l'exo elle a tout rappelé à l'oral 
+    \end{enumerate}
+    CCL de l'exercice : diapo 33/91
+\end{exmp}
+
+\subsection{Estimation de $\sigma ^2$}
+
+\[
+    \hat{\sigma ^2} = \frac{1}{n-p-1}\sum_{i=1}^{n} \hat{e_i^2} = \frac{SCR}{n-p-1}
+.\]
+\begin{enumerate}
+    \item $ \hat{\sigma ^2} $ est un estimateur sans biais de $ \sigma ^2 $ indépendant de $ \hat{Y} $ 
+    \begin{proof}[Preuve: ]
+        Voir diapo, je la note pas 
+    \end{proof}
+    
+    
+\end{enumerate}
+DIAPO j'ai décroché de ouf. on s'est arrêté sur le diapo 62/91 inclus
 
 \end{document}
