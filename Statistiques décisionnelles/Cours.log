@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  14 FEB 2022 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  3 MAR 2022 10:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -506,7 +506,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 283--285
 
  []
 
-<fig1.png, id=123, 460.72125pt x 286.06876pt>
+<fig1.png, id=133, 460.72125pt x 286.06876pt>
 File: fig1.png Graphic file (type png)
 <use fig1.png>
 Package pdftex.def Info: fig1.png  used on input line 301.
@@ -515,7 +515,7 @@ Package pdftex.def Info: fig1.png  used on input line 301.
 LaTeX Font Warning: Font shape `T1/opensans-TLF/m/sc' undefined
 (Font)              using `T1/opensans-TLF/m/n' instead on input line 302.
 
-<fig2.jpg, id=127, 2655.1697pt x 1368.61313pt>
+<fig2.jpg, id=137, 2655.1697pt x 1368.61313pt>
 File: fig2.jpg Graphic file (type jpg)
 <use fig2.jpg>
 Package pdftex.def Info: fig2.jpg  used on input line 325.
@@ -544,7 +544,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 354--355
 
  []
 
-<./fig3.png, id=149, 722.7pt x 542.025pt>
+<./fig3.png, id=159, 722.7pt x 542.025pt>
 File: ./fig3.png Graphic file (type png)
 <use ./fig3.png>
 Package pdftex.def Info: ./fig3.png  used on input line 361.
@@ -670,7 +670,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 862.
 
-<fig4.png, id=217, 811.23074pt x 522.753pt>
+<fig4.png, id=227, 811.23074pt x 522.753pt>
 File: fig4.png Graphic file (type png)
 <use fig4.png>
 Package pdftex.def Info: fig4.png  used on input line 874.
@@ -711,28 +711,87 @@ Overfull \hbox (4.90244pt too wide) in paragraph at lines 1083--1085
  []
 
 [18]
-<fig5.jpg, id=265, 589.4522pt x 270.25969pt>
+<fig5.jpg, id=275, 589.4522pt x 270.25969pt>
 File: fig5.jpg Graphic file (type jpg)
 <use fig5.jpg>
 Package pdftex.def Info: fig5.jpg  used on input line 1135.
 (pdftex.def)             Requested size: 227.62206pt x 104.36163pt.
- [19 <./fig5.jpg>] (Cours.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 1167--1168
+
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1169.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 1169.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1169.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1170.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 1170.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1170.
+
+[19 <./fig5.jpg>]
+Overfull \hbox (13.34488pt too wide) in paragraph at lines 1180--1182
+[]$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; Y[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; [] ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; Y[]\OT1/cmr/m/n/10 )$ \T1/opensans-TLF/m/sc/10 don-nées ap-pa-riés \T1/opensans-TLF/b/n/10 iid.\T1/opensans-TLF/m/sc/10 . Cela mène à deux échan-tillons iid. $\OML/cmm/m/it/10 X[]; [] ; X[]$ \T1/opensans-TLF/m/sc/10 et $\OML/cmm/m/it/10 Y[]; [] ; Y[]$\T1/opensans-TLF/m/sc/10 . 
+ []
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1242.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 1242.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1242.
+
+[20] [21]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1335.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 1335.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 1335.
+
+[22] [23] (Cours.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 13471 strings out of 480548
- 215600 string characters out of 2895278
+ 13497 strings out of 480548
+ 215854 string characters out of 2895278
  536269 words of memory out of 3000000
- 30985 multiletter control sequences out of 15000+600000
- 419749 words of font info for 82 fonts, out of 8000000 for 9000
+ 30993 multiletter control sequences out of 15000+600000
+ 420677 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,16n,77p,821b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
- <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Cours.pdf (19 pages, 1745130 bytes).
+ <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on Cours.pdf (23 pages, 1787612 bytes).
 PDF statistics:
- 480 PDF objects out of 1000 (max. 8388607)
- 139 named destinations out of 1000 (max. 500000)
- 296 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 540 PDF objects out of 1000 (max. 8388607)
+ 154 named destinations out of 1000 (max. 500000)
+ 336 words of extra memory for PDF output out of 10000 (max. 10000000)
 
