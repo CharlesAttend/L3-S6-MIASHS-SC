@@ -1218,9 +1218,9 @@ Malheuresement : Ni les $ p_{m,n} $, ni les $ p_m $, ni les $ q_n $ ne sont conn
 \textbf{Notation:} Pour $ m \in \{1, \dots, M\} $ et $ n \in \{1, \dots, N\} $. On pose 
 \begin{align*}
     N_{m,n} &= \sum_{i=1}^{T}\mathbbm{1}_{X_i \in A_m, Y_i \in B_n} \\
-            &= \text{ effectif observé sur la classe } A_m * B_n
+            &= \text{ effectif observé sur la classe } A_m * B_n \\
     N_{m, \centerdot} &= \sum_{i=1}^{T}\mathbbm{1}_{X_i \in A_m}\\
-            &= \text{effectif total de } A_m
+            &= \text{effectif total de } A_m \\
     N_{\centerdot, n} &= \sum_{i=1}^{T}\mathbbm{1}_{Y_i \in B_m} \\
         &= \text{effectif totale de } B_n
 \end{align*}
@@ -1233,8 +1233,8 @@ Malheuresement : Ni les $ p_{m,n} $, ni les $ p_m $, ni les $ q_n $ ne sont conn
 \end{rem}
 Estimateurs : Pour $ m \in \{1, \dots, M\} $ et $ n \in \{1,\dots, N\} $ 
 \begin{align*}
-    \hat{p}_{m,n} = \frac{N_{m,n}}{T} \approx p_{m,n} \text{ si } T \text{ est grand.}
-    \hat{p}_{m} = \frac{N_{m, \centerdot}}{T} \approx p_m \text{ si } T \text{ est grand.}
+    \hat{p}_{m,n} = \frac{N_{m,n}}{T} \approx p_{m,n} \text{ si } T \text{ est grand.} \\
+    \hat{p}_{m} = \frac{N_{m, \centerdot}}{T} \approx p_m \text{ si } T \text{ est grand.} \\
     \hat{q}_{n} = \frac{N_{\centerdot,n}}{T} \approx q_n \text{ si } T \text{ est grand.}
 \end{align*}
 
@@ -1442,9 +1442,333 @@ Les variables sont toutes à valeurs dans les mêmes classes $ A_1, \dots, A_M $
     Sous $ H_1, D \to + \infty  $ EXO (on avait plus le temps)
 \end{exmp}
 
+\underline{Nouveau cours du 10/03} \\
 
+\section{Tests pour échantillons gaussiens}
 
+\subsection{Rappels du cours de statistiques mathématiques}
 
+\begin{thm}[Cochran]
+    $ X_1, \dots, X_n $ v.a. iid. de loi $ \mathcal{N}(m, \sigma^2) $ alors 
+    \begin{itemize}
+        \item $ \bar{X}_n $  et $ V_n $ sont indépendant à 
+        \[
+            \bar{X}_n \frac{1}{n}\sum_{i=1}^{n}X_i , V_n = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X}_n)^2
+        .\]
+        \item 
+        \[
+            \frac{(n-1) V_n}{\sigma ^2} \sim \mathcal{X}^2(n-1)
+        .\]
+    \end{itemize}
+\end{thm}
 
+\begin{thm}[Student]
+    $ X_1, \dots, X_n $ va. iid. $ \mathcal{N}(m, \sigma ^2) $ alors 
+    \[
+        \frac{\sqrt[]{n}}{\sqrt[]{V_n}} (\bar{X}_n - m) \sim \mathcal{T}(n-1)
+    .\]
+\end{thm}
+
+\paragraph*{Rappel} \begin{itemize}
+    \item La loi $ \mathcal{X}^2 (n) $ est la loi de 
+    \[
+        \sum_{i=1}^{n}Y_i^2 \text{ à } Y_i \text{ iid. } \mathcal{N}(0,1)
+    .\]
+    \item La loi $ \mathcal{T}(n) $ est la loi de 
+    \[
+        \frac{X}{\sqrt[]{V/n}} \text{ où } X \sim \mathcal{N}(0,1), V \sim \mathcal{X}^2(n)
+    .\]
+    \item Opération sur les gaussiennes : $ X \sim \mathcal{N}(m_1, \sigma_1 ^2), Y \sim \mathcal{N}(m_2, \sigma _2^2), X \bot Y $ \textbf{indépendant} alors : 
+    \begin{align*}
+        X + Y &\sim \mathcal{N}(m_1 + m_2, \sigma_1 ^2 + \sigma_2 ^2) \\
+        X - Y &\sim \mathcal{N}(m_1 - m_2, \sigma_1 ^2 + \sigma_2 ^2) \\
+        \lambda X &\sim \mathcal{N}(\lambda m_1, \lambda ^2 \sigma_1 ^2) \\
+    \end{align*}
+    \begin{rem}[]
+        Que se passe-t-il si $ X $ et $ Y $ ne sont pas indépendantes ? \\
+        $ X-Y $ n'est a priori pas gaussienne. Cependant si $ (X,Y) $ est gaussienn sur $ \mathbb{R}^2 $ (vecteur gaussien) alors $ X-Y $ est gaussien d'espérance $ m_1-m_2 $ mais de variance \textbf{inconnue}.
+
+        $ (X,Y) $ gaussien si sa densité est de la forme 
+        \[
+            g(x,y) = \frac{1}{c}e^{-ax^2 - by^2 -2cxy}
+        .\]
+        \begin{exmp}[Pas à savoir et un peu dur]
+            \begin{align*}
+                X &\sim \mathcal{N}(0,1) \\
+                Z &\sim \mathcal{N}(0,1) \bot X \\
+                B &\sim Ber(\frac{1}{2})\\
+                Y &= BX + (1-B)Z \sim \mathcal{N}(0,1 )\\
+                X-Y &= \begin{cases}
+                    0 &\text{ si } B=1\\
+                    X-Z &\text{ si } B=0\\
+                \end{cases} \\
+                X - Y \text{ n'est clairement pas gaussienne}
+            P(Y \leq t) &= P(Y \leq t \text{ et } B=1) + P(Y \leq t \text{ et } B =0) \\
+                &= P(X \leq t) \frac{1}{2} + P(Z \leq t)\frac{1}{2} = P(X \leq 1)
+            \end{align*}
+        \end{exmp}
+    \end{rem}
+\end{itemize}
+
+\subsection{Les test sur l'espérance}
+Dans le TD7, vous avez vu plusieurs test "élémentaire" sur les données gaussiennes. Ils sont à connaître et sont succinctement rappelé ici
+\subsubsection{Forme d'un test} 
+\begin{itemize}
+    \item Nom du test / sa fonction
+    \item Type de données / Condition d'utilisation
+    \item $ H_0, H_1 $ 
+    \item Statistique de test : sous $ H_0 $ et $ H_1 $ 
+    \item Forme de la zone de rejet et le seuil de rejet au niveau $ \alpha  $ 
+\end{itemize}
+\begin{rem}[]
+    Je vous encourage fortement à revoir tous vos tests sous cette forme et à faire des fiche
+\end{rem}
+
+\subsubsection{Test sur la moyenne pour 1 échantillon gaussien de variance inconnue. Test de students à 1 échantillon}
+
+\paragraph*{Données} $ X_1, \dots, X_n $ iid. $ \mathcal{N}(m, \sigma ^2) $ avec $ \sigma ^2 $ inconnu
+
+\paragraph*{Hypothèse}\begin{itemize}
+    \item $ H_0 = m = m_0$ 
+    \item $ H_1 = m \neq m_0$ \textbf{(cas 1)} ou bien $ m>m_0 $ \textbf{(cas 2)} ou bien $ m < m_0 $ \textbf{(cas 3)}
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    D = \frac{\sqrt[]{n}}{\sqrt[]{V_n}}(\bar{X}_n - m_0)
+.\]
+\begin{itemize}
+    \item Sous $ H_0, D \sim \mathcal{T}(n-1)$ 
+    \item Sous $ H_1 $ \begin{align*}
+        D &= \frac{\sqrt[]{n}}{\sqrt[]{V_n}} (\bar{X}_n - m) + \frac{\sqrt[]{n}}{\sqrt[]{V_n}} \\
+            &= \mathcal{T}(n-1) + \text{ Biais ? du signe de } m_1 - m_0
+    \end{align*}
+\end{itemize}
+
+\paragraph*{Zone de rejet pour le cas 1}
+Soit $ h_{\alpha /2} $ le quantile d'ordre $ \frac{\alpha }{2} $ et $ h_{1-\alpha /2} $ le quantile d'ordre $ 1 - \frac{\alpha }{2} $ de la loi $ \mathcal{T}(n-1) $ 
+
+Si $ D > h_{1 - \alpha /2} $ ou $ D < h_{\alpha /2} $, on rejette $ H_0 $ 
+\begin{rem}[\textbf{Attention}]
+    Comme $ h_{\alpha /2} = - h_{1-\alpha /2} $ cela se ré-écrit $ \left| D \right| > h_{1 - \alpha /2} $ 
+\end{rem}
+
+\paragraph*{Zone de rejet pour le cas 2}
+\[
+    D = \mathcal{T}(n-1) + \frac{\sqrt[]{n}}{\sqrt[]{V_n}}(m-m_0) \text{ (biais > 0)}
+.\]
+Soit $ h_{1 - \alpha } $ le quantile d'ordre $ 1 - \alpha  $ d'une loi $ \mathcal{T}(n-1)$. \\
+Si $ D > h_{1-\alpha } $ on rejette $ H_0 $. Sinon on conserve $ H_0 $. 
+
+\paragraph*{Zone de rejet pour le cas 3}
+Sous $ H_1 = m < m_0, D $ prend des valeurs plutôt négatives. Soit $ H_\alpha  $ le quantile d'ordre $ \alpha  $ d'une $ \mathcal{T}(n-1) $. \\
+Si $ D < h_\alpha $ on rejette $ H_0 $ sinon conserver $ H_0 $. 
+
+\subsubsection{Test sur des moyenne pour 2 échantillons gaussiens appariés}
+\paragraph*{Données} \begin{itemize}
+    \item $ X_1, \dots, X_n  $ iid. $ \mathcal{N}(m_1, \sigma_1 ^2), \sigma_1^2 $ inconnus
+    \item $ Y_1, \dots, Y_n  $ iid. $ \mathcal{N}(m_2, \sigma_2 ^2), \sigma_2^2 $ inconnus
+    \item Échantillon apparié $ (X_i, Y_i) $ indépendant si $ i \neq j $ mais $ X_i $ n'est pas indépendant de $ Y_i $ 
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m_1 = m_2 $ 
+    \item $ H_1 = m_1 \neq m_2 $ ou $ m_1 > m_2 $ ou $ m_1 < m_2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+Si on pose $ \bar{Z}_n = \frac{1}{n} \sum_{i=1}^{n}Z_i $ et $ V_n = \frac{1}{n-1}\sum_{i=1}^{n}(Z_i - \bar{Z}_n)^2 $ 
+\[
+    D = \frac{\sqrt[]{n}}{\sqrt[]{V_n}}\bar{Z}_n
+.\]
+
+\paragraph*{Zone de rejet}
+\begin{itemize}
+    \item Sous $ H_0, D \sim \mathcal{T}(n-1) $
+    \item Sous $ H_1 $ à completer vous-même, c'est le même que le test précédent
+\end{itemize}
+
+\textbf{Vois exo2 du TD7}
+
+\subsubsection{Test d'égalité des moyennes pour 2 échantillons gaussiens indépendant de variance connues}
+
+\paragraph*{Données}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. $ \mathcal{N}(m_1, \sigma_1 ^2), \sigma_1^2 $ connue
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. $ \mathcal{N}(m_2, \sigma_2 ^2), \sigma_2^2 $ connue
+    \item $ (X_1, \dots, X_{n_1}) \bot (Y_1, \dots, Y_{n_2}) $ 
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m_1 = m_2 $ 
+    \item $ H_1 = m_1 \neq m_2 $ ou $ m_1 > m_2 $ ou $ m_1 < m_2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+Voir TD7 exo 3
+
+\paragraph*{Zone de rejet}
+
+\subsubsection{Test d'égalité des variances pour un échantillon gaussien de moyenne inconnus}
+
+\paragraph*{Données} $ X_1, \dots, X_n $ iid. $ \mathcal{N}(m,\sigma ^2) $ avec $ m, \sigma ^2 $ inconnus
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = \sigma ^2 = \sigma_0 ^2 $ 
+    \item $ H_1 = \sigma ^2 \neq \sigma_0 ^2 $ ou $ \sigma ^2 > \sigma_0 ^2 $ ou $ \sigma ^2 < \sigma_0 ^2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    D = \frac{(n-1)}{\sigma_0 ^2}V_n
+.\]
+
+\paragraph*{Zone de rejet} à completer (attention $ \mathcal{X}^2 $ pas symétrique )
+
+\subsubsection{Test de comparaison des variances de Fisher}
+\begin{defn}[Loi de Fisher]
+    Soit $ V \sim \mathcal{X}^2(d_1), W \sim \mathcal{X}^2(d_2), V \bot W $. La loi de $ \frac{V/d_1}{W/d_2} $ est appelée loi de Fisher à $ (d_1, d_2) $ degrés de liberté.
+    \begin{rem}[]
+        Cette loi est tabulée pour $ d_1 $ et $ d_2 $ pas trop grands. \begin{itemize}
+            \item Elle admet une densité
+            \item Elle est importante car elle sert souvent (en ANOVA notamment)
+        \end{itemize}
+    \end{rem}
+    On la note $ \mathcal{F}(d_1, d_2) $ 
+\end{defn}
+
+\paragraph*{Données}\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. $ \mathcal{N}(m_1, \sigma_1 ^2)$ $ m_1 $ et $ \sigma_1^2 $ inconnus
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. $ \mathcal{N}(m_2, \sigma_2 ^2)$ $ m_2 $ et $ \sigma_2^2 $ inconnus
+    \item $ (X_1, \dots, X_{n_1}) \bot (Y_1, \dots, Y_{n_2})$ échantillons indépendant
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = \sigma _1^2 = \sigma _2^2 $ 
+    \item $ H_1 = \sigma _1^2 \neq \sigma _2^2 $ ou $\sigma _1^2 > \sigma _2^2 $ ou $ \sigma _1^2 < \sigma _2^2 $
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    D = \frac{V_{n_1}^X}{V_{n_2}^Y}
+.\]
+avec $ V_{n_1}^X = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1}(X_i - \bar{X}_{n_1})^2 $ et $ V_{n_2}^Y = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2}(Y_i - \bar{Y}_{n_2})^2 $ 
+
+\paragraph*{Zone de rejet}
+\begin{itemize}
+    \item Sous $ H_0, \sigma ^2 = \sigma _1^2 = \sigma _2^2 $ : 
+    \[
+        D = \frac{\frac{V_{n_1}^X (n-1)}{\sigma ^2} \frac{1}{n_1-1}}{\frac{V_{n_2}^Y (n_2 -1)}{\sigma ^2} \frac{1}{n_2-1}} \sim \mathcal{F}(n_1 - 1, n_2 - 1) \text{ par Cochran}
+    .\]
+    \item Sous $ H_1, \sigma _1^2 \neq \sigma _2^2 $ 
+    \[
+        D = \mathcal{F}(d_1, d_2) * \frac{\sigma _1^2}{\sigma _2^2}
+    .\]
+\end{itemize}
+\begin{itemize}
+    \item \textbf{Cas 1 : $ H_1: \sigma _1^2 \neq \sigma _2^2 $ } : Soit $ h_{\alpha /2} $ le quantile $ \frac{\alpha }{2} $ d'une $ \mathcal{F}(n_1-1, n_2 - 1) $  et $ h_{1- \alpha /2} $ le quantile d'ordre $ 1 - \frac{\alpha }{2} $ d'une $ \mathcal{F}(n_1 - 1, n_2 - 1) $. \\
+    Si $ D > h_{1 - \alpha /2} $ ou bien $ D < h_{\alpha /2} $ on rejette $ H_0 $. Sinon on conserve $ H_0 $ 
+
+    \item \textbf{Cas 2 : $ H_1: \sigma _1^2 > \sigma _2^2 $ } : Soit $ h_{1 - \alpha} $ le quantile $ 1 -\alpha  $ d'une $ \mathcal{F}(n_1-1, n_2 - 1) $ \\
+    Si $ D > h_{1 - \alpha} $ on rejette $ H_0 $. Sinon on conserve $ H_0 $.
+
+    \item \textbf{Cas 3 : $ H_1: \sigma _1^2 < \sigma _2^2 $ } : Soit $ h_{\alpha} $ le quantile $ \alpha $ d'une $ \mathcal{F}(n_1-1, n_2 - 1) $ \\
+    Si $ D < h_{\alpha} $ on rejette $ H_0 $. Sinon on conserve $ H_0 $.
+\end{itemize}
+
+\subsubsection{Test de Student à 2 échantillons : Test de comparaison des moyenne de 2 échantillons gaussiens indépendants de variance égale}
+
+\paragraph*{Données}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. $ \mathcal{N}(m_1, \sigma ^2), m_1 $ inconnus
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. $ \mathcal{N}(m_2, \sigma ^2), m_2 $ inconnus (même variance)
+    \item Échantillon indépendant $ (X_1, \dots, X_{n_1}) \bot (Y_1, \dots, Y_{n_2}) $ 
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m_1 = m_2 $ 
+    \item $ H_1 = m_1 \neq m_2 $ ou $ m_1 > m_2 $ ou $ m_1 < m_2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    D = \frac{1}{\sqrt[]{\frac{1}{n_1} + \frac{1}{n_2}}} \frac{\bar{X}_{n_1} - \bar{Y}_{n_2}}{\sqrt[]{W}}
+.\]
+avec $ W = \frac{(n_1 - 1) V_{n_1}^X + (n_2 - 1) V_{n_2}^Y}{n_1 + n_2 - 2} $. 
+
+\paragraph*{Zone de rejet}
+\begin{itemize}
+    \item Sous $ H_0 : m_1 = m_2$ \begin{align*}
+        \bar{X}_{n_1} \sim \mathcal{N}(m_1, \frac{\sigma ^2}{n_1}) \\
+        \bar{Y}_{n_2} \sim \mathcal{N}(m_2, \frac{\sigma ^2}{n_2}) \\
+        \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(0, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))
+    \end{align*}
+    Donc 
+    \[
+        \frac{1}{\sqrt[]{\frac{1}{n_1} + \frac{1}{n_2}} \sigma } (\bar{X}_{n_1} - \bar{Y}_{n_2}) \sim \mathcal{N}(0,1)
+    .\]
+    On a déjà un terme de la stat de test, ce qu'il reste 
+    \begin{align*}
+        \frac{(n_1 - 1) V_{n_1}^X}{\sigma ^2} &+ \frac{(n_2 - 1)V_{n_2}^Y}{\sigma ^2} &\sim \mathcal{X}^2 (n_1 + n_2 - 2) \\
+        \mathcal{X}^2(n_1 -1) & \bot \mathcal{X}^2(n_2 - 1) &
+    \end{align*}
+    \begin{align*}
+        \sqrt[]{W} &= \frac{\sigma }{\sigma } \frac{\sqrt[]{(n_1 - 1) V_{n_1}^X + (n_2 -1) V_{n_2}^Y}}{\sqrt[]{n_1 + n_2 - 2}} \\
+            &= \sigma \frac{\sqrt[]{\mathcal{X}^2(n_1 + n_2 - 2)}}{\sqrt[]{n_1 + n_2 - 2}}
+    \end{align*}
+    Ainsi sous $ H_0 $ 
+    \[
+        D =^{loi} \frac{\mathcal{N}(0,1)}{\sqrt[]{\frac{\mathcal{X}^2(n_1 + n_2 - 2)}{n_1 + n_2 - 2}}} \sim \mathcal{T}(n_1 + n_2 - 2)
+    .\]
+    CCL à retenir : sous $ H_0 $ 
+    \[
+        D \sim \mathcal{T}(n_1 + n_2 - 2)
+    .\]
+    \item Sous $ H_1 $ : \begin{itemize}
+        \item Si $ m_1 > m_2 $, D prend des valeurs plus grades qu'une Student à $ n_1 + n_2 -2 $ degrés de libertés
+        \item Si $ m_1 < m_2 $, D prend des valeurs négatives
+    \end{itemize}
+\end{itemize}
+
+\begin{itemize}
+    \item \textbf{Cas 1 : $ H_1: m_1 \neq m_2 $ } : Soit $ h_{\alpha /2} $ le quantile $ \frac{\alpha }{2} $ d'une $ \mathcal{T}(n_1 + n_2 - 2) $  et $ h_{1- \alpha /2} $ le quantile d'ordre $ 1 - \frac{\alpha }{2} $ d'une $ \mathcal{T}(n_1 + n_2 - 2) $. \textbf{Attention} $ h_{\alpha /2} = - h_{1 - \alpha /2} $ \\
+    Si $ \left| D \right| > h_{1 - \alpha /2} $ on rejette $ H_0 $. Sinon on conserve $ H_0 $ 
+
+    \item \textbf{Cas 2 : $ H_1: m_1 > m_2 $ } : Soit $ h_{1 - \alpha} $ le quantile $ 1 -\alpha  $ d'une $ \mathcal{T}(n_1 + n_2 - 2) $ \\
+    Si $ D > h_{1 - \alpha} $ on rejette $ H_0 $. Sinon on conserve $ H_0 $.
+
+    \item \textbf{Cas 3 : $ H_1: m_1 < m_2 $ } : Soit $ h_{\alpha} $ le quantile $ \alpha $ d'une $ \mathcal{T}(n_1 + n_2 - 2) $ \\
+    Si $ D < h_{\alpha} = - h_{1 - \alpha } $ on rejette $ H_0 $. Sinon on conserve $ H_0 $.
+\end{itemize}
+
+\subsubsection{Test de Welch : Le test de Student se généralisant au cas des variances non égales}
+\paragraph*{Données}
+\begin{itemize}
+    \item $ X_1, \dots, X_n  $ iid. $ \mathcal{N}(m_1, \sigma_1 ^2), m_1 \text{ et }\sigma_1^2 $ inconnus
+    \item $ Y_1, \dots, Y_n  $ iid. $ \mathcal{N}(m_2, \sigma_2 ^2), m_2 \text{ et }\sigma_2^2 $ inconnus
+    \item Échantillons indépendants
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m_1 = m_2 $ 
+    \item $ H_1 = m_1 \neq m_2 $ ou $ m_1 > m_2 $ ou $ m_1 < m_2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    D = \frac{\bar{X}_{n_1} - \bar{Y}_{n_2}}{\sqrt[]{\frac{V_{n_1}^X}{n_1} + \frac{V_{n_2}^Y}{n_2}}}
+.\]
+
+\paragraph*{Zone de rejet}
+\begin{itemize}
+    \item Sous $ H_0, D $ suit \textbf{approximativement} une loi $ \mathcal{T}(\mu ) $. $ \mu  $ n'est pas connu et est approximé par des formules horribles
+    \item Sous $ H_1 $ 
+\end{itemize}
 
 \end{document}
