@@ -50,13 +50,14 @@
 \tableofcontents
 
 \section{Template}
+\subsection*{Donnée}
 \subsection*{Conditions}
 \subsection*{Hypothèse}
 \subsection*{Statistique de test}
 \subsection*{Zone de Rejet}
 \subsection*{Méthode}
 
-\section{Test de Kolmogorov-Smirnov}
+\section{Test d'ajustement de Kolmogorov-Smirnov}
 
 
 \subsection*{Conditions}
@@ -201,6 +202,7 @@ Pratiquement comme avant, pas encore fait en TD, mais copier collé du cours qua
 \subsection*{Conditions}
 \begin{itemize}
     \item Deux échantillons indépendants de variable iid.
+    \item De fdr. continue $ F_X, F_Y $ 
 \end{itemize}
 
 \subsection*{Hypothèse}
@@ -219,11 +221,76 @@ Pratiquement comme avant, pas encore fait en TD, mais copier collé du cours qua
     \item Si $ n $ et $ m $ sont trop grands, on utilise le résultat suivant : \\
         Sous $ H_0 $ 
         \[
-            \sqrt[]{\frac{nm}{n+m}}h(F_n, G_n) \to ^{\alpha }_{n,m \to +\infty } W_\infty \text{ voir KS asymptotique}
+            h_{n_1, n_2} = \sqrt[]{\frac{nm}{n+m}}h(F_n, G_n) \to ^{\alpha }_{n,m \to +\infty } W_\infty \text{ voir KS asymptotique}
         .\]
         On utilise alors comme zone de rejet $ \sqrt[]{\frac{n+m}{nm}}W_\infty  $ avec $ W_\infty  $ le quantile d'ordre $ 1 - \alpha  $ de $ W_\infty  $.
 \end{itemize}
 
+\subsection*{Méthode}
+Même qu'un khi deux classique !\\
+$ Z_{(i)} = (X_i, Y_i) $ 
+\begin{table}[!t]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+    \hline
+        $Z_{(i)}$ & $F_n$ & $G_n$ & $h_{n_1, n_2}$ \\ \hline
+        ... & ... & ... & ... \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{Test du $ \mathcal{X}^2 $ d'indépendance}
+\subsection*{Donnée}
+    $ (X_1, Y_1), \dots, (X_T, Y_T) $ iid appariés. \begin{itemize}
+        \item $ X_1 $ à valeur dans $ A_1, \dots, A_M $ 
+        \item $ Y_1 $ à valeur dans $ B_1, \dots, B_N $ 
+    \end{itemize}
+
+\subsection*{Conditions}
+    \begin{itemize}
+        \item Loi discrète 
+        \item $ n $ ou $ T $  plutôt grand
+        \item $ \forall i < M, j < N : T*\hat{p}_m \hat{q}_m \geq 5 $ ou avec la notation en TD $ :E_{i,j} \geq 5 $ 
+    \end{itemize}
+
+\subsection*{Hypothèse}
+    \begin{itemize}
+        \item $ H_0: X_1 \bot Y_1 $
+        \item $ H_1: X_1 \not\bot Y_1 $
+    \end{itemize}
+
+\subsection*{Statistique de test}
+    \begin{align*}
+        D &= T * \sum_{m=1}^{M}\sum_{n=1}^{N}\frac{(\hat{p}_{m,n} - \hat{p}_m \hat{q}_n)^2}{\hat{p}_m \hat{q}_n} \\
+            &= \sum_{m=1}^{M}\sum_{n=1}^{N}\frac{( N_{m,n} - \frac{N_{m, \centerdot} N_{\centerdot, n}}{T})^2}{\frac{N_{m, \centerdot} N_{\centerdot, n}}{T}}
+    \end{align*}
+    On utilise la deuxième en TD, la fraction est équivalent à $ E_{i,j} $ aka le produit en croix à l'intérieur du tableau durant les TD (groupe 2)
+
+\subsection*{Zone de Rejet}
+\begin{itemize}
+    \item Sous $ H_0 $, $ D \to \mathcal{X}^2 ((M-1)(N-1))  $
+    \item Sous $ H_1 $, $ D \to +\infty  $
+    \[
+        \mathcal{R} = \{D \geq h_\alpha \}
+    .\]
+\end{itemize}
+
+\subsection*{Méthode}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=.65\textwidth]{fig1_test.png}
+\end{figure}
+Puis calculer la stat de test 
+\[
+    D = \sum_{\text{chaque case du tableau}}\frac{N_{1,1}- E_{1,1}}{E_{1,1}}
+.\]
+
+
+\section{Test du $ \mathcal{X}^2 $ d'homogénéité}
+\subsection*{Donnée}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
 \subsection*{Méthode}
 
 
