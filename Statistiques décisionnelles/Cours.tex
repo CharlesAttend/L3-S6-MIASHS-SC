@@ -1589,7 +1589,19 @@ Si on pose $ \bar{Z}_n = \frac{1}{n} \sum_{i=1}^{n}Z_i $ et $ V_n = \frac{1}{n-1
     \item Sous $ H_1 $ à completer vous-même, c'est le même que le test précédent
 \end{itemize}
 
-\textbf{Vois exo2 du TD7}
+\textbf{Vois exo2 du TD7 : }
+\paragraph*{Correction de l'exo2 du TD7} On suppose que les va $ Z_i $ sont iid gaussiennes ! donc \begin{align*}
+    E(Z_i) &= E(X_i) - E(Y_i) = m_1 - m_2 \\
+    Var(Z_i) &= ........ \text{MANQUE DES TRUCS DEMANDER A JESS }
+\end{align*}
+
+Zone de rejet de niveau $ \alpha  $ : 
+\[
+    \mathcal{R} = \{\left| T \right| \geq t_{n-1} (1- \alpha /2)\}
+.\]
+Sous $ H_0, T \sim \mathcal{T}(n-1) $. \\
+Application : au niveau 10\% $ \mathcal{R}=\{T \geq 1.3\} $ et $ T = \sqrt[]{46}\frac{1.5}{\sqrt[]{8}} = 3.6 $ Donc on rejette $ H_0 $ : la note de stat math est plus grande que la note de simulation.
+
 
 \subsubsection{Test d'égalité des moyennes pour 2 échantillons gaussiens indépendant de variance connues}
 
@@ -1607,7 +1619,32 @@ Si on pose $ \bar{Z}_n = \frac{1}{n} \sum_{i=1}^{n}Z_i $ et $ V_n = \frac{1}{n-1
 \end{itemize}
 
 \paragraph*{Statistique de test}
-Voir TD7 exo 3
+Voir TD7 exo 3: Correction exo 3 TD7 \\
+\begin{enumerate}
+    \item $ \bar{X}_{n_1} \sim \mathcal{N}(m_1, \frac{\sigma _1^2}{n_1}) $ et $ \bar{Y}_{n_2} \sim \mathcal{N}(m_2, \frac{\sigma _2^2}{n_2}) $ 
+    \item $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1-m_2, \frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}) $ 
+    \item $ H_0 : m_1 = m_2, H_1 = m_1 \neq m_2, T = \bar{X}_{n_1} - \bar{Y}_{n_2}, \mathcal{R} = \{\left| T \right| \geq C_\alpha \}$ car sous $ H_0, T \sim \mathcal{N}(0, \frac{\sigma _1^2}{n_1}+\frac{\sigma _2^2}{n_2}) $
+    \begin{align*}
+        P(\left| \bar{X}_{n_1} - \bar{Y}_{n_2} \right| \geq C_\alpha ) &= P(\frac{\left| \bar{X}_{n_1} - \bar{Y}_{n_2} \right|}{\sqrt[]{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}}} \geq \frac{C_\alpha }{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}}) \\
+        &= \phi ^{-1} (1 - \alpha /2)
+    \end{align*}
+    donc $ c_\alpha = \phi ^{-1} (1 - \frac{\alpha }{2}) \sqrt[]{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}} $ 
+    \item Application : \begin{itemize}
+        \item Lille : 10 mesures, $ \sigma ^2 = 4 $ 
+        \item Sydney : 20 mesures, $ \sigma ^2 = 9 $ 
+        \item $ \bar{X}_{n_1} - \bar{Y}_{n_2} = 1 $
+        \item Sous $ H_0, \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(0, \frac{4}{10} + \frac{9}{20} = 0.85) $ 
+        \item Sous $ H_1, \bar{X}_{n_1} - \bar{Y}_{n_2} $ est plus grand que sous $ H_0 $ 
+        \[
+            \mathcal{R} = \{\bar{X}_{n_1} - \bar{Y}_{n_2} \geq c_\alpha \}
+        .\]
+        \begin{align*}
+            P_{H_0}(\bar{X}_{n_1} - \bar{Y}_{n_2} \geq C_\alpha ) &= P_{H_0}( \frac{\bar{X}_{n_1} - \bar{Y}_{n_2}}{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}} \geq \frac{c_\alpha }{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}})
+        \end{align*}
+        donc $ \frac{c_\alpha }{\frac{\sigma _1^2}{n_1} + \frac{\sigma _2^2}{n_2}} = 2.06 \Leftrightarrow c_\alpha = 2.06 \sqrt[]{0.85} = 1.89 $ \\
+        Donc on conserve $ H_0 $, les deux composé peuvent avoir la même masse.
+    \end{itemize}
+\end{enumerate}
 
 \paragraph*{Zone de rejet}
 
