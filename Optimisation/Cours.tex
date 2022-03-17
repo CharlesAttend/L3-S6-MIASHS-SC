@@ -690,6 +690,61 @@ Voir poly le chapitre 2.5 entier
     One Note
 \end{exmp}
 
+\underline{Nouveau cours du 14/03} \\
+
+\section{La dualité en programmation linéaire}
+\begin{itemize}
+    \item forme général
+    \item Forme standard, toujours forme min \begin{align*}
+            \min& f^Tx \\
+        SC& \begin{cases}
+        Ax = b &\\
+        X \geq 0 &\\
+        \end{cases} 
+    \end{align*}
+    \item Forme canonique, toujours forme max \begin{align*}
+            \max& f^Tx \\
+        SC& \begin{cases}
+        Ax \leq b &\\
+        X \geq 0 &\\
+        \end{cases} 
+    \end{align*}
+\end{itemize}
+Si c'est une question directe : "mettre sous forme canonique" on utilise le max. Si c'est une partie pour le résoudre 
+
+\begin{exmp}[Conversion d'un problème général en problème canonique]
+    One note
+\end{exmp}
+
+\subsection{Définition du problème du dual}
+Voir poly 
+
+\begin{exmp}[]
+    Onenote
+\end{exmp}
+
+\begin{thm}[de dualité]
+    Soit $ x^* $ sol.opt. de $ (P) $ et $ y^* $ sol.opt de $ (D) $ alors 
+    \[
+        C^T x^* = b^T y^*
+    .\]
+    Autrement dit, la valeur opt de $ (P) $ et la valeur opt. de $ (D) $ sont pareilles
+\end{thm}
+
+\begin{thm}[des écarts complémentaires]
+    Soit $ x^* $ sol. opt. de $ (P) $ et $ y^* $ sol.opt de $ (D) $ alors \begin{enumerate}
+        \item Si $ y_j^* >0 $ alors la j ème constrainte de $ (P) $ est saturée en $ x^* $ 
+        \item Si la ième contrainte de $ (D) $ n'est pas saturée en $ y^* $ alors $ X_i^* = 0 $ 
+    \end{enumerate}
+\end{thm}
+
+\begin{exmp}[]
+    One Note
+\end{exmp}
+
+
+
+
 
 
 

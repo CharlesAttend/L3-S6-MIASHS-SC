@@ -1648,6 +1648,8 @@ Voir TD7 exo 3: Correction exo 3 TD7 \\
 
 \paragraph*{Zone de rejet}
 
+\subsection{Test sur les variances}
+
 \subsubsection{Test d'égalité des variances pour un échantillon gaussien de moyenne inconnus}
 
 \paragraph*{Données} $ X_1, \dots, X_n $ iid. $ \mathcal{N}(m,\sigma ^2) $ avec $ m, \sigma ^2 $ inconnus
@@ -1806,6 +1808,209 @@ avec $ W = \frac{(n_1 - 1) V_{n_1}^X + (n_2 - 1) V_{n_2}^Y}{n_1 + n_2 - 2} $.
 \begin{itemize}
     \item Sous $ H_0, D $ suit \textbf{approximativement} une loi $ \mathcal{T}(\mu ) $. $ \mu  $ n'est pas connu et est approximé par des formules horribles
     \item Sous $ H_1 $ 
+\end{itemize}
+
+\underline{Nouveau cours du 17/03} \\ 
+
+\section{Test de Mann-Whitney-Wilioxon ou test de la somme des rangs}
+
+\begin{defn}[Ordre Stochastique]
+    Soit $ X $ et $ Y $ deux variables aléatoires, on dit que $ Y $ domine stochastiquement $ X $ si 
+    \[
+        \forall t \in \mathbb{R}, F_Y(t) \leq F_X(t)
+    .\]
+    Cela équivaut à 
+    \[
+        \forall t \in \mathbb{R}, P(X>t) \leq P(Y > t)
+    .\]
+    Si $ Y\succ X $ et $ Y \neq X $ alors 
+    \[
+        E(Y) > E(X)
+    .\]
+    et si on note $ m_X $ et $ m_Y $ les médianes de $ X $ et $ Y $ on a également 
+    \[
+        m_X \leq m_Y
+    .\]
+\end{defn}
+
+Ce test est proche de KS à deux échantillons, en pratique il est même mieux.
+\paragraph*{Données}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. 
+    \item $ Y_1, \dots, Y_{n_2}  $ iid.
+    \item Échantillons indépendants
+    \item On suppose que $ F_X $ et $ F_Y $ sont \textbf{continues}.
+\end{itemize}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = X_1 $ et $ Y_1 $ ont la même loi. $ F_{X_1} = F_{Y_1} $ 
+    \item $ H_0 = X_1 $ et $ Y_1 $ n'ont pas la même loi. $ F_{X_1} neq F_{Y_1} $ \begin{itemize}
+        \item Ou $ X_1 \succ Y_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{Y_1}(t) \leq F_{X_1}(t) $ 
+        \item Ou $ Y_1 \succ X_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{X_1}(t) \leq F_{Y_1}(t) $ 
+    \end{itemize}
+\end{itemize}
+
+\paragraph*{Statistique de test}
+On note $ n = n_1 + n_2 $. On crée le vecteur 
+\[
+    Z = (X_1, \dots, X_{n_1}, Y_1, \dots, Y_{n_2}) = (Z_1, \dots, Z_n)
+.\]
+Z est la concaténation des deux échantillons. On ordonne Z par ordre croissant $ Z^\prime = (Z_{(1)}, \dots, Z_{(n)}) $ et on pose $ \forall i \in \{1,\dots, n_1\} $ 
+\begin{align*}
+    R(i) &= \text{ Rang de } X_i \text{ dans } Z^\prime  \\
+        &= \sum_{j=1}^{n}\mathbbm{1}_{X_i \leq Z_j}
+\end{align*}
+On pose finalement la stat de test suivant
+\[
+    U = \sum_{i=1}^{n_1}R(i) = \text{ la somme des rangs des } X_i \text{ dans } Z^\prime 
+.\]
+\begin{rem}[]
+    En cas d'ex-æquo, on leur attribue le rang moyen des rangs. Voir exemple. \\
+    C'est ici la puissance de ce test par rapport à KS, il départage les ex-æquo d'une manière mathématique, contrairement à KS
+\end{rem}
+
+En général $ U $ est à valeurs entre 
+\[
+    1 + 2 + \dots + n_1 = \frac{n_1 (n_1 + 1)}{2} \text{ et } (n_2+1) + (n_2 + 2) + \dots + n = n_1(n_2 + \frac{n_1 + 1}{2})
+.\]
+(réfléchir au cas les plus extremes)
+
+\paragraph*{Zone de rejet}
+\begin{itemize}
+    \item Sous $ H_0 $ : Quel est le rang de $ X_i $ ? $ R(1) $ est une variable. uniforme sur $ \{1,\dots,n\} $. Sous $ H_0 $, les $ X_i $ sont uniformément répartis dans le vecteur $ Z^\prime  $, et cela indépendamment de leur loi. Tout ce qui compte, c'est que le vecteur $ Z $ sont un vecteur de variables iid. \\
+    \textbf{CCL:} Ainsi, sous $ H_0 $, la loi de U ne dépend pas de la loi de $ X_1 $ et $ Y_1 $. Elle ne dépend que de $ n_1 $ et $ n_2 $. On peut alors tabuler la variable $ U $.
+    \item \begin{itemize}
+        \item Sous $ H_1 = Y_1 \succ X_1$, les $ X_i $ sont plutôt au début du vecteur $ Z^\prime $, $ U $ prend donc de petites valeurs.
+        \item Si $ H_1 = X_1 \succ Y_1 $, les $ X_i $ sont plutôt à la fin du vecteur $ Z^\prime  $. $ U $  prend donc des grandes valeurs.
+        \item Si $ H_1 : F_{X_1} \neq F_{Y_1} $, $ U $ va prendre des valeurs extremes, mais on ne sait pas de quel côté.
+    \end{itemize}
+\end{itemize}
+
+La loi de $ U $ est \textbf{symétrique} par rapport à $ n_1 \frac{n+1}{2} $ 
+\begin{figure}[!h]
+    \centering
+    \includegraphics*[width=.6 \textwidth]{fig6.jpg}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{Cas 1} $ H_1: Y_1 \succ X_1 $ au niveau $ \alpha $, on pose $ H_\alpha  $ le quantile d'ordre $ \alpha $ de la loi $ U(n_1, n_2) $. Si $ U < h_\alpha  $ on rejette $ H_0 $ sinon on conserve $ H_0 $.
+    \item \textbf{Cas 2} $ H_1 : X_1 \succ Y_1 $ au niveau $ \alpha  $ on pose $ h_{1 - \alpha } $ le quantile d'ordre $ 1 - \alpha  $ de la loi de $ U(n_1, n_2) $ Si $ U > h_{1 - \alpha } $, on rejette $ H_0 $ sinon on conserve $ H_0 $.
+    \item \textbf{Cas 3} $ H_1 : F_{X_1} \neq F_{Y_1} $ au niveau $ \alpha $ on pose $ h_{\alpha /2} $ et  $ h_{1 - \alpha/2 } $ les quantiles d'ordre $ \alpha /2 $ et $ 1 - \alpha/2  $ de la loi de $ U(n_1, n_2) $ Si $ U < h_{\alpha /2} $ ou $ U > h_{1 - \alpha /2} $ , on rejette $ H_0 $ sinon on conserve $ H_0 $.
+\end{itemize}
+
+\begin{exmp}[]
+    On a 2 échantillons : \begin{itemize}
+        \item 8 étudiants qui viennent en amphi notes : $ 15, 16.4, 5.6, 16.4, 18.8, 15.6, 15.2, 12.8 $ 
+        \item 9 étudiants qui ne viennent pas en amphi : $ 15.6, 11, 12.6, 7.4, 9.6, 14.8, 13, 15.4, 12.6 $ 
+    \end{itemize}
+    Est-ce que la présence en amphi à un impact sur les notes ? \begin{itemize}
+        \item $ H_0 $ pas d'impact = même loi
+        \item $ H_1 $ impact : lois différentes
+    \end{itemize}
+    On choisit d'effectuer le test de Mann-Whitney (On n'utilise pas KS cas on a plusieurs notes répété). 
+
+    On trie les données :
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+        \hline
+            Obs & \textbf{5.6} & 7.4 & 9.6 & 11 & 12.6 & 12.6 & \textbf{12.8} & 13 &  \\ \hline
+            Rang & 1 & 2 & 3 & 4 & 5.5 & 5.5 & 7 & 8 &  \\ \hline
+            Obs & 14.8 & \textbf{15} & \textbf{15.2} & 15.4 & \textbf{15.6} & 15.6 & \textbf{16.4} & \textbf{16.4} & \textbf{18.8} \\ \hline
+            Rang & 9 & 10 & 11 & 12 & 13.5 & 13.5 & 15.5 & 15.5 & 17 \\ \hline
+        \end{tabular}
+    \end{table}
+
+    On calcule
+    \begin{align*}
+        U &= 1 + 7 + 10 + 11 + 13.5 + 15.5 + 15.5 + 17 \\ 
+            &= \text{Somme des rangs de } X_i = 90.5
+    \end{align*}
+
+    Ici $ n_1 = 8 $ et $ n_2 = 9 $, niveau $ 5\% $, on retrouve
+    \begin{align*}
+        h_{0.025} &\approx 51 \\
+        h_{0.975} &= 51 + 2(72 - 51) \\
+            &= 93
+    \end{align*}
+    Revoir le graphique précédent. 
+
+    Zone de rejet : Comme $ U \geq 51 $ et $ U \leq 93 $, on conserve $ H_0 $.
+\end{exmp}
+
+\paragraph*{Bilan de ce test} Ce test est une alternative au test d'homogénéité de KS.
+\begin{itemize}
+    \item KS détecte n'importe quelle différence de loi. 
+    \item MW est plus sensible à des changement de médiane, plutôt des translations.
+    \item MW est plus utilisé et apprécié.
+    \item MW gère les ex-æquo. Alors que KS déteste les ex-æquo.
+    \item MW pas ouf si juste un changement de variance et pas de médiane.
+    \item Si $ n_1, n_2 $ sont grands. On n'a pas la table, on utilise alors le test asymptotique.
+    \[
+        \frac{U - E(U)}{\sqrt[]{Var(U)}} = \frac{U - n \frac{n_1 + 1}{2}}{\sqrt[]{\frac{n_1 n_2 (n+1)}{12}}} \to Z \sim \mathcal{N}(0,1)
+    .\]
+\end{itemize}
+
+\section{Test du signe et test du signe et rang de Wilcoxon}
+\paragraph*{Données}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. 
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. 
+    \item Échantillon \textbf{appariées} $ (X_1, Y_1), \dots, (X_n, Y_n) $ sont iid $ X_1 \not \bot Y_1 $ 
+\end{itemize}
+On note $ Z_i = Y_i - X_i $. On supose que $ Z_i $  a une fonction de répartition continue donc aucun des $ Z_i $ ne vaut 0.
+
+\subsection{Test du signe / test de la médiane}
+
+\paragraph*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 $ La médiane de $ Z $ vaut 0. $ m_Z = 0 $. C'est à dire que $ P(Y_1 < X_1) = 1/2 $ 
+    \item $ H_1 = m_Z \neq 0 $ ou $ m_Z > 0 \Leftrightarrow P(Z \leq 0) > 1/2 \Leftrightarrow P(Y_1 > X_1) > 1/2$ ou $ m_Z < 0 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\begin{align*}
+    S_n = \sum_{i=1}^{n}\mathbbm{1}_{Z_i \leq 0} \\
+    &= \text{ Nombre de } Y_i > X_i
+\end{align*}
+
+\begin{itemize}
+    \item Sous $ H_0 : P(Z_i > 0) = P(Y_i > X_i) = \frac{1}{2} $ 
+    \[
+        \mathbbm{1}_{Z_i > 0} \sim Ber(\frac{1}{2})
+    .\]
+    donc 
+    \[
+        S_n \sim Bin(n,\frac{1}{2})
+    .\]
+
+    \item Sous $ H_1 $ \begin{itemize}
+        \item Si $ m_z > 0, P(Y_i > X_i) > \frac{1}{2}, S_n \sim Bin(n,p), p> \frac{1}{2} $ donc $ S_n $ est "grand"
+        \item Si $ m_z < 0, P(Y_i < X_i) > \frac{1}{2} $ donc $ S_n $ est petit.
+        \item Si $ m_z \neq  0, S_n $ a un comportement proche des extremes (petit/grand).
+        \item 
+    \end{itemize}
+\end{itemize}
+
+\paragraph*{Zone de rejet}
+Au niveau $ \alpha  $ \begin{itemize}
+    \item Si $ H_1 : m_Z > 0 $. Soit $ h_{1 - \alpha } $ le quantile d'ordre $ 1 - \alpha  $ de la loi $ Bin(n,\frac{1}{2}) $. Si $ S_n > h_{1 - \alpha } $ on rejette $ H_0 $ sinon on conserve $ H_0 $ 
+    \item Si $ H_1 : m_Z < 0 $. Soit $ h_{\alpha } $ le quantile d'ordre $ \alpha  $ de la loi $ Bin(n,\frac{1}{2}) $. Si $ S_n < h_{\alpha } $ on rejette $ H_0 $ sinon on conserve $ H_0 $ 
+    \item Si $ H_1 : m_Z \neq 0 $. Soit $ h_{\alpha/2 } $ et $ h_{1 - \alpha /2} $  le quantile d'ordre $ \alpha /2 $ et $ 1 - \alpha /2 $ de la loi $ Bin(n,\frac{1}{2}) $. Si $ S_n < h_{alpha /2 } $ ou $ S_n > h_{1 - \alpha /2} $ on rejette $ H_0 $ sinon on conserve $ H_0 $ 
+\end{itemize}
+\begin{rem}[En cas d'égalité ]
+    Si il existe $ i $ tel que $ Z_i = 0 $. On exclut ces données et on recommence avec le reste $ n \to n-1 $ 
+\end{rem}
+
+\paragraph*{CCL sur le test}
+\begin{itemize}
+    \item Ce test ne regarde \textbf{que} le signe et pas les amplitudes. (exemple : on peut avoir 5 fois $ -100 $ dans nos données et 5 fois $ +1 $ c'est la même chose). En général on va appliquer ce test quand \textbf{on ne connaît pas} les amplitudes mais juste les signes ("Est ce que la situation c'est améliorer ?")
+    \item Si $ n $ est grand on fait un test asymptotique 
+    \[
+        \frac{S_n - E(S_n)}{\sqrt[]{Var(S_n)}} \to \mathcal{N}(0,1)
+    .\]
+    Sous $ H_0, E(S_n) = n/2, Var(S_n) = n/4 $ 
 \end{itemize}
 
 \end{document}
