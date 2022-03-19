@@ -1510,9 +1510,7 @@ Les variables sont toutes à valeurs dans les mêmes classes $ A_1, \dots, A_M $
     \end{rem}
 \end{itemize}
 
-\subsection{Les test sur l'espérance}
-Dans le TD7, vous avez vu plusieurs test "élémentaire" sur les données gaussiennes. Ils sont à connaître et sont succinctement rappelé ici
-\subsubsection{Forme d'un test} 
+\subsection{Forme d'un test} 
 \begin{itemize}
     \item Nom du test / sa fonction
     \item Type de données / Condition d'utilisation
@@ -1523,6 +1521,9 @@ Dans le TD7, vous avez vu plusieurs test "élémentaire" sur les données gaussi
 \begin{rem}[]
     Je vous encourage fortement à revoir tous vos tests sous cette forme et à faire des fiche
 \end{rem}
+
+\subsection{Les test sur l'espérance}
+Dans le TD7, vous avez vu plusieurs test "élémentaire" sur les données gaussiennes. Ils sont à connaître et sont succinctement rappelé ici
 
 \subsubsection{Test sur la moyenne pour 1 échantillon gaussien de variance inconnue. Test de students à 1 échantillon}
 
@@ -1845,7 +1846,7 @@ Ce test est proche de KS à deux échantillons, en pratique il est même mieux.
 \paragraph*{Hypothèse}
 \begin{itemize}
     \item $ H_0 = X_1 $ et $ Y_1 $ ont la même loi. $ F_{X_1} = F_{Y_1} $ 
-    \item $ H_0 = X_1 $ et $ Y_1 $ n'ont pas la même loi. $ F_{X_1} neq F_{Y_1} $ \begin{itemize}
+    \item $ H_0 = X_1 $ et $ Y_1 $ n'ont pas la même loi. $ F_{X_1} \neq F_{Y_1} $ \begin{itemize}
         \item Ou $ X_1 \succ Y_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{Y_1}(t) \leq F_{X_1}(t) $ 
         \item Ou $ Y_1 \succ X_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{X_1}(t) \leq F_{Y_1}(t) $ 
     \end{itemize}
@@ -1959,7 +1960,7 @@ La loi de $ U $ est \textbf{symétrique} par rapport à $ n_1 \frac{n+1}{2} $
     \item $ Y_1, \dots, Y_{n_2}  $ iid. 
     \item Échantillon \textbf{appariées} $ (X_1, Y_1), \dots, (X_n, Y_n) $ sont iid $ X_1 \not \bot Y_1 $ 
 \end{itemize}
-On note $ Z_i = Y_i - X_i $. On supose que $ Z_i $  a une fonction de répartition continue donc aucun des $ Z_i $ ne vaut 0.
+On note $ Z_i = Y_i - X_i $. On suppose que $ Z_i $  a une fonction de répartition continue donc aucun des $ Z_i $ ne vaut 0.
 
 \subsection{Test du signe / test de la médiane}
 
@@ -1971,7 +1972,7 @@ On note $ Z_i = Y_i - X_i $. On supose que $ Z_i $  a une fonction de répartiti
 
 \paragraph*{Statistique de test}
 \begin{align*}
-    S_n = \sum_{i=1}^{n}\mathbbm{1}_{Z_i \leq 0} \\
+    S_n &= \sum_{i=1}^{n}\mathbbm{1}_{Z_i \leq 0} \\
     &= \text{ Nombre de } Y_i > X_i
 \end{align*}
 
@@ -1989,7 +1990,6 @@ On note $ Z_i = Y_i - X_i $. On supose que $ Z_i $  a une fonction de répartiti
         \item Si $ m_z > 0, P(Y_i > X_i) > \frac{1}{2}, S_n \sim Bin(n,p), p> \frac{1}{2} $ donc $ S_n $ est "grand"
         \item Si $ m_z < 0, P(Y_i < X_i) > \frac{1}{2} $ donc $ S_n $ est petit.
         \item Si $ m_z \neq  0, S_n $ a un comportement proche des extremes (petit/grand).
-        \item 
     \end{itemize}
 \end{itemize}
 

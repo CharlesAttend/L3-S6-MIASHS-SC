@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  17 MAR 2022 09:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  19 MAR 2022 17:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -784,23 +784,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 1445--1446
 
  []
 
-[23]
-Overfull \hbox (4.2358pt too wide) in paragraph at lines 1514--1515
+[23] [24]
+Overfull \hbox (4.2358pt too wide) in paragraph at lines 1526--1527
 []\T1/opensans-TLF/m/sc/10 Dans le TD7, vous avez vu plu-sieurs test "élé-men-taire" sur les don-nées gaus-siennes. Ils sont à connaître
  []
 
-[24] [25]
-Overfull \hbox (5.2949pt too wide) in paragraph at lines 1606--1606
+[25]
+Overfull \hbox (5.2949pt too wide) in paragraph at lines 1607--1607
 []\T1/opensans-TLF/b/n/10 Test d'éga-lité des moyennes pour 2 échan-tillons gaus-siens in-dé-pen-dant de va-riance connues 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1622--1623
+Underfull \hbox (badness 10000) in paragraph at lines 1623--1624
 
  []
 
 [26] [27] [28]
-Underfull \hbox (badness 10000) in paragraph at lines 1813--1814
+Underfull \hbox (badness 10000) in paragraph at lines 1814--1815
 
  []
 
@@ -808,7 +808,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1813--1814
 <fig6.jpg, id=409, 1083.29718pt x 1094.58937pt>
 File: fig6.jpg Graphic file (type jpg)
 <use fig6.jpg>
-Package pdftex.def Info: fig6.jpg  used on input line 1893.
+Package pdftex.def Info: fig6.jpg  used on input line 1894.
 (pdftex.def)             Requested size: 273.14923pt x 275.98495pt.
 
 
@@ -821,14 +821,14 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
  ) 
 Here is how much of TeX's memory you used:
  13596 strings out of 480548
- 216867 string characters out of 2895278
+ 216862 string characters out of 2895278
  536269 words of memory out of 3000000
  31014 multiletter control sequences out of 15000+600000
  420677 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,16n,77p,1614b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
  <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Cours.pdf (33 pages, 2225294 bytes).
+Output written on Cours.pdf (33 pages, 2225332 bytes).
 PDF statistics:
  732 PDF objects out of 1000 (max. 8388607)
  231 named destinations out of 1000 (max. 500000)
