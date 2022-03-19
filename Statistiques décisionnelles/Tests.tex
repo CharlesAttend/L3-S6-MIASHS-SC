@@ -62,7 +62,7 @@
 
 \subsection*{Conditions}
 \begin{enumerate}
-    \item Les $ X_i $ semblent provenir d'une loi à fonction de répartition continue. $ \Rightarrow  $ on n'a pas plusieurs fois la même valeur (sauf si celle-ci on était arrondi).\\
+    \item Les $ X_i $ semblent provenir d'une loi à fonction de répartition continue. $ \Rightarrow  $ on n'a pas plusieurs fois la même valeur (sauf si celle-ci on était arrondi).
     \item Fonctionne $ \forall n $ : même si $ n $ est petit, ce test est pertinent
     \item Si $ n \geq 100 $, on fait un test asymptotique.
 \end{enumerate}
@@ -287,10 +287,160 @@ Puis calculer la stat de test
 
 \section{Test du $ \mathcal{X}^2 $ d'homogénéité}
 \subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1} $ échantillons iid
+    \item $ Y_1, \dots, Y_{n_2} $ échantillons iid
+    \item Échantillons indépendant entre eux
+\end{itemize}
+Les variables sont toutes à valeurs dans les mêmes classes $ A_1, \dots, A_M $.
+
 \subsection*{Conditions}
 \subsection*{Hypothèse}
+On veut tester l'homogénéité \begin{itemize}
+    \item $ H_0 = X_1$ et $ Y_1 $  ont la même loi $ \Leftrightarrow \forall m \in \{1,\dots,M \}, P(X_1 \in A_m) = P(Y_1 \in A_m) $ 
+    \item $ H_1 = X_1$ et $ Y_1 $  n'ont pas la même loi $ \Leftrightarrow \exists m \in \{1, \dots, M\} $ tel que $ P(X_1 \in A_m) \neq P(Y_1 \in A_m) $ 
+\end{itemize}
 \subsection*{Statistique de test}
 \subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{Test sur les Gaussiennes}
+\subsection{Sur la moyenne}
+\begin{itemize}
+    \item Test sur 1 échantillon : Loi de Student \begin{itemize}
+        \item Variance connu : on l'utilise à la place de $ V_n $ 
+        \item Variance inconnu : On utilise $ \bar{X}_n $ dans $ V_n $ 
+    \end{itemize}
+    
+    \item Test sur 2 échantillons indépendants : \begin{itemize}
+        \item Variances connus :  
+        \item Même variance inconnu : $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ Same stat de test sauf qu'on estime la variance avec $ W = \frac{(n_1 - 1) V_{n_1}^X + (n_2 - 1) V_{n_2}^Y}{n_1 + n_2 - 2}$
+        \item Variance inconnu : Test de welch : $ D = \frac{\bar{X}_{n_1} - \bar{Y}_{n_2}}{\sqrt[]{\frac{V_{n_1}^X}{n_1} + \frac{V_{n_2}^Y}{n_2}}} \sim_{H_0} \mathcal{T}(\mu ) $ avec $ \mu $ Formule horrible  
+    \end{itemize}
+
+    \item Test sur 2 échantillons apparié : $ Z_n $ into student (pas trouvé de raison yet)
+\end{itemize}
+
+\subsection{Sur la variance}
+\begin{itemize}
+    \item Test sur 1 échantillon : Comme le semestre d'avant \begin{itemize}
+        \item Moyenne connu : On l'utilise dans le calcul de $ V_n $ 
+        \item Moyenne inconnu : On utilise $ \bar{X}_n $ dans le calcul de $ V_n $ 
+    \end{itemize}
+    
+    \item Test sur 2 échantillons indépendants : \begin{itemize}
+        \item Moyennes connus : L'utiliser dans les calcul des $ V_n $ 
+        \item Même Moyenne inconnu : X Pas de solution so do same as before
+        \item Moyenne inconnu : $ D = \frac{X_{n_1}^X}{V_{n_2}^Y} $ qui suit $ \mathcal{F}(n_1 - 1, n_2 - 1) $ sans besoin de transformation.
+    \end{itemize}
+
+    \item Test sur 2 échantillons apparié : X
+\end{itemize}
+
+\section{Test de la somme des rangs aka MWW}
+C'est le test de sur l'ordre stochastique.
+
+\subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. 
+    \item $ Y_1, \dots, Y_{n_2}  $ iid.
+    \item Échantillons indépendants
+    \item On suppose que $ F_X $ et $ F_Y $ sont \textbf{continues}.
+\end{itemize}
+
+\subsection*{Conditions}
+\begin{itemize}
+    \item On suppose que $ F_X $ et $ F_Y $ sont \textbf{continues}.
+    \item Mieux qu'un KS à deux échantillons !
+\end{itemize}
+
+
+\subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = X_1 $ et $ Y_1 $ ont la même loi. $ F_{X_1} = F_{Y_1} $ 
+    \item $ H_0 = X_1 $ et $ Y_1 $ n'ont pas la même loi. $ F_{X_1} neq F_{Y_1} $ \begin{itemize}
+        \item Ou $ X_1 \succ Y_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{Y_1}(t) \leq F_{X_1}(t) $ 
+        \item Ou $ Y_1 \succ X_1 $ C'est à dire $ F_{X_1} \neq F_{Y_1} $ et $ \forall t \in \mathbb{R}, F_{X_1}(t) \leq F_{Y_1}(t) $ 
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Statistique de test}
+\[
+    U = \sum_{i=1}^{n_1}R(i) = \sum_{i=1}^{n_1} \sum_{j=1}^{n}\mathbbm{1}_{X_i \leq Z_j}
+.\]
+\begin{rem}[]
+    En cas d'ex-æquo, on leur attribue le rang moyen des rangs. Voir exemple.
+\end{rem}
+
+\subsection*{Zone de Rejet}
+La loi est symétrique. On a uniquement la table d'un côté, il faut calculer l'autre coté $ h_{1- \alpha} = h_\alpha + 2(\frac{n_1 n+1}{2} - h_\alpha )=  $.
+
+Si $ n $ est grand, on utilise le TCL suivant 
+\[
+    \frac{U - E(U)}{\sqrt[]{Var(U)}} = \frac{U - n \frac{n_1 + 1}{2}}{\sqrt[]{\frac{n_1 n_2 (n+1)}{12}}} \to Z \sim \mathcal{N}(0,1)
+.\]
+
+\subsection*{Méthode}
+On trie les données :
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        Obs & \textbf{5.6} & 7.4 & 9.6 & 11 & 12.6 & 12.6 & \textbf{12.8} & 13 &  \\ \hline
+        Rang & 1 & 2 & 3 & 4 & 5.5 & 5.5 & 7 & 8 &  \\ \hline
+        Obs & 14.8 & \textbf{15} & \textbf{15.2} & 15.4 & \textbf{15.6} & 15.6 & \textbf{16.4} & \textbf{16.4} & \textbf{18.8} \\ \hline
+        Rang & 9 & 10 & 11 & 12 & 13.5 & 13.5 & 15.5 & 15.5 & 17 \\ \hline
+    \end{tabular}
+\end{table}
+On calcule
+\begin{align*}
+    U &= 1 + 7 + 10 + 11 + 13.5 + 15.5 + 15.5 + 17 \\ 
+        &= \text{Somme des rangs de } X_i = 90.5
+\end{align*}
+
+\section{Test du signe}
+\subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. 
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. 
+    \item Échantillon \textbf{appariées} $ (X_1, Y_1), \dots, (X_n, Y_n) $ sont iid $ X_1 \not \bot Y_1 $ 
+\end{itemize}
+On note $ Z_i = Y_i - X_i $. On suppose que $ Z_i $  a une fonction de répartition continue donc aucun des $ Z_i $ ne vaut 0.
+
+\subsection*{Conditions}
+Fonction de répartition continue.
+
+\subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 $ La médiane de $ Z $ vaut 0. $ m_Z = 0 $. C'est à dire que $ P(Y_1 < X_1) = 1/2 $ 
+    \item $ H_1 = m_Z \neq 0 $ ou $ m_Z > 0 \Leftrightarrow P(Z \leq 0) > 1/2 \Leftrightarrow P(Y_1 > X_1) > 1/2$ ou $ m_Z < 0 $ 
+\end{itemize}
+
+\subsection*{Statistique de test}
+\begin{align*}
+    S_n &= \sum_{i=1}^{n}\mathbbm{1}_{Z_i \leq 0} \\
+    &= \text{ Nombre de } Y_i > X_i
+\end{align*}
+
+\subsection*{Zone de Rejet}
+\begin{itemize}
+    \item Sous $ H_0 : P(Z_i > 0) = P(Y_i > X_i) = \frac{1}{2} $ 
+    \[
+        \mathbbm{1}_{Z_i > 0} \sim Ber(\frac{1}{2})
+    .\]
+    donc 
+    \[
+        S_n \sim Bin(n,\frac{1}{2})
+    .\]
+
+    \item Sous $ H_1 $ \begin{itemize}
+        \item Si $ m_z > 0, P(Y_i > X_i) > \frac{1}{2}, S_n \sim Bin(n,p), p> \frac{1}{2} $ donc $ S_n $ est "grand"
+        \item Si $ m_z < 0, P(Y_i < X_i) > \frac{1}{2} $ donc $ S_n $ est petit.
+        \item Si $ m_z \neq  0, S_n $ a un comportement proche des extremes (petit/grand).
+    \end{itemize}
+\end{itemize}
+
+On utilise donc une table de la loi binomiale. Si n est grand, on utilise le TCL.
 \subsection*{Méthode}
 
 
