@@ -308,33 +308,33 @@ On veut tester l'homogénéité \begin{itemize}
 \subsection{Sur la moyenne}
 \begin{itemize}
     \item Test sur 1 échantillon : Loi de Student \begin{itemize}
-        \item Variance connu : on l'utilise à la place de $ V_n $ 
         \item Variance inconnu : On utilise $ \bar{X}_n $ dans $ V_n $ 
+        \item Variance connu : on l'utilise à la place de $ V_n $ 
     \end{itemize}
     
     \item Test sur 2 échantillons indépendants : \begin{itemize}
-        \item Variances connus :  
-        \item Même variance inconnu : $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ Same stat de test sauf qu'on estime la variance avec $ W = \frac{(n_1 - 1) V_{n_1}^X + (n_2 - 1) V_{n_2}^Y}{n_1 + n_2 - 2}$
         \item Variance inconnu : Test de welch : $ D = \frac{\bar{X}_{n_1} - \bar{Y}_{n_2}}{\sqrt[]{\frac{V_{n_1}^X}{n_1} + \frac{V_{n_2}^Y}{n_2}}} \sim_{H_0} \mathcal{T}(\mu ) $ avec $ \mu $ Formule horrible  
+        \item Même variance inconnu : $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ Same stat de test sauf qu'on estime la variance avec $ W = \frac{(n_1 - 1) V_{n_1}^X + (n_2 - 1) V_{n_2}^Y}{n_1 + n_2 - 2}$. Finalement la stat de test centrée réduite $ \sim \mathcal{T}(n_1 + n_2 - 2) $ 
+        \item Variances connus :  $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ cette fois-ci de variance connus
     \end{itemize}
 
-    \item Test sur 2 échantillons apparié : $ Z_n $ into student (pas trouvé de raison yet)
+    \item Test sur 2 échantillons appariés : $ Z_n $ into $ \mathcal{T}(n_1) $  (pas trouvé de raison yet)
 \end{itemize}
 
 \subsection{Sur la variance}
 \begin{itemize}
     \item Test sur 1 échantillon : Comme le semestre d'avant \begin{itemize}
+        \item Moyenne inconnu : On utilise $ \bar{X}_n $ dans le calcul de $ V_n $ puis penser que comme on connaît la moyenne ça suit une $ \mathcal{X}^2(n) $ 
         \item Moyenne connu : On l'utilise dans le calcul de $ V_n $ 
-        \item Moyenne inconnu : On utilise $ \bar{X}_n $ dans le calcul de $ V_n $ 
     \end{itemize}
     
     \item Test sur 2 échantillons indépendants : \begin{itemize}
-        \item Moyennes connus : L'utiliser dans les calcul des $ V_n $ 
+        \item Moyenne inconnu : $ D = \frac{V_{n_1}^X}{V_{n_2}^Y} $ qui suit $ \mathcal{F}(n_1 - 1, n_2 - 1) $ sans besoin de transformation.
         \item Même Moyenne inconnu : X Pas de solution so do same as before
-        \item Moyenne inconnu : $ D = \frac{X_{n_1}^X}{V_{n_2}^Y} $ qui suit $ \mathcal{F}(n_1 - 1, n_2 - 1) $ sans besoin de transformation.
+        \item Moyennes connus : L'utiliser dans les calcul des $ V_n $. Est-ce qu'on gagne des degrés de liberté ?
     \end{itemize}
 
-    \item Test sur 2 échantillons apparié : X
+    \item Test sur 2 échantillons apparié : X (maybe un Zn into khi deux)
 \end{itemize}
 
 \section{Test de la somme des rangs aka MWW}
