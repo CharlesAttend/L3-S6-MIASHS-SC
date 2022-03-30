@@ -56,7 +56,16 @@
 \subsection*{Statistique de test}
 \subsection*{Zone de Rejet}
 \subsection*{Méthode}
-
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+        ~ & Echantillon appariés & Echantillon indépendant \\ \hline
+        Peu de données & Test du signe ; Test de Wilcoscon signe et rang \\ On test si la médiane est nulle & KS d'homogénéité (comparaison de lois) (va continue) \\ Wilcoxson somme des rangs (Mann Witney) (va cont.) (comparaison de médiane) \\ \hline
+        Beaucoup de données & Espérance de la différence null ? (TCL) & Comparaison d'espérance (TCL) \\ \hline
+        Données Gaussiennes & Student de la différence (test si l'espérance de la différence est nulle) & Student (variance égale) \\ Welsh (ss hypo sur variance) \\ comparaison des espérances  \\ \hline
+    \end{tabular}
+\end{table}
 \section{Test d'ajustement de Kolmogorov-Smirnov}
 
 
@@ -318,7 +327,7 @@ On veut tester l'homogénéité \begin{itemize}
         \item Variances connus :  $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ cette fois-ci de variance connus
     \end{itemize}
 
-    \item Test sur 2 échantillons appariés : $ Z_n $ into $ \mathcal{T}(n_1) $  (pas trouvé de raison yet)
+    \item Test sur 2 échantillons appariés : $ Z_n = X_i - Y_i$ into $ \mathcal{T}(n_1) $ classique sur 1 échantillon  (Y'a un exo de td il parait)
 \end{itemize}
 
 \subsection{Sur la variance}
@@ -443,5 +452,11 @@ Fonction de répartition continue.
 On utilise donc une table de la loi binomiale. Si n est grand, on utilise le TCL.
 \subsection*{Méthode}
 
+
+\[
+    \sum_{k}^{l=1}n_l(\bar{Y}_l - \bar{Y})^2
+    \sum_{k}^{l=1}\sum_{n_l}^{i=1}(Y_i^l - \bar{Y}_l)
+    \bar{Y}_l = \frac{1}{n_l}\sum_{n_l}^{i=1}X_i^l
+.\]
 
 \end{document}
