@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  27 MAR 2022 16:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  31 MAR 2022 09:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -506,7 +506,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 283--285
 
  []
 
-<fig1.png, id=166, 460.72125pt x 286.06876pt>
+<fig1.png, id=174, 460.72125pt x 286.06876pt>
 File: fig1.png Graphic file (type png)
 <use fig1.png>
 Package pdftex.def Info: fig1.png  used on input line 301.
@@ -515,7 +515,7 @@ Package pdftex.def Info: fig1.png  used on input line 301.
 LaTeX Font Warning: Font shape `T1/opensans-TLF/m/sc' undefined
 (Font)              using `T1/opensans-TLF/m/n' instead on input line 302.
 
-<fig2.jpg, id=170, 2655.1697pt x 1368.61313pt>
+<fig2.jpg, id=178, 2655.1697pt x 1368.61313pt>
 File: fig2.jpg Graphic file (type jpg)
 <use fig2.jpg>
 Package pdftex.def Info: fig2.jpg  used on input line 325.
@@ -544,7 +544,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 354--355
 
  []
 
-<./fig3.png, id=192, 722.7pt x 542.025pt>
+<./fig3.png, id=200, 722.7pt x 542.025pt>
 File: ./fig3.png Graphic file (type png)
 <use ./fig3.png>
 Package pdftex.def Info: ./fig3.png  used on input line 361.
@@ -670,7 +670,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 862.
 
-<fig4.png, id=260, 811.23074pt x 522.753pt>
+<fig4.png, id=268, 811.23074pt x 522.753pt>
 File: fig4.png Graphic file (type png)
 <use fig4.png>
 Package pdftex.def Info: fig4.png  used on input line 874.
@@ -711,7 +711,7 @@ Overfull \hbox (4.90244pt too wide) in paragraph at lines 1083--1085
  []
 
 [18]
-<fig5.jpg, id=308, 589.4522pt x 270.25969pt>
+<fig5.jpg, id=316, 589.4522pt x 270.25969pt>
 File: fig5.jpg Graphic file (type jpg)
 <use fig5.jpg>
 Package pdftex.def Info: fig5.jpg  used on input line 1135.
@@ -805,7 +805,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1814--1815
  []
 
 [29]
-<fig6.jpg, id=409, 1083.29718pt x 1094.58937pt>
+<fig6.jpg, id=417, 1083.29718pt x 1094.58937pt>
 File: fig6.jpg Graphic file (type jpg)
 <use fig6.jpg>
 Package pdftex.def Info: fig6.jpg  used on input line 1894.
@@ -814,23 +814,40 @@ Package pdftex.def Info: fig6.jpg  used on input line 1894.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[30] [31 <./fig6.jpg>] [32] [33] (Cours.aux)
+[30] [31 <./fig6.jpg>] [32] [33]
+Underfull \hbox (badness 10000) in paragraph at lines 2104--2105
+
+ []
+
+[34]
+<fig7.png, id=464, 744.98325pt x 497.4585pt>
+File: fig7.png Graphic file (type png)
+<use fig7.png>
+Package pdftex.def Info: fig7.png  used on input line 2157.
+(pdftex.def)             Requested size: 341.43307pt x 227.99112pt.
+ [35 <./fig7.png>]
+<fig8.jpg, id=475, 1981.4025pt x 1486.55376pt>
+File: fig8.jpg Graphic file (type jpg)
+<use fig8.jpg>
+Package pdftex.def Info: fig8.jpg  used on input line 2247.
+(pdftex.def)             Requested size: 341.43307pt x 256.1586pt.
+ [36] [37 <./fig8.jpg>] (Cours.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 13596 strings out of 480548
- 216862 string characters out of 2895278
+ 13641 strings out of 480548
+ 217306 string characters out of 2895278
  536269 words of memory out of 3000000
- 31014 multiletter control sequences out of 15000+600000
+ 31030 multiletter control sequences out of 15000+600000
  420677 words of font info for 85 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,16n,77p,1614b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
  <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Cours.pdf (33 pages, 2225332 bytes).
+Output written on Cours.pdf (37 pages, 3264018 bytes).
 PDF statistics:
- 732 PDF objects out of 1000 (max. 8388607)
- 231 named destinations out of 1000 (max. 500000)
- 467 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 802 PDF objects out of 1000 (max. 8388607)
+ 258 named destinations out of 1000 (max. 500000)
+ 521 words of extra memory for PDF output out of 10000 (max. 10000000)
 

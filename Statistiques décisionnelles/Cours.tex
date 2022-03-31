@@ -2013,4 +2013,238 @@ Au niveau $ \alpha  $ \begin{itemize}
     Sous $ H_0, E(S_n) = n/2, Var(S_n) = n/4 $ 
 \end{itemize}
 
+\underline{Nouveau cours du 31/03} \\
+\textbf{Rappel} Résumé du test du signe
+\begin{itemize}
+    \item $ X_1, ..., X_n $, $ Y_1, ..., Y_n $ 2 échantillon appariés
+    \item Hypothèse : la loi des $ Z_i = Y_i - X_i$ est continue
+    \item Statistique de test : $ S_n = \sum_{i=1}^{n}\mathbbm{1}_{Z_i > 0} $ 
+    \item HP: $ H_0 $ la médiane des $ Z_i $ vaut 0 : $ m_z = 0 $ contre $ H_1 = m_z > 0 $ ou $ m_z < 0 $ ou $ m_z \neq 0 $ 
+    \item $ m_z > 0 $ signifie $ P(Y_i > X_i) > \frac{1}{2} $ 
+    \item Sous $ H_0 : S_n \sim \mathcal{B}(n, \frac{1}{2}) $ 
+    \item Sous $ H_1 : $ si $ m_z > 0  $ alors 
+    \[
+        p = P(z_i = 1) = P(Y_i > X_i) > \frac{1}{2}
+    .\]
+    Ainsi sou $ H_1, S_n \sim \mathcal{B}(n,p) $. Sous $ H_1, S_n $ prend de "grande valeur".
+    \item Zone et seuil de rejet pour $ H_1 = m_z > 0 $. Soit $ h_{1-\alpha } $ le quantile d'ordre $ 1 - \alpha  $ de la $ \mathcal{B}(n ,\frac{1}{2}) $. Si $ S_n > h_{1 - \alpha } $  on rejette $ H_0 $ sinon on conserve $ H_0 $ 
+    \item Remarque : \begin{enumerate}
+        \item S'il existe un $ i $ tel que $ Z_i = 0 $. On est alors obligé d'exclure les données correspondantes. On adapte alors la valeur de $n$.
+        \item Si $ n $ est petit, la table de la loi binomiale ne fournit pas de quantile exact. \begin{exmp}[]
+            Si $ n=10 $ : \begin{itemize}
+                \item $ P(\mathcal{B}(10, frac) \leq 7) = 0.945$
+                \item $ P(\mathcal{B}(10, frac) \leq 8) = 0.989$
+            \end{itemize}
+            Si on veut faire un test à $ 5\% $ que faire ? On peut être tenté de regarder \begin{enumerate}
+                \item $ \mathcal{R} = \{S \geq 8\} $ 
+                \item $ \mathcal{R} = \{S \geq 9\} $ 
+            \end{enumerate}
+            Laquelle est la bonne pour avoir $ 5\% $ ?\begin{enumerate}
+                \item Pour 1 : $ P_{H_0} (\mathcal{B}(10,\frac{1}{2}) \in \mathcal{R}) = 0.055 > 0.05 $ ce choix n'est pas acceptable pour un niveau $ \alpha  $ 
+                \item On choisit la zone 2 
+            \end{enumerate}
+            En faite tout dépend de si on peut discuter avec les personnes, si c'est un text de loi, pas le choix pour bouger $ \alpha  $ de quelque dixième. Sinon penser à travailler avec la p valeur (qu'on va calculer plus tard).
+        \end{exmp}
+    \end{enumerate}
+\end{itemize}
+
+\begin{exmp}[propre d'un test du signe]
+    Donnée de poids de patients après un changement d'alimentation\\
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+        \hline
+            i & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+            Avant $X_i$ & 80 & 82 & 75 & 90 & 90 & 87 & 100 & 107 & 103 \\ \hline
+            Après $Y_i$ & 79 & 83 & 75 & 81 & 95 & 86 & 101 & 105 & 100 \\ \hline
+            Différence $Z_i = Y_i - X_i$ & -1 & 1 & 0 & -9 & -3 & -1 & 1 & -2 & -3 \\ \hline
+        \end{tabular}
+    \end{table}
+    \begin{itemize}
+        \item $ H_0 $ Pas d'effet du changement sur le poids, c'est à dire $ m_z = 0 $ 
+        \item $ H_1 $ Le changement induit une diminution du poids $ m_z < 0 $ 
+    \end{itemize}
+    Ici on dispose de \textbf{deux échantillons appariés}. Pour une valeur de $ i, X_i $ et $ Y_i $ représentent le poids d'une personne avant et après le changement d'aliementation.
+
+    Comme $ Z_3 = 0 $, on doit exclure $ i=3 $ 
+    \[
+        S = \sum_{i=1, i \neq 3}^{9} \mathbbm{1}_{Z_i > 0} = 2
+    .\]
+
+    Zone de rejet : $ \alpha = 5\% $ \\
+    Sous $ H_1, S $ prend des plus petite valeur. Lecture de table : $ n=8 $ \begin{itemize}
+        \item $ P(\mathcal{B}(2, \frac{1}{2}) \leq 1) = 0.035 $ 
+        \item $ P(\mathcal{B}(2, \frac{1}{2}) \leq 2) = 0.145 $ 
+    \end{itemize}
+    Zone de rejet au niveau $ 5\% : \mathcal{R} = \{S \leq 1\}$. CCL : On conserve $ H_0 $.
+\end{exmp}
+
+\textbf{CCL} : Le test du signe ne prend en compte \textbf{que} le signe des $ Z_i $. C'est à la fois sa force \textbf{et} sa faiblesse. 
+
+Dans de nombreux cas, il est délicat d'obtenir les amplitudes d'évolution. En revanche, dès qu'on les a et qu'elles ont du sens, il serait malavisé de ne pas utiliser. 
+
+\subsection{Le test des rangs et signe de Wilcoxon}
+\paragraph*{Données}: 2 échantillons appariées : $ X_1, \dots, X_n $ et $ Y_1, \dots, Y_n $. On pose $ Z_i = Y_i - X_i $ iid.
+\begin{rem}[]
+    \begin{itemize}
+        \item Moyen rapide de voir si échantillons appariées : on a le même nombre $ n $.
+        \item Attention le $ n $ dans les formules est le nombre de couple $ (X_i, Y_i) $ 
+        \item En réalité si on regarde sur wikipedia, le test demande même pas iid
+    \end{itemize}
+\end{rem}
+
+\paragraph*{Condition}:
+\begin{itemize}
+    \item La loi des $ Z_i $ est continue
+    \item Les $ Z_i $ sont symétriques par rapport à leur médiane $ m $.
+\end{itemize}
+\begin{rem}[\textbf{Attention}].
+    \begin{itemize}
+        \item si $ E(\left| Z_i \right| ) < + \infty $ alors $ m = E(Z_i) $. 
+        \item La condition sur la symétrie est délicate à vérifier. On se contentera de la supposer vrais dès que c'est raisonnable (typiquement en faisant un histogramme) \\
+    \end{itemize}
+\end{rem}
+
+\begin{rem}[\textbf{Importante}]
+    $ \left| Z_i \right|  $ et $ Signe(Z_i) = \frac{Z_i}{\left| Z_i \right| } = \begin{cases}
+    1 &\text{si } Z_i > 0\\
+    -1  &\text{si } Z_i < 0\\
+    \end{cases} $ 
+
+    \begin{proof}[Mini preuve: ]
+        \begin{align*}
+            \forall t > 0, P(sgn(Z) = 1 \text{ et } \left| Z \right| > T ) &= P(Z > t) \\ 
+            &= \frac{1}{2} P(Z > t) + P(Z < -t) \\
+            &= \frac{1}{2} P( \left| Z \right| > t) \\
+            &= P(sgn(Z) = 1) P(\left| Z \right| > t)
+        \end{align*}
+        idem si $ sgn(Z) = -1 $. Bref : $ sgn(Z) $ et $ \left| Z \right|  $ sont indépendantes
+    \end{proof}
+\end{rem}
+
+\paragraph*{Hypothèse}:
+\begin{itemize}
+    \item $ H_0 = m = 0$ 
+    \item $ H_0 = m \neq 0 $ ou $ m > 0 $ ou $ m < 0 $ 
+\end{itemize}
+Si $ m=0 $ alors $ P(Y_i > X_i) = P(X_i < Y_i) = \frac{1}{2} $
+
+\paragraph*{Statistique de test} Soit $ R_i $ le rang de $ \left| Z_i \right|  $ dans l'échantillon ordonnée issus de $ \left| Z_1 \right| , \dots, \left| Z_n \right|  $. \\ 
+On pose 
+\[
+    W_n^+ = \sum_{i=1}^{n}\mathbbm{1}_{Z_i > 0}R_i \text{ la somme des rangs positifs}
+.\]
+et 
+\[
+    W_n^- = \sum_{i=1}^{n}\mathbbm{1}_{Z_i < 0}R_i
+.\]
+On remarque que 
+\[
+    W_n^+ + W_n^- = \sum_{i=1}^{n}R_i = 1 + 2 + \dots + n = \frac{n(n+1)}{2}
+.\]
+
+Sous $ H_0 $, $ W_n^+ $ et $ W_n^- $ ont la même loi, et celle-ci ne dépend pas de la loi des $ Z_i $. On l'appelle la loi de Wilcoxon. Elle est tabulée pour $ n $ entre 5 et 20.
+
+Sous $ H_0 $, le vecteur $ (R_1, \dots, R_n) $ est une permutation aléatoire uniforme. Les $ \mathbbm{1}_{Z_i > 0} $ sont des variable de Bernouilli $ \frac{1}{2} $ indépendants des $ \left| Z_i \right| $ donc des $ R_i $. 
+
+Ainsi, $ W_n^+ $ a même loi que $ \sum_{i=1}^{n}b_i R_i $ avec $ b_i $ iid. $ \mathcal{Ber}(\frac{1}{2}) $ et $ R_i \bot b_i  $ et $ (R_1, \dots, R_n) $ permutation uniforme.
+
+Sous $ H_0 $, la loi de $ W_n^+ $ et $ W_n^- $ est symétrique par rapport à leur moyenne $ \frac{n(n+1)}{4} $. 
+
+\begin{figure}[!htbp]
+    \centering
+    \caption{Loi de Wilcoxon}
+    \includegraphics*[width=.75\textwidth]{fig7.png}
+\end{figure}
+
+\paragraph*{Zone et seuil de rejet}
+Sous $ H_0 $, $ W_n^+ $ et $ W_n^- $ sont tabulées
+
+Sous $ H_1 = m > 0 $ alors $ W_n^+ $ prend de grandes valeurs et $ W_n^- $ de petites valeurs.
+
+Soit $ h_\alpha  $ le quantile d'ordre $ \alpha  $ de la loi de Wilcoxon et $ h_{1 - \alpha } $ celui d'ordre $ 1 - \alpha  $ 
+
+On peut utiliser comme zone de rejet $ W_n^+ \geq h_{1 - \alpha }$ ou $ W_n^- \leq  h_\alpha  $. En fait, il s'agit de la \textbf{même} condition, car, grâce à la symetrie de la loi de Wilcoxon.
+
+Pour le test bilateral : \\
+Si $ H_1 = m \neq 0 $ alors on utilise comme zone de rejet 
+\[
+    W_n^+ \geq h_{1 - \frac{\alpha}{2}} \text{ ou } W_n^+ \leq h_{\alpha /2} \text{ (tout avec } W_n^+ \text{)}
+.\]
+Ce qui peut se réécrire 
+\[
+    W_n^- \leq h_{\alpha /2} \text{ ou bien } W_n^+ \leq h_{\alpha /2} \text{ (tout avec un seul quantile }
+.\]
+avec les $ h_{\alpha /2} $ et $ h_{1-\alpha /2} $ sont les quantiles de la loi de Wilcoxon.
+
+Il n'y a pas de différence entre les deux présentation c'est une affaire de goût personnel. 
+
+\begin{exmp}[Retour sur l'exemple]
+    A partir de l'exemple donnée dans le test du signe, on remplis le tableau. $ n=8 $ 
+
+    \begin{table}[!h]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+        \hline
+            $ \left| Z_i \right|  $  & 1 & 1 & 0 & 9 & 3 & 1 & 1 & 2 & 3 \\ \hline
+            Signe & -  & + & X & - & - & - & + & -  & - \\ \hline
+            Rang & 2.5 & 2.5 & X & 8 & 6.5 & 2.5 & 2.5 & 5 & 6.5 \\ \hline
+        \end{tabular}
+    \end{table}
+
+    En cas d'égalité on attribue le rang moyen. 
+
+    Dans l'exemple, les données sont appariées et \begin{itemize}
+        \item $ H_0 = m = 0 $ 
+        \item $ H_1 = m \neq 0 $ 
+    \end{itemize}
+    Ici, sous $ H_1 $ C'est $ W_n^+ $ qui prend des grandes valeurs. Calculons $ W_n^+ = 2.5 + 2.5 = 5 $ (automatiquement $ W_n^- = \frac{8*9}{2} - 5 = 36 -  5 = 31 $ ) 
+
+    \paragraph*{Zone et seuil de rejet} :
+    Dans la table pour $ n=8 $, on lit que $ P(W_n^+ \leq 5) \leq 0.05 $ et $ P(W_n^+ \leq 6) \geq 0.05 $. Ici on rejette $ H_0 $ si $ W_n^+ \leq 5 $. Or $ W_n^+ = 5 $ on rejette $ H_0 $ 
+\end{exmp}
+
+\paragraph*{Bilan sur le test de Wilcoxon}
+
+Les avantages : 
+\begin{itemize}
+    \item Ce test est une alternative \textbf{non paramétrique} au test de Student pour échantillons appariées (on ne suppose pas que c'est gaussien)
+    \item Il fonctionne \textbf{toujours} mieux que le test du signe 
+    \item Si les données sont gaussiennes, le test de Wilcoxon est \textbf{à peine} moins bon que Students.
+\end{itemize}
+Bref : c'est un des meilleurs tests du cours pour les échantillons appariées
+
+Les désavantages:
+\begin{itemize}
+    \item Hypothèse dure à vérifier, on se contente souvent de supposer que c'est applicable.
+\end{itemize}
+
+Version asymptotique : 
+
+\[
+    \frac{W_n^+ - \frac{n(n+1)}{4}}{\sqrt[]{\frac{n(n+1)(2n+1)}{24}}} \to ^{\alpha }_{n \to +\infty }\mathcal{N}(0,1)
+.\]
+
+\section{Remarques finales}
+\subsection{La table de fisher}
+La loi de Fisher à $ (d_1, d_2) $ degrés de liberté est la loi de $ \mathcal{F}_{d_1, d_2} = \frac{U_1 / d_1}{U_2 / d_2} $ où $ U_1 \sim \mathcal{X}^2(d_1), U_2 \sim \mathcal{X}^2 (d_2), U_1 \bot U_2 $. 
+
+Ainsi $ F \sim \mathcal{Fisher}(d_1, d_2), \frac{1}{F} \sim \mathcal{Fisher}(d_2, d_1) $.\\
+Cela implique : si on note $ h_{1-\alpha , d_1, d_2} $ le quantile d'ordre $ 1 - \alpha  $ de la loi $ \mathcal{Fisher}(d_1, d_2) $ alors 
+\[
+    h_{\alpha, d_1, d_2} = \frac{1}{h_{1-\alpha, d_2, d_1}}
+.\]
+\begin{exmp}[]
+    \[
+        h_{0.95, 10, 5} = 4.75 \Leftrightarrow h_{0.05, 10, 5} = \frac{1}{3.33} = \frac{1}{h_{0.95, 5 ,10}}
+    .\]
+\end{exmp}
+
+\subsection{Table de Mann-Whitney et Wilcoxon}
+Dans les deux cas, on utilise la symétrie par rapport à la médiane 
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics*[width=0.75\textwidth]{fig8.jpg}
+    \caption{Loi de Mann-Whitney et Wilcoxon}
+\end{figure}
 \end{document}
