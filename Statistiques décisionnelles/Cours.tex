@@ -2247,4 +2247,186 @@ Dans les deux cas, on utilise la symétrie par rapport à la médiane
     \includegraphics*[width=0.75\textwidth]{fig8.jpg}
     \caption{Loi de Mann-Whitney et Wilcoxon}
 \end{figure}
+
+
+\section{Test bonus}
+Il est impossible de couvrir tous les tests de comparaison d'échantillons.
+
+But : Devenir autonome et savoir aller chercher de nouveau test dans la littérature/sur internet. 
+
+A chaque fois que vous verrez un test, j'aimerais que vous vous posiez les questions suivantes:
+\begin{itemize}
+    \item Combien d'échantillon ? Indépendant ? Liée ?
+    \item Quelle loi sur les données ? Donnée gaussiennes ? Bernoulli ? Poisson ? \\
+            Si vous n'avez aucune information sur la loi, regardez du côté des tests non paramétriques.
+    \item Quelle taille d'échantillon ? Si les échantillons sont assez grands, vous pouvez faire des tests asymptotiques.
+    \item Comment traduire ma question en hypothèses ? "Les échantillons sont-ils différents ?" C'est la manière de comprendre cette question qui vas \textbf{guider votre choix de test}. \\ 
+        Comparaison de moyennes ? De variances ? De médianes ? De fonction de répartition ? 
+\end{itemize}
+
+\subsection{Le test d'indépendance de Pearson}
+\paragraph*{Données:} \begin{itemize}
+    \item $ X_1, \dots, X_n $ iid $ \mathcal{N}(m,\sigma ^2) $ 
+    \item $ Y_1, \dots, Y_n $ iid $ \mathcal{N}(m,\sigma ^2) $ 
+    \item Échantillon appariés et $ (X_i,Y_i) $ vecteur gaussien 
+\end{itemize}
+
+\paragraph*{Hypothèse}\begin{itemize}
+    \item $ H_0 = X_i \bot Y_i $ ($ cor(X,Y) = 0 $ )
+    \item $ H_0 = X_i \not\bot Y_i $ ($ cor(X,Y) \neq 0 $ )
+\end{itemize}
+Ici dans le cas particulier des gaussiens, le lien entre indépendance et corrélation est une équivalent.
+
+\paragraph*{Statistique de test}
+Soit $ R $ la corrélation empirique :
+\begin{align*}
+    R &= \frac{cov_n( (X_1, \dots, X_n), (Y_1, \dots, Y_n) )}{\sqrt[]{V_n^X*V_n^Y}} \\
+    R_n &= \frac{\sum_{i=1}^{n} (X_i - \bar{X}_n) (Y_i - \bar{Y}_n)}{\sqrt[]{(\sum_{i=1}^{n} (X_i - \bar{X}_n)^2) \sum_{i=1}^{n} (Y_i - \bar{Y}_n)^2 }}
+\end{align*}
+$ R_n $ est un estimateur fortement consistant de $ cor(X_i, Y_i) $
+\[
+    D = \frac{R_n}{\sqrt[]{1 - R_n^2}} \sqrt[]{n-1}
+.\]
+\begin{itemize}
+    \item Sous $ H_0, D \sim \mathcal{T}(n-2) $ 
+    \item Sous $ H_1, D $ est grand en valeur absolue
+\end{itemize}
+
+\paragraph*{Zone et seuil de rejet}
+On utilise des quantiles de la loi $ \mathcal{T}(n-2) $
+\[
+    \mathcal{R} = \{ D < h_{\alpha /2} \} \cup \{D > h_{1 - \alpha /2 }\}
+.\]
+
+\begin{rem}[]
+    Il existe aussi des tests d'indépendance non-paramétriques : Ce sont les tests de Spearman et Kendall
+\end{rem}
+
+\subsection{Comparaison asymptotique de proportion}
+\paragraph*{Motivation} On a plus jamais reparlé de variable de Bernoulli depuis le semestre dernier alors que c'est ce qu'on risque de rencontrer le plus souvent.
+\paragraph*{Données}: \begin{itemize}
+    \item $ X_1, \dots, X_n $ iid $ \mathcal{B}er(p_1) $ 
+    \item $ Y_1, \dots, Y_n $ iid $ \mathcal{B}er(p_2) $ 
+    \item $ (X_1, \dots, X_n) \bot (Y_1, \dots, Y_n) $
+\end{itemize}
+
+\paragraph*{Hypothèse}\begin{itemize}
+    \item $ H_0 = p_1 = p_2 $ 
+    \item $ H_1 = p_1 \neq p_2 $ ou $ p_1 < p_2 $ ou $ p_1 > p_2 $ 
+\end{itemize}
+
+\paragraph*{Statistique de test}
+\[
+    S_{n,m} = \frac{\bar{X}_n - \bar{Y}_n}{\sqrt[]{ \frac{\bar{X}_n (1 - \bar{X}_n)}{n}} + \frac{\bar{Y}_n (1 - \bar{Y}_n)}{n}}
+.\]\begin{itemize}
+    \item Sous $ H_0, S_{n,m} \to ^\mathcal{L}_{n,m \to +\infty } \mathcal{N}(0,1)$
+    \item Sous $ H_1 $ \begin{itemize}
+        \item Si $ p_1 > p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+        \item Si $ p_1 < p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+        \item Si $ p_1 \neq  p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+    \end{itemize}
+\end{itemize}
+
+\paragraph*{Zone et seuil de rejet}
+\begin{itemize}
+    \item $ H_1 : p_1 > p_2, \mathcal{R} = \{S > h_{1 -\alpha }\} $ 
+    \item $ H_1 : p_1 < p_2, \mathcal{R} = \{S > h_{\alpha }\} $ 
+    \item $ H_1 : p_1 \neq  p_2, \mathcal{R} = \{S > h_{\alpha /2}\} \cup \{S > h_{1 - \alpha /2}\} $ 
+\end{itemize}
+Où les $ h_{\alpha } $ sont des quantiles de la loi normale.
+
+\section{Comparaison de $ K \geq 3 $ échantillons}
+On dispose de $ K \geq 3 $ échantillons indépendants. On cherche à déterminer s'il existe une différence entre ces échantillons. \\
+Cette "différence" peut se caractériser de plusieurs manières : différences de moyenne, médianes, variances, fonction de répartition
+\begin{itemize}
+    \item $ H_0 $ les échantillons ont la même caractéristiques
+    \item $ H_1 $ Il existe au moins 2 populations qui diffèrent : $ \exists i,j \in \{1, \dots, K\} $ tq $ m_i \neq m_j $
+\end{itemize}
+Jusqu'à présent vous avez vu un seul test qui entre dans ce cadre : le $ \mathcal{X}^2 $ d'homogénéité. Le problème avec ce test est qu'il faut vraiment beaucoup de données.
+
+\subsection{L'ANOVA à un facteur}
+Vous avez vu dans le cours de modélisation statistique les aspects théorique du modèle linéaire gaussien. C'est \textbf{le} modèle le plus important en statistiques. \\
+Ici la présentation ne traitera \textbf{que} des aspects pratiques. 
+
+\paragraph*{Données} \begin{itemize}
+    \item $ K $ échantillons \textbf{indépendants}
+    \item $ X_1^{(1)}, \dots, X_{n_1}^{(1)} $ va iid $ \mathcal{N}(m, \sigma_{1} ^2) $ 
+    \item $ X_1^{(2)}, \dots, X_{n_2}^{(2)} $ va iid $ \mathcal{N}(m, \sigma_{2} ^2) $ 
+    \item $ X_1^{(K)}, \dots, X_{n_K}^{(K)} $ va iid $ \mathcal{N}(m, \sigma_{K} ^2) $
+    \item On suppose de plus l'\textbf{homoscédasticité} : $ \sigma _1^2 = \dots = \sigma _K^2 $ 
+\end{itemize}
+
+\begin{rem}[]
+    Si on pose $ n=n_1 + \dots + n_k $, cela corresponds à la vouloir expliquer les variables continues $ (Y_1, \dots, Y_n) = (X_1^{(1)}, \dots, X_{n_1}^{(1)}, \dots, X_{n+K}^{(K)})$ par la variable catégorielle à valeur dans $ \{1, \dots, K\} $ 
+\end{rem}
+
+Cette situation correspond à la situation classique : effet de "catégorie" sur "score continue". Exemple : \begin{itemize}
+    \item Effet du département de résidence sur la taille
+    \item Effet de la mention au bac sur le temps au 100m
+\end{itemize}
+
+\paragraph*{ANOVA en pratique}
+\begin{itemize}
+    \item $ H_0 = m_1 = \dots = m_k $ 
+    \item $ H_1 = \exists i,j tq m_i \neq m_j $ 
+\end{itemize}
+La somme des carrés des écarts ($ \approx  $ variance sans diviser )
+\[
+    SCE^{(p)} = \sum_{i=1}^{n_p} (X_i^{(p)} - \bar{X}^{(p)})^2
+.\]
+\[
+    \frac{SCE ^{(p)}}{n_p-1}= V^{(p)} \text{ variance empirique de l'échantillon p}
+.\]
+
+\begin{rem}[]
+    Sous $ H_0, \frac{SCE^{(p)}}{\sigma ^2} \sim \mathcal{X}^2(n_p -1) $\\
+    Sous $ H_1 $ aussi
+\end{rem}
+
+On calcule alors SCE ou SCT total ou intra
+\[
+    SCE^{totale}_{intra} = \sum_{p=1}^{K}SCE^{(p)}
+.\]
+\begin{rem}[]
+    sous $ H_0 $ comme sous $ H_1 $ \begin{align*}
+        \frac{SCE^{tot}}{\sigma ^2} &= \mathcal{X}^2(n_1 - 1) + \dots + \mathcal{X}^2(n_K -1) \text{ somme de khi deux indépendante} \\
+        &= \mathcal{X}^2(n_1 + n_2 + \dots + n_K - K) \\
+        &= \mathcal{X}^2(n - K)
+    \end{align*}
+\end{rem}
+
+Enfin, on calcule 
+\[
+    \bar{X} = \text{ moyenne totale } = \frac{1}{n}\sum_{p=1}^{K} n_p \bar{X}^{(p)}
+.\]
+On calcule 
+\[
+    SCE_{inter} = \sum_{p=1}^{K} n_p (\bar{X}^{(p)} - \bar{X})^2
+.\]
+Sous $ H_0 : \frac{SCE_{inter}}{\sigma ^2} \sim \mathcal{X}^2(K-1)$  \\
+Sous $ H_1, SCE_{inter} $ est \textbf{grand}
+
+\paragraph*{Stat de test}
+\[
+    F = \frac{SCE_{inter} / (K-1)}{SCE_{intra}^{totale} / (n-K)}
+.\]
+Sous $ H_0 : F \sim \mathcal{F}(K_1, n-K) $ \\
+Sous $ H_1, F $ prend de grande valeurs.
+
+\paragraph*{Zone et seuil de rejet}
+Au niveau $ \alpha  $, soit $ h_{1 - \alpha } $ le quantile d'ordre $ 1 - \alpha  $ de la loi $ \mathcal{F}(K-1, n-K) $. Si $ F > h_{1 - \alpha } $ on rejette $ H_0 $. 
+
+\begin{rem}[]
+    L'ANOVA porte ce nom à cause de la décomposition : 
+    \begin{align*}
+        & \sum_{p=1}^{K}\sum_{i=1}^{n_p}(X_i^{(p)} - \bar{X})^2 = SCE_{inter} + SCE^{totale}_{intra} \\
+        = & \text{ Variance totale } = \text{ entre les groupes } + \text{ interne à chaque groupe}
+    \end{align*}
+    Analyse (de la décomposition) de la variance.
+\end{rem}
+
+
+
+
+
 \end{document}
