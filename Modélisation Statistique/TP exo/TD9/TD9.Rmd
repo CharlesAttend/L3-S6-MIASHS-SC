@@ -1,0 +1,178 @@
+---
+title: "TD9"
+author: "Charles Vin"
+date: '2022-04-25'
+output: html
+---
+```{r}
+library(car)
+library(emmeans)
+```
+
+# Question 1
+```{r}
+df = read.csv("./fultonfish.csv", sep=",")
+head(df)
+```
+
+# Question 2
+```{r}
+df$day = "fri"
+df$day[which(df$mon==1)] = "mon"
+df$day[which(df$tue==1)] = "tue"
+df$day[which(df$wed==1)] = "wed"
+df$day[which(df$thu==1)] = "thu"
+df$day = as.factor(df$day)
+df$day
+```
+# Question 3
+```{r}
+df$wind = "low"
+df$wind[which(df$stormy==1)] = "high"
+df$wind[which(df$mixed==1)] = "medium"
+df$wind = as.factor(df$wind)
+df$wind
+```
+
+
+# Question 4
+```{r}
+df$rainy = as.factor(df$rainy)
+df$cold = as.factor(df$cold)
+str(df)
+```
+```{r}
+df = df[,-c(5,6,7,8,9,10)]
+str(df)
+```
+
+# Question 5 
+Relation prix (en log) et demande (en log)
+```{r}
+plot(df$lprice, log(df$quan))
+```
+On remarque une sorte de corrélation négative. Si le prix augmente la demande diminue
+
+## Question b
+```{r}
+res = lm(log(df$quan)~df$lprice)
+res
+```
+```{r}
+summary(res)
+```
+"p-value: 0.003075" le modèle est utile très significativement.
+$$
+Y_i = \alpha + \beta x_i + E_i \\
+Y_i = \text{quantité en log} \\
+x_i = \text{prix en log} \\ 
+H_0 = \{ \beta = 0 \} \\ 
+H_1 = \{ \beta \neq 0 \} \\ 
+F= \frac{SCM/1}{SCR/n-2}
+$$
+## Question c 
+```{r}
+plot(df$lprice, df$lquan)
+# lines(c(-1.5,1), predict(res, )
+```
+# Question 6 
+Lorsqu'il y a de mauvaise condition météo, les prix augmentent.
+
+## Question 6.a
+Il faut vérifier la phrase précédant. On est face à une ANOVA, 3 facteur sur une variable quantitative. Est-ce que j'ai des interaction
+$$
+Y_i = a + \alpha_i + \beta_j + \gamma_k + \delta_{ij} + \delta_{ik} + \delta_{jk} + \delta_{ijk} + \delta_{ij?} \\ 
+i = vent \\
+j = pluie \\
+k = froid
+$$
+```{r}
+res_weather = lm(lprice~wind*rainy*cold, data=df)
+anova(res_weather)
+Anova(res_weather)
+```
+cold dans un modèle avec wind et rainy n'est pas significatif, ni ces interractions -> on peut le mettre à la poubelle
+On remarque également que l'intéraction wind:rainy est significative malgrè la non significativité pas additivité de rainy.
+
+```{r}
+res_weather = lm(lprice~wind*rainy, data=df)
+summary(res_weather)
+anova(res_weather)
+plot(res_weather)
+```
+Les HP sont vérifiés. 
+
+On a bien un effet du vent sur le prix . 
+
+## Question c
+```{r}
+emmeans(res_weather, ~ wind+rainy)
+```
+Le prix en log augmente lorsque le vent est fort et q'uil ne pleut pas est de 0.1139 en log. Le prix lorsque qu'estimer pas le modèle est 0.1139, en terme mathématique c'est $ \hat{\mu} + \hat{\alpha_{high}} + \hat{\beta_{no}} +\hat{\delta_{high,no}} $
+
+```{r}
+by(df$lprice, list(df$rainy, df$wind), FUN=mean)
+```
+ça c'est les moyenne empiriques.
+
+Complément, de base on estime 
+$$ Y = X\beta+E \\ \hat{\beta} = (X^TX)^{-1}X^TY$$
+```{r}
+table(df$wind, df$rainy)
+```
+Le fait abscence de pluie est plus important on a plus d'exemple.
+
+# Question 7 
+On a vu que le vent et la pluis on une influence sur le prix. On a vu que le prix à une influence sur la demande. Maintenant est-ce que le jour de la semaine à une influence sur la demande
+```{r}
+res2 = lm(log(df$quan)~df$lprice*df$day)
+res2
+```
+Effet significatif de certain jour -> à garder + jour a une influence 
+Voir modèle mathématique dans onenote + graphique de l'ancova 
+L'avantage par rapport à une simple regression c'est d'estimer toute les erreurs en même temps
+ICI ON FAIT UNE ANCOVA
+```{r}
+anova(res2)
+```
+L'intéraction n'est pas nécéssaire. 
+
+```{r}
+res2 = lm(log(df$quan)~df$lprice+df$day)
+```
+
+
+```{r}
+summary(res2)
+```
+```{r}
+plot(res2)
+```
+quelque pointe abérant mais pas de fort levier mais fort résidue
+
+## Question 7.b
+Comme on est sans interraction -> les droites sont parallèle, il suffit alors de comparer les ordonnée à l'origine. Mais idk pourquoi elle a dit ça car au final on fait un eemeans
+```{r}
+emmeans(res2, ~day)
+```
+On voit les min et max .......
+
+## Question 7.c
+
+```{r}
+contrast(emmeans(res2, ~day), adjust="bonferroni", method="pairwise")
+```
+## Question 7.d
+
+Pour plot elle a fait un truc du futur. Elle a dit qu'elle allait envoyer
+```{r}
+
+```
+
+## Question 7.e
+Pourquoi le log ? pour obtenir une élasticité. Voir one note pour un peu plus d'info. 
+L'élasticité est estimé par $\beta$
+```{r}
+summary(res2)
+```
+On a $\beta=-0.56255$. Si c'est nul ça veut dire que le prix n'a pas d'influence sur le prix. 

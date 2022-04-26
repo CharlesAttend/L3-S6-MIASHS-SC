@@ -1,0 +1,407 @@
+---
+title: "Modélisation Statistique - TD7"
+author: "Charles Vin"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+# Chargement des données
+## Question 1
+```{r}
+df = read.csv("TD7_Tips.csv", sep=";")
+head(df)
+```
+
+## Question 2
+- `IDEN` : l'ID du client (chaîne de caractère).
+- `TOTBILL`: L'addition en dollars. C'est une **variable quantitative**.
+- `TIP` : Le pourboire en dollars. C'est une **variable quantitative**.
+- `SEX`: : Indique le sexe de la personne qui a payé. 0 si c'est un homme et 1 si c'est une femme. C'est une **variable qualitative**.
+- `SMOKER` : Indique la zone du restaurant où l'addition a été payé. 0 pour la zone non fumeur, 1 pour la zone fumeur. C'est une **variable qualitative**.
+- `DAY` : Le jour de la semaine, en commençant par le Dimanche. Par exemple 3 correspond à mardi, 4 à mercredi, etc. C'est une **variable qualitative**.
+- `TIME` : Le moment de la journée. 0 signifie en journée et 1 en soirée. C'est une **variable qualitative**.
+- `SIZE` : Le nombre de convives. C'est une **variable quantitative**.
+
+```{r}
+cat("IDEN : String ? ", is.character(df$IDEN), "\n")
+cat("TOTBILL : Numeric ? ", is.numeric(df$TOTBILL), "\n")
+cat("TIP : Numeric ? ", is.numeric(df$TIP), "\n")
+cat("SEX : Factor ? ", is.factor(df$SEX), "\n")
+cat("SMOKER : Factor ? ", is.factor(df$SMOKER), "\n")
+cat("DAY : Factor ? ", is.factor(df$DAY), "\n")
+cat("TIME : Factor ? ", is.factor(df$TIME), "\n")
+cat("SIZE : Numeric ? ", is.numeric(df$SIZE), "\n")
+```
+
+## Question 3 
+```{r}
+df$SEX = as.factor(df$SEX)
+df$SMOKER = as.factor(df$SMOKER)
+df$DAY = as.factor(df$DAY)
+df$TIME = as.factor(df$TIME)
+```
+
+# Relation entre le montant de la facture et le montant du pourboire
+## Question 1 
+Observons la corrélation et une anova.
+
+```{r}
+cor(df$TIP,df$TOTBILL)
+```
+Le montant de la facture et le montant du pourboire semble fortement corrélé.
+
+```{r}
+res = lm(df$TIP~df$TOTBILL)
+res
+anova(res)
+```
+Le modèle de régression linaire est extrêmement significative. 
+
+## Question 2 
+Ces deux variables semble être linéaire entre elle. En observant le coefficient de la régression, on trouve que le pourboire représente en moyenne 10.5% de l'addition totale.
+
+## Question 3 
+Utilisons le rapport entre le pourboire donnée et l'addition totale pour obtenir un pourcentage et travailler dessus.
+```{r}
+df$TIP_PERCENT = df$TIP / df$TOTBILL
+```
+
+# Comparaison des comportements des clients
+## En fonction du moment de la journée
+### Question 1
+Soit:
+
+ - $X_1, ..., X_{n_1}$ les pourboires des clients en journée. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_1, \sigma_1)$ avec $m_1, \sigma_1$ inconnu.
+- $Y_1, ..., Y_{n_2}$ les pourboires des clients en soirée. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_2, \sigma_2)$ avec $m_1, \sigma_1$ inconnu.
+
+**Un employé affirme que les clients sont plus généreux en soirée qu'en journée.** On vas donc tester la moyenne. En d'autre terme il pense que : 
+
+- $H_0 : m_1 = m_2$ 
+- $H_1 : m_1 < m_2$
+
+Pour trancher ces hypothèses, nous allons utiliser la statistique de test suivante $D = \bar{X}_{n_1} - \bar{Y}_{n_2}$.
+
+- Sous $H_0, D \sim \mathcal{N}(0, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ 
+- Sous $H_1, D \sim \mathcal{N}(m, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ avec $m$ inconnu négatif. 
+Ainsi sous $H_1, D$ prend des valeurs plus petite que sous $H_0$. On en déduit la forme de la zone de rejet
+$$
+  \mathcal{R} = \{D \leq c \}
+$$
+
+On utilisera le théorème de Student pour conclure après avoir vérifié les deux points suivants :
+
+- La normalité des variables.
+- L'éventuelle égalité des variances. En effet on peut penser que les variances des deux variables ne change pas, si c'est bien le cas, notre test pourrait gagner en puissance en utilisant cette information.
+
+### Question 2 
+Dans cette question nous allons tester les deux points précédents.
+
+#### Normalité
+```{r}
+jour = df[df$TIME == 0, ]
+nuit = df[df$TIME == 1, ]
+
+x <- jour$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+
+```{r}
+x <- nuit$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+Les données semblent moyennement gaussien au vu des graphiques, notamment pour le jour. Gardons néanmoins cette hypothèse car on sais que c'est le genre de chose suivant une gaussienne. Peut-être qu'avec plus de donnée on pourrait mieux le constater.
+
+#### Égalité des variances
+Effectuons un test de Fisher. 
+- $H_0 : \sigma_1 = \sigma_2$
+- $H_0 : \sigma_1 \neq \sigma_2$
+
+Avec la statistique de test suivante
+$$
+    D = \frac{V_{n_1}^X}{V_{n_2}^Y}
+$$
+avec $V_{n_1}^X = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1}(X_i - \bar{X}_{n_1})^2$ et $V_{n_2}^Y = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2}(Y_i - \bar{Y}_{n_2})^2$ 
+
+Zone de rejet : 
+
+Sous $H_0, \sigma ^2 = \sigma _1^2 = \sigma _2^2$ : 
+$$
+        D \sim \mathcal{F}(n_1 - 1, n_2 - 1)
+$$
+Sous $H_1, \sigma _1^2 \neq \sigma _2^2$ 
+$$
+  D = \mathcal{F}(d_1, d_2) * \frac{\sigma _1^2}{\sigma _2^2}
+$$
+Soit $h_{\alpha /2}$ le quantile $\frac{\alpha }{2}$ d'une $\mathcal{F}(n_1-1, n_2 - 1)$  et $h_{1- \alpha /2}$ le quantile d'ordre $1 - \frac{\alpha }{2}$ d'une $\mathcal{F}(n_1 - 1, n_2 - 1)$.
+
+Si $D > h_{1 - \alpha /2}$ ou bien $D < h_{\alpha /2}$ on rejette $H_0$. Sinon on conserve $H_0$.
+
+Effectuons ce test avec R pour obtenir la p-valeur.
+```{r}
+var.test(jour$TIP, nuit$TIP)
+```
+On a une p valeur = 10%, on rejette $H_0 : \sigma_1 = \sigma_2$ avec 10% de chance de ce tromper. Nous effectuerons donc un test de Welsh sur les moyennes de gaussienne de variance inconnu.
+
+### Question 3
+```{r}
+t.test(jour$TIP, nuit$TIP, alternative="less", var.equal=FALSE)
+```
+La p-valeur est plus petite que 0.05, on rejette $H_0$ avec $\alpha = 5\%$.
+Le serveur semble avoir raison, les pourboires sont plus généreux en soirée.
+
+Par curiosité, jetons un oeil au résultat du test avec les variances égales.
+```{r}
+t.test(jour$TIP, nuit$TIP, alternative="less", var.equal=TRUE)
+```
+On trouve une p-valeur proche.
+
+## En fonction du sexe du client
+### Question 1
+
+Soit 
+
+- $X_1, ..., X_{n_1}$ les pourboires des clients masculins. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_1, \sigma_1)$ avec $m_1, \sigma_1$ inconnu.
+- $Y_1, ..., Y_{n_2}$ les pourboires des clients féminins. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_2, \sigma_2)$ avec $m_1, \sigma_1$ inconnu.
+
+**Y'a-t-il égalité des pourboires en fonction du sexe ?**
+
+- $H_0 : m_1 = m_2$ 
+- $H_1 : m_1 \neq m_2$
+
+Pour trancher ces hypothèses, nous allons utiliser la statistique de test suivante $D = \bar{X}_{n_1} - \bar{Y}_{n_2}$.
+
+- Sous $H_0, D \sim \mathcal{N}(0, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ 
+- Sous $H_1, D \sim \mathcal{N}(m, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ avec $m$. 
+
+Ainsi sous $H_1, D$ prend des valeurs plus extrême que sous $H_0$. On en déduit la forme de la zone de rejet
+$$
+  \mathcal{R} = \{D \leq c_1 \} \cup \{D \geq c_2\}
+$$
+On utilisera le théorème de Student pour conclure après avoir vérifié les deux points suivants :
+
+- La normalité des variables.
+- L'éventuelle égalité des variances. En effet on peut penser que les variances des deux variables ne change pas, si c'est bien le cas, notre test pourrait gagner en puissance en utilisant cette information.
+
+### Question 2 
+Dans cette question nous allons tester les deux points précédents.
+
+#### Normalité
+```{r}
+homme = df[df$SEX == 0, ]
+femme = df[df$SEX == 1, ]
+
+x <- homme$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit, mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+
+```{r}
+x <- femme$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+Les données semblent gaussien ! Nous pouvons procéder au tests suivants.
+
+#### Égalité des variances
+Effectuons un test de Fisher. 
+- $H_0 : \sigma_1 = \sigma_2$
+- $H_0 : \sigma_1 \neq \sigma_2$
+
+Avec la statistique de test suivante
+$$
+    D = \frac{V_{n_1}^X}{V_{n_2}^Y}
+$$
+avec $V_{n_1}^X = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1}(X_i - \bar{X}_{n_1})^2$ et $V_{n_2}^Y = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2}(Y_i - \bar{Y}_{n_2})^2$ 
+
+Zone de rejet : 
+
+Sous $H_0, \sigma ^2 = \sigma _1^2 = \sigma _2^2$ : 
+$$
+        D \sim \mathcal{F}(n_1 - 1, n_2 - 1)
+$$
+Sous $H_1, \sigma _1^2 \neq \sigma _2^2$ 
+$$
+  D = \mathcal{F}(d_1, d_2) * \frac{\sigma _1^2}{\sigma _2^2}
+$$
+Soit $h_{\alpha /2}$ le quantile $\frac{\alpha }{2}$ d'une $\mathcal{F}(n_1-1, n_2 - 1)$  et $h_{1- \alpha /2}$ le quantile d'ordre $1 - \frac{\alpha }{2}$ d'une $\mathcal{F}(n_1 - 1, n_2 - 1)$.
+
+Si $D > h_{1 - \alpha /2}$ ou bien $D < h_{\alpha /2}$ on rejette $H_0$. Sinon on conserve $H_0$.
+
+Effectuons ce test avec R pour obtenir la p-valeur.
+```{r}
+var.test(homme$TIP, femme$TIP)
+```
+On a une p valeur égal à 1%, on rejette $H_0 : \sigma_1 = \sigma_2$. Nous effectuerons donc un test de Welsh sur les moyennes de gaussienne de variance inconnu.
+
+### Question 3
+```{r}
+t.test(homme$TIP, femme$TIP, alternative="less", var.equal=FALSE)
+```
+La p-valeur est élevé. On conserve $H_0$, les pourboires sont les mêmes entre les hommes et les femmes.
+
+
+## En fonction de la zone fumeur ou non fumeur
+### Question 1
+Soit 
+
+- $X_1, ..., X_{n_1}$ les pourboires des clients fumeur. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_1, \sigma_1)$ avec $m_1, \sigma_1$ inconnu.
+- $Y_1, ..., Y_{n_2}$ les pourboires des clients non fumeur. Supposé Gaussien (voir question 2) $\sim \mathcal{N}(m_2, \sigma_2)$ avec $m_1, \sigma_1$ inconnu.
+
+**Y'a-t-il égalité des pourboires dans les deux zones fumeur et non fumeur du restaurant ?**
+
+- $H_0 : m_1 = m_2$ 
+- $H_1 : m_1 \neq m_2$
+
+Pour trancher ces hypothèses, nous allons utiliser la statistique de test suivante $D = \bar{X}_{n_1} - \bar{Y}_{n_2}$.
+
+- Sous $H_0, D \sim \mathcal{N}(0, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ 
+- Sous $H_1, D \sim \mathcal{N}(m, \frac{\sigma _1}{n_1} + \frac{\sigma _2}{n_2})$ avec $m$. 
+
+Ainsi sous $H_1, D$ prend des valeurs plus extreme que sous $H_0$. On en déduit la forme de la zone de rejet
+$$
+  \mathcal{R} = \{D \leq c_1 \} \cup \{D \geq c_2\}
+$$
+On utilisera le théorème de Student pour conclure après avoir vérifié les deux points suivants :
+
+- La normalité des variables.
+- L'éventuelle égalité des variances. En effet on peut penser que les variances des deux variables ne change pas, si c'est bien le cas, notre test pourrait gagner en puissance en utilisant cette information.
+
+### Question 2 
+Dans cette question nous allons tester les deux points précédents.
+
+#### Normalité
+```{r}
+fumeur = df[df$SMOKER == 0, ]
+non_fumeur = df[df$SMOKER == 1, ]
+
+x <- fumeur$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+
+```{r}
+x <- non_fumeur$TIP
+h<-hist(x, breaks=100)
+xfit<-seq(min(x),max(x),length=100)
+yfit<-dnorm(xfit,mean=mean(x),sd=sd(x))
+yfit <- yfit*diff(h$mids[1:2])*length(x)
+lines(xfit, yfit, col="blue", lwd=2)
+```
+Les données semblent bien gaussien ! Testons maintenant la variance.
+
+#### Égalité des variances
+Effectuons un test de Fisher. 
+- $H_0 : \sigma_1 = \sigma_2$
+- $H_0 : \sigma_1 \neq \sigma_2$
+
+Avec la statistique de test suivante
+$$
+    D = \frac{V_{n_1}^X}{V_{n_2}^Y}
+$$
+avec $V_{n_1}^X = \frac{1}{n_1 - 1} \sum_{i=1}^{n_1}(X_i - \bar{X}_{n_1})^2$ et $V_{n_2}^Y = \frac{1}{n_2 - 1} \sum_{i=1}^{n_2}(Y_i - \bar{Y}_{n_2})^2$ 
+
+Zone de rejet : 
+
+Zone de rejet : 
+
+Sous $H_0, \sigma ^2 = \sigma _1^2 = \sigma _2^2$ : 
+$$
+        D \sim \mathcal{F}(n_1 - 1, n_2 - 1)
+$$
+Sous $H_1, \sigma _1^2 \neq \sigma _2^2$ 
+$$
+  D = \mathcal{F}(d_1, d_2) * \frac{\sigma _1^2}{\sigma _2^2}
+$$
+Soit $h_{\alpha /2}$ le quantile $\frac{\alpha }{2}$ d'une $\mathcal{F}(n_1-1, n_2 - 1)$  et $h_{1- \alpha /2}$ le quantile d'ordre $1 - \frac{\alpha }{2}$ d'une $\mathcal{F}(n_1 - 1, n_2 - 1)$.
+
+Si $D > h_{1 - \alpha /2}$ ou bien $D < h_{\alpha /2}$ on rejette $H_0$. Sinon on conserve $H_0$.
+
+Effectuons ce test avec R pour obtenir la p-valeur.
+```{r}
+var.test(fumeur$TIP, non_fumeur$TIP)
+```
+Cette fois-ci, la p-valeur nous indique de conserver $H_0$. Nous considèreons alors que la variance est égale dans les deux groupe lors du test de Student.
+
+### Question 3
+```{r}
+t.test(fumeur$TIP, non_fumeur$TIP, alternative="less", var.equal=TRUE)
+```
+La p-valeur est assez élevé, on conserve $H_0$. Les pourboires sont les mêmes dans les deux zones du restaurant.
+
+## En fonction du jour de la semaine
+### Question 1 
+```{r}
+is.factor(df$DAY)
+```
+### Question 2
+On pose le modèle de régression linéaire suivant.
+- $y_i^l$ le pourcentage que représente le pourboire sur l'addition totale pour le repas $i$ le jour $l$. 
+
+$$
+Y_i^l = \mu_l + \epsilon_i^l \\ \epsilon_i^l \sim \mathcal{N}(0, \sigma^2) iid.
+$$
+On suppose que toutes les variables sont indépendante, intra et inter niveau.
+
+```{r}
+res = lm(df$TIP_PERCENT~df$DAY)
+res # Ou est DAY3 ?
+```
+
+### Question 3
+Lors d'un test d'analyse de la variance, on test 
+
+- $H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4$
+- $H_1: \exists l,m \in \{1,2,3,4\} : \mu_l \neq \mu_m$.
+
+On utilise alors la statistique de test
+$$
+F = \frac{SCM/k-1}{SCR/n-k} = \frac{SCM/3}{SCR/240} \sim_{H_0} \mathcal{F}_{3,240}
+$$
+Avec $SCM = \sum_{k}^{l=1}n_l(\bar{Y}_l - \bar{Y})^2, SCR = \sum_{k}^{l=1}\sum_{n_l}^{i=1}(Y_i^l - \bar{Y}_l)$ et $\bar{Y}_l$ la moyenne pour le niveau $l, \bar{Y}_l = \frac{1}{n_l}\sum_{n_l}^{i=1}X_i^l$
+
+
+Dans la table d'ANOVA on retrouve dans la colonne
+
+- `Df` : les degrés de liberté de la statistique de Fisher $F$
+- `Sum Sq` : Somme des carrée des résidus si dans la colonne `Residuals` sinon somme des carrées du modèle
+- `Mean Sq` : `Sum Sq/Df`. SCR et SCR divisé par leur degrés de liberté. 
+- `F value` : Valeur de la statistique de test $F$
+- `Pr(>F)` : la p-value
+
+```{r}
+anova(res)
+```
+La p-value étant élevé, on conserve $H_0$. Le jour de la semaine n'a pas d'influence sur le montant des pourboires.
+
+### Question 4
+```{r}
+plot(res)
+```
+Le premier graphique `Residuals vs Fitted` permet de vérifier l'homoscédasticité. En effet les points semble dispersé de la même manière qu'importe le jour de la semaine.
+
+Le `Normal Q-Q` plot montre que les points suivent plutôt bien les quantiles théorique d'une loi Normale. On valide l'hypothèse de normalité.
+
+Le graphique de la distance de Cook nous permet de repérer les point influents. Le point 173 s'en rapproche mais n'est pas dans la zone 0.5. On peut donc le considérer comme un point normal.
+
+Les point 68, 173 et 179 reviennent souvent dans en tant que points abérrant.
+
+### Question 5
+Il faudrait vérfier les données sur ces 3 points abérrant et éventuellement refaire les tests précédants.

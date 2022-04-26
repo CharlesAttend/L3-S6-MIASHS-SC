@@ -1,0 +1,87 @@
+# Question 1 
+```{r}
+df = read.csv("TD6_andy.csv")
+```
+
+# Question 2
+```{r}
+cor(df)
+```
+Les ventes ont une corrélation négative avec le prix.
+Les ventes ont une corrélation positive avec la publicité.
+
+# Question 3
+```{r}
+reg = lm(sales~price+advert, data=df)
+print(reg)
+print(summary(reg))
+print(anova(reg))
+```
+Pour une augmentation de 1 de l'indice des prix, les ventes diminuent de 7.908 miliers de dollars.
+Pour une publicité 1 millier de dollards de publicité en plus, les ventes augmente de 1.863 milliers de dollars.
+L'écart type est également en millier de dollard^2. 
+R : le modèle explique 44% de la variabilité observé dans les ventes 
+
+# Question 4
+$$
+  IC(\hat)
+$$
+# Question 5
+```{r}
+confint(reg)
+```
+
+# Question 6
+Il faut que $\beta_2$ soit supérieur à 1 ! 
+
+# Question 7
+```{r}
+anova(reg)
+```
+Je pense que c'est 0.008
+On veut savoir si $\beta_1 > 1$.
+- $H_0: \beta_2=1$ 
+- $H_1: \beta_2>1$
+
+Stat de test 
+$$
+\frac{\hat{\beta_2}-1}{\hat{\sigma}_{\beta_2}} \sim_{H_0} \mathcal{T}_{n-3}
+$$
+Règle de décision:
+On aura tendance à rejeter $H_1$ si $T_{obs}$est trop grand
+$$
+\alpha = P(Rejet H_0 | H_0) = P(T > l |H_0)
+$$
+Si $t_{obs} > t_{n-3, 1 - \alpha}$
+$$
+p_v = P(T > t_{obs} |H_0) \Rightarrow pt(t_{obs}, df=72, lowertail = F)
+$$
+```{r}
+t_obs = ?
+pt(t_obs, df=72, lowertail = F)
+```
+
+# Question 8
+Statégie 1 : $E(Y_i^1) = \beta_0 + \beta_1 (x_{i,1} - 0.3) + \beta_2 x_{i,2}$
+
+Statégie 2 : $E(Y_i^2) = \beta_0 + \beta_1 x_{i,1} + \beta_2 (x_{i,2} + 0.7)$
+
+On se demande si 
+$$
+  \begin{align*}
+    E(Y_i^1) &> E(Y_i^2) \\
+    \beta_0 + \beta_1 (x_{i,1} - 0.3) + \beta_2 x_{i,2} &> \beta_0 + \beta_1 x_{i,1} + \beta_2 (x_{i,2} + 0.7) \\
+    -0.3 \beta_1 &> 0.7 \beta_2 \Leftrightarrow -0.3\beta_1 - 0.7\beta_2 > 0
+  \end{align*}
+$$
+# Question 9 
+$a^T = (0 ; -0.3 ; -0.7)$
+
+$H_0 = \{ a^T \beta = 0\}$, $H_1 = \{a^Tb > 0\}$
+
+$\frac{a^T\hat{\beta}}{\hat{\sigma}\sqrt{\alpha^T(X^TX)^{-1}a}} \sim \mathcal{T}_{n-p-1}$
+
+on rejet quand $a^T \hat{\beta}$ est trop grand.
+
+Elle a fait des trucs en R et je vois rien.
+

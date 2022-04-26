@@ -1,0 +1,154 @@
+---
+title: "TD8"
+author: "Charles Vin"
+date: '2022-04-04'
+output: html
+---
+
+
+# Question 1
+```{r}
+df = read.csv("./MiniPONS.csv", sep=";")
+head(df)
+```
+
+# Question 2 
+```{r}
+is.factor(df$Group)
+is.factor(df$Type)
+```
+```{r}
+df$Group = as.factor(df$Group)
+df$Type = as.factor(df$Type)
+levels(df$Type)
+levels(df$Group)
+```
+# Question 3
+
+```{r}
+by(df$Right_answers, df$Group, summary )
+by(df$Right_answers, df$Group, sd )
+```
+On peut constater que les Bipolaire et les patients diagnostiqué UD ont en moyenne moins de bonne réponse que les sujets contrôles. De plus leurs écarts type est moins bon.
+
+# Question 4
+```{r}
+plot(df$Group, df$Right_answers, type="b")
+```
+
+
+# Question 5
+```{r}
+df$Agec=rep(2,length(df$Group))
+df$Agec[which(df$Age<40)]=1
+df$Agec[which(df$Age>=60)]=3
+df$Agec=as.factor(df$Agec)
+levels(df$Agec)=c("<40", "40-60", ">=60")
+```
+
+# Question 6
+```{r}
+table(df$Agec, df$Group)
+interaction.plot(df$Group, df$Agec, df$Right_answers)
+```
+Les effectifs ne sont pas vraiment équilibré dans avec le groupe UD.
+
+Ils pourrait avoir de l'interaction. Considérons le plus grand des modèles possibles donc avec interaction. Puis on vas regarder si le les interraction valent le coup. On vas comparer le modèle avec interaction à celui sans interaction. Si le modèle sans intéraction est mieux, on regardera ensuite si chaque facteur vaut le coup.
+
+# Question 7
+## Modèle retenu
+```{r}
+res = lm(df$Right_answers~df$Group*df$Agec) 
+res
+```
+
+```{r}
+summary(res)
+```
+Le summary n'est pas très interessant. Car c'est des comparaisons étrange et difficile à interpréter. 
+
+Le modèle : $$y_{i,j,k} = \mu + \alpha_i + \beta_j + \gamma_{i,j} + \epsilon_{i,j,k}$$
+Avec i= Groupe, j=groupe_age, k=individue. y = intercept + effet groupe + effet age + interaction + erreur.
+
+Est-ce que tous les paramètres sont estimable ? Non le modèle est *****. Pour contrer ça, R ajoute des contraintes : 
+$$
+\alpha_1 = 0 , \alpha_{bipolar} = 0 \\
+\beta_1 = 0, \beta_{<40}=0 \\
+\gamma_{1,1}=0, \gamma_{bipolar, <40}=0 \\
+\gamma_{1,2}=0, \gamma_{bipolar, 40-60}=0 \\
+\gamma_{1,3}=0, \gamma_{bipolar, >60}=0 \\
+\gamma_{1,1}=0, \gamma_{bipolar, <40}=0 \\
+\gamma_{2,1}=0, \gamma_{Controle, <40}=0 \\
+\gamma_{3,1}=0, \gamma_{UD, <40}=0 \\
+$$
+Eviter de s'aventurer dans l'interpretation car les contraintes dépende du logiciel. Elle a inssisté sur le pas interpreter ça.
+
+Néanmoins, on peut voir que le modèle est utile (p value tout en bas)
+
+```{r}
+anova(res)
+```
+Nous donne les tables des somme des effet de type 1 (car anova sans majuscule). On vas comparer les modèles dans l'ordre ou on a introduit les variables. 
+
+Ligne 4 : on test l'interaction : H_0 = sans interaction vs H_1 avec interaction. Dans notre cas avec erreur 5%, on choisis le modèle sans interaction 
+
+Ligne 3 : On test H_0 = modèle groupe VS H_1=sans interaction mais avec les deux facteur (additif) modèle age+groupe. On choisis l'age+groupe.
+
+Ligne 2 : H_0 = Constrante VS H_0 = constante + groupe
+
+```{r}
+Anova(res)
+```
+
+Si on fait une Anova avec majuscucle 
+
+Ligne Groupe : H_0 Argg j'ai pas reussi 
+
+```{r}
+res2 = lm(df$Right_answers~df$Group+df$Agec)
+res2
+summary(res2)
+anova(res2)
+```
+ Ici on voit un peu la même chose, surtout que le modèle est significatif 
+ 
+```{r}
+plot(res2)
+```
+ Distance de cook parfaite sauf pour un point qui dépasse $ (p+1)/n = 2(i+j)/n = 0.043$. Ce points et le sujet qui était le seul dans son groupe, car il est seul il attire fortement les poids.
+ 
+Q-plot ok décroche un peu sur les bord, variance ok
+
+# Question 8
+```{r}
+?predict.lm
+predict(res2, data.frame(Group="Control", Agec="<40"), interval="confidence") # IC à 95%
+predict(res2, data.frame(Group="Control", Agec="<40"), interval="prediction") # IC à 95% + la variance de l'erreur
+```
+
+# Question 9
+```{r}
+library(emmeans)
+emmeans(res2, ~Group)
+```
+
+Dans ce cas, ça utilise une moyenne marginale, on vas faire comme si on avait une répartition de sujet parfaite dans chaque classe.
+Ca se construit en pondérant les moyenne en m'étant le même coef pour chaque classe d'age.
+
+La moyenne de UD change beaucoup car peu de jeune dans ce groupe, il faut compenser l'impact des score moins bon des vieux.
+
+Ici on veut garder l'information de l'age dans la predition. Car sinon on pourait juste faire une anova à 1 facteur.
+
+# Question 11
+On cherche à savoir si $\alpha_{BD} = \alpha _{UD}$. On vas tester $H_0 = \{\alpha_{BD} = \alpha_{UD}\}, H_1 = \{\alpha_{BD} \neq \alpha{UD}\}$. C'est un test de constraste. $1*\alpha_{BD} + 0*\alpha_{ctrl} - 1*\alpha_{UD} = 0$
+```{r}
+c1 = c(1,0,-1)
+contrast(emmeans(res2, ~Group), list(Group=c1)) # Pas d'écart significatif
+```
+# Question 11 
+```{r}
+contrast(emmeans(res2, ~Group), "pairwise", adjust="Tukey")
+cat("\n\n\n")
+contrast(emmeans(res2, ~Group), "pairwise", adjust="Bonferroni")
+```
+Ici ça fait plusieurs (3) test into une p-value je crois, ce qui explique la différence de p-value avec le test question d'avant. 
