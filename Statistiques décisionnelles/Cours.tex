@@ -2335,7 +2335,7 @@ On utilise des quantiles de la loi $ \mathcal{T}(n-2) $
 \end{itemize}
 Où les $ h_{\alpha } $ sont des quantiles de la loi normale.
 
-\section{Comparaison de $ K \geq 3 $ échantillons}
+\section{Comparaison de $ K \geq 3 $ échantillons : ANOVA}
 On dispose de $ K \geq 3 $ échantillons indépendants. On cherche à déterminer s'il existe une différence entre ces échantillons. \\
 Cette "différence" peut se caractériser de plusieurs manières : différences de moyenne, médianes, variances, fonction de répartition
 \begin{itemize}
@@ -2425,8 +2425,121 @@ Au niveau $ \alpha  $, soit $ h_{1 - \alpha } $ le quantile d'ordre $ 1 - \alpha
     Analyse (de la décomposition) de la variance.
 \end{rem}
 
+\underline{Nouveau cours du 28/04} \\
+\paragraph{Retour de l'ANOVA}
+L'anova : Comparaison des moyennes de $ K \geq 3 $ échantillons \textbf{gaussiens} indépendant de même variance. Comment vérifier ces conditions ? 
+\begin{itemize}
+    \item \textbf{Gaussien} En général on le suppose. La normalité plus classique et le test de Shapino-Wilth
+    \item \textbf{Indépendance} Elle provient de la modélisation. Des individue différents donnent des résultats indépendants. On peut aussi faire un test de Pearson.
+    \item \textbf{Egalité des variances} Soit on le suppose. Soit il existe des test (Test de Bartlett)
+\end{itemize}
 
+\paragraph*{Rappel de la stat de test} 
+\[
+    F = \frac{\sum_{p=1}^{K}(\bar{X}^{(p) - \bar{X} })^2 / K-1 }{ \sum_{p=1}^{K}\sum_{i=1}^{n_p} (X_i^{(p)} - \bar{X}^{(p)})^2 / n-k} \sim ^{H_0} \mathcal{F}(K-1, n-K)
+.\]
+\begin{rem}[]
+    Ici ce qui fait toutes la stat de test c'est le nominateur. Le dénominateur ne sere presque à rien. Il sere surtout comme un estimateur de la variance totale.
+\end{rem}
 
+Si $ n \geq 40 $, on n'a pas donné les quantiles de la loi $ \mathcal{F(K-1, n-K)} $ . On utilise alors l'approximation 
+\[
+    \mathcal{F}(K-1, n-K) \approx \frac{\mathcal{X}^2(K-1)}{K-1}
+.\]
 
+\begin{exmp}[]
+    \begin{table}[!ht]
+        \centering
+        \begin{tabular}{|l|l|l|}
+        \hline
+            & $ h_{0.95} $ de $\mathcal{F}(3,n)$ & $ h_{0.95}$ de $\mathcal{X}^2(3)/3$ \\ \hline
+            n=40 & 2.8 & 2.6 \\ \hline
+            n=50 & 2.79 & 2.6 \\ \hline
+            n=100 & 2.7 & 2.6 \\ \hline
+            ------------ & ------------ & ------------ \\ \hline
+            K-1 = 4 & ~ & ~ \\ \hline
+            n=40 & 2.6 & 2.37 \\ \hline
+            n=50 & 2.55 & 2.37 \\ \hline
+            n=100 & 2.46 & 2.37 \\ \hline
+        \end{tabular}
+    \end{table}
+\end{exmp}
+
+\paragraph*{En pratique} 
+Vous ne ferez \textbf{JAMAIS} d'ANOVA à la main ! Dans les logiciels de stats, de nombreux tests de validité dans faits automatiquement.
+
+\subsection{Le test de Kruskal-Wallis : l'anova non paramétrique}
+\paragraph*{Donnée} : $ K $ échantillons \textbf{indépendants} \begin{itemize}
+    \item $ X_1^{(1)}, \dots, X_n^{(1)} $ 
+    \item $ X_1^{(2)}, \dots, X_n^{(K)} $ 
+    \item ...
+    \item $ X_1^{(K)}, \dots, X_n^{(K)} $ 
+\end{itemize}
+Echantillon indépendant issus de \textbf{loi continues}
+
+On note $ m_p $ la \textbf{médiane} de l'échantillon $ p \in \{1, \dots, K\} $ 
+
+\paragraph*{Hypothèse} \begin{itemize}
+    \item $ H_0 = m_1 = m_2 = \dots = m_K $ tous les échantillons ont la même médiane
+    \item $ H_1 = \exists i,j, m_i \neq m_j $ 
+\end{itemize}
+
+\paragraph*{Stat de test}
+\[
+    H = ( n-1 ) * \frac{ \sum_{p=1}^{K} n_p (\bar{R} ^{(p)} - \bar{R} )^2}{\sum_{p=1}^{K} \sum_{i=1}^{n_p} (R_i^{(p)} - \bar{R}^{(p)})^2 } \sim^{H_0} \mathcal{X}^2()
+.\]
+Avec \begin{itemize}
+    \item $ R_i^{(p)} $ le rang dans l'échantillon total de la donnée $ X_i^{(p)} $ 
+    \item $ \bar{R}^{(p)} $ rang moyen de l'échantillon $ p $ 
+    \item $ \bar{R} $ = rang moyen total
+\end{itemize}
+
+La loi de $ H $ ne dépend pas de la loi des données
+\begin{itemize}
+    \item Sous $ H_1, H \to_{n \to \infty } +\infty  $ 
+    \item Sous $ H_0, H \to _{n \to \infty}^{\alpha } \mathcal{X}^2(K-1) $ si $ n \geq 40 $ (car sinon il existe la table exact qui fait 2x296 page )et $ n_i \geq 5 $ (foireux car il a pas trouvé de simulation numérique)
+\end{itemize}
+
+\paragraph*{Zone et seuil de rejet} au niveau $ \alpha  $ Soit $ h_{1 - \alpha } $ la loi $ \mathcal{X}^2(K-1) $ 
+\[
+    \mathcal{R} = \{H > h_{1 - \alpha }\}
+.\]
+Ainsi, si $ H > h_{1 - \alpha } $, on rejette $ H_0 $. Si $ H \leq 1 - \alpha  $ on conserve $ H_0 $ 
+
+\begin{rem}[]
+    Quand on a le choix, on choisit \textbf{toujours} le test paramétrique (anova, student, fisher, ...) Les tests non paramétriques sont une solution de secours.
+\end{rem}
+
+\section{Remarque et CCL}
+\subsection{Remarque  sur la puissance}
+Les test paramétriques sont \textbf{plus puissants} que leur équivalent non paramétrique. Comment on détermine dans la pratique quel test est le plus puissant ? 
+\begin{exmp}[Krushal-Wallis VS anova]
+    $ K $ échantillon indépendant $ \mathcal{N}(m, \sigma ^2) $ On choisit les $ m_i $ tq $ \exists i \neq j, m_i \neq m_j $. On fat \begin{itemize}
+        \item KW $\rightarrow$ décision 
+        \item anova $\rightarrow$ décision
+    \end{itemize}
+    En faisant le test mille fois, on peut compter quel test rejette $ H_0 $ le plus souvent : Ce sera le plus puissant.
+
+    Il faut donc jouer sur les paramètres pour tomber sur des cas borderlines à chaque fois. C'est ici la difficulté qui fait que y'a des articles entier dessus.
+\end{exmp}
+
+\subsection{Paramétrique VS non paramétrique}
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|}
+    \hline
+        (gaussien) & ~ \\ \hline
+        Student $\bot$ & Mann-Whitney \\ \hline
+        Student  apparié & Wilcoxon (signe et rang) / signe \\ \hline
+        Fisher & X \\ \hline
+        Pearson & Spearman (hors programme) \\ \hline
+        Anova & Kruskal-Wallis \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{CCL}
+Dites à l'oral : 
+
+A mes yeux, tous ces test ne sont pas important. Pas ouf d'apprendre une liste de test par coeur pas ouf. Le gros du métier se sera de traduire la question mal posé par les non statisticien pour la transformer en langage stat (HP ect). Après il suffit d'aller chercher sur internet le test le plus adapté (on peut faire un modèle linéaire avec des lois de poisson).
 
 \end{document}
