@@ -356,7 +356,7 @@ On veut tester l'homogénéité \begin{itemize}
     \item Test sur 2 échantillons apparié : X (maybe un Zn into khi deux)
 \end{itemize}
 
-\section{Test de la somme des rangs aka MWW}
+\section{Test de la somme des rangs}
 C'est le test de sur l'ordre stochastique.
 
 \subsection*{Donnée}
@@ -460,13 +460,88 @@ Fonction de répartition continue.
 \end{itemize}
 
 On utilise donc une table de la loi binomiale. Si n est grand, on utilise le TCL.
+
 \subsection*{Méthode}
-
-
 \[
     \sum_{k}^{l=1}n_l(\bar{Y}_l - \bar{Y})^2
     \sum_{k}^{l=1}\sum_{n_l}^{i=1}(Y_i^l - \bar{Y}_l)
     \bar{Y}_l = \frac{1}{n_l}\sum_{n_l}^{i=1}X_i^l
 .\]
+
+\section{Signe et Rang}
+\subsection*{Donnée}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{Test d'indépendance de Pearson}
+\subsection*{Donnée}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{Test de comparaison asymptotique de proportion}
+\subsection*{Donnée}
+\subsection*{Conditions}
+\subsection*{Hypothèse}
+\subsection*{Statistique de test}
+\subsection*{Zone de Rejet}
+\subsection*{Méthode}
+
+\section{ANOVA}
+\subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1^{(1)}, \dots, X_{n_1}^{(1)} $ va iid $ \mathcal{N}(m, \sigma_{1} ^2) $ 
+    \item $ X_1^{(2)}, \dots, X_{n_2}^{(2)} $ va iid $ \mathcal{N}(m, \sigma_{2} ^2) $ 
+    \item $ X_1^{(K)}, \dots, X_{n_K}^{(K)} $ va iid $ \mathcal{N}(m, \sigma_{K} ^2) $
+\end{itemize}
+
+\subsection*{Conditions}
+\begin{itemize}
+    \item Échantillon gaussien indépendant de même variance
+    \item On suppose de plus l'\textbf{homoscédasticité} : $ \sigma _1^2 = \dots = \sigma _K^2 $ 
+    \item $ K $ échantillons \textbf{indépendants}
+\end{itemize}
+
+\subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m_1 = \dots = m_k $ 
+    \item $ H_1 = \exists i,j tq m_i \neq m_j $ 
+\end{itemize}
+
+\subsection*{Statistique de test}
+\[
+    SCE^{totale}_{intra} = \sum_{p=1}^{K}SCE^{(p)}
+.\]
+\[
+    \bar{X} = \text{ moyenne totale } = \frac{1}{n}\sum_{p=1}^{K} n_p \bar{X}^{(p)}
+.\]
+\[
+    SCE_{inter} = \sum_{p=1}^{K} n_p (\bar{X}^{(p)} - \bar{X})^2
+.\]
+\subsection*{Zone de Rejet}
+\[
+    F = \frac{SCE_{inter} / (K-1)}{SCE_{intra}^{totale} / (n-K)}
+.\]
+Sous $ H_0 : F \sim \mathcal{F}(K_1, n-K) $ \\
+Sous $ H_1, F $ prend de grande valeurs.
+
+\subsection*{Méthode}
+Tout calculer jusqu'à la stat de test. \begin{itemize}
+    \item Si la loi de Fisher est trop grande. On se souvient que \begin{align*}
+        &\frac{\mathcal{X}^2(k)}{k} \to _{k \to +\infty} 1 \\
+        \Rightarrow & F = \frac{SCE_{inter} / (K-1)}{SCE_{intra}^{totale} / (n-K)} \to \frac{SCE_{inter} / (K-1)}{1} \\
+        &= \mathcal{X}^2(K-1) / K-1
+    \end{align*}
+    \item Si on ne nous donne pas SCE directement on sait que
+    \[
+        SCE^{(p)} = \sum_{i=1}^{n_p} (X_i^{(p)} - \bar{X}^{(p)})^2 = (n_p -1) V^{(p)}
+    .\]
+\end{itemize}
+
 
 \end{document}
