@@ -1,3 +1,12 @@
+---
+title: "TD6"
+author: "Charles Vin"
+date: 'XXX'
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
 # Question 1 
 ```{r}
 df = read.csv("TD6_andy.csv")
@@ -27,6 +36,7 @@ $$
   IC(\hat)
 $$
 # Question 5
+
 ```{r}
 confint(reg)
 ```
@@ -57,8 +67,8 @@ $$
 p_v = P(T > t_{obs} |H_0) \Rightarrow pt(t_{obs}, df=72, lowertail = F)
 $$
 ```{r}
-t_obs = ?
-pt(t_obs, df=72, lowertail = F)
+# t_obs = ?
+# pt(t_obs, df=72, lower.tail = F)
 ```
 
 # Question 8
@@ -68,11 +78,9 @@ Statégie 2 : $E(Y_i^2) = \beta_0 + \beta_1 x_{i,1} + \beta_2 (x_{i,2} + 0.7)$
 
 On se demande si 
 $$
-  \begin{align*}
-    E(Y_i^1) &> E(Y_i^2) \\
-    \beta_0 + \beta_1 (x_{i,1} - 0.3) + \beta_2 x_{i,2} &> \beta_0 + \beta_1 x_{i,1} + \beta_2 (x_{i,2} + 0.7) \\
-    -0.3 \beta_1 &> 0.7 \beta_2 \Leftrightarrow -0.3\beta_1 - 0.7\beta_2 > 0
-  \end{align*}
+    E(Y_i^1) > E(Y_i^2) \\
+    \beta_0 + \beta_1 (x_{i,1} - 0.3) + \beta_2 x_{i,2} > \beta_0 + \beta_1 x_{i,1} + \beta_2 (x_{i,2} + 0.7) \\
+    -0.3 \beta_1 > 0.7 \beta_2 \Leftrightarrow -0.3\beta_1 - 0.7\beta_2 > 0
 $$
 # Question 9 
 $a^T = (0 ; -0.3 ; -0.7)$
