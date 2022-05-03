@@ -100,7 +100,7 @@
 
 \subsection*{Zone de Rejet}
 \subsubsection*{Si n est petit}
-La loi de $ h(F_n, F) $ est tabulé alors :
+La loi de $ h(F_n, F) $ est tabulé alors prendre le paramètre $ n $ et :
 \[
     \mathcal{R} = \{h(F_n, F_X) \geq h_{1-\alpha }\}
 .\]
@@ -296,7 +296,7 @@ $ Z_{(i)} = (X_i, Y_i) $
 \subsection*{Méthode}
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=.65\textwidth]{fig1_test.png}
+    \includegraphics[width=.65\textwidth]{./src/fig1_test.png}
 \end{figure}
 Puis calculer la stat de test 
 \[
@@ -337,7 +337,7 @@ On veut tester l'homogénéité \begin{itemize}
         \item Variances connus :  $ \bar{X}_{n_1} - \bar{Y}_{n_2} \sim \mathcal{N}(m_1 - m_2, \sigma ^2 (\frac{1}{n_1} + \frac{1}{n_2}))$ cette fois-ci de variance connus
     \end{itemize}
 
-    \item Test sur 2 échantillons appariés : $ Z_n = X_i - Y_i$ into $ \mathcal{T}(n_1) $ classique sur 1 échantillon  (Y'a un exo de td il parait)
+    \item Test sur 2 échantillons appariés : $ Z_n = X_i - Y_i $ into $ \mathcal{T}(n-1) $ classique sur 1 échantillon  (Y'a un exo de td il parait)
 \end{itemize}
 
 \subsection{Sur la variance}
@@ -388,7 +388,7 @@ C'est le test de sur l'ordre stochastique.
     U = \sum_{i=1}^{n_1}R(i) = \sum_{i=1}^{n_1} \sum_{j=1}^{n}\mathbbm{1}_{X_i \leq Z_j}
 .\]
 \begin{rem}[]
-    En cas d'ex-æquo, on leur attribue le rang moyen des rangs. Voir exemple.
+    \textbf{En cas d'ex-æquo}, on leur attribue le rang moyen des rangs. Voir exemple.
 \end{rem}
 
 \subsection*{Zone de Rejet}
@@ -440,6 +440,9 @@ Fonction de répartition continue.
     S_n &= \sum_{i=1}^{n}\mathbbm{1}_{Z_i \leq 0} \\
     &= \text{ Nombre de } Y_i > X_i
 \end{align*}
+\begin{rem}[]
+    \textbf{En cas d'ex-æquo}, on leur attribue le rang moyen des rangs. Voir exemple.
+\end{rem}
 
 \subsection*{Zone de Rejet}
 \begin{itemize}
@@ -470,27 +473,139 @@ On utilise donc une table de la loi binomiale. Si n est grand, on utilise le TCL
 
 \section{Signe et Rang}
 \subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_{n_1}  $ iid. 
+    \item $ Y_1, \dots, Y_{n_2}  $ iid. 
+    \item Échantillon \textbf{appariées} $ (X_1, Y_1), \dots, (X_n, Y_n) $ sont iid $ X_1 \not \bot Y_1 $ 
+\end{itemize}
+On pose $ Z_i = Y_i - X_i $ iid. de médiane $ m $  \\ 
+En réalité iid sur les variables n'est même pas obligatoire.
+
 \subsection*{Conditions}
+\begin{itemize}
+    \item La loi des $ Z_i $ est continue
+    \item Les $ Z_i $ sont symétriques par rapport à leur médiane $ m $.
+\end{itemize}
+
 \subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = m = 0 \Leftrightarrow P(Y_i > X_i) = P(X_i < Y_i) = \frac{1}{2}$ 
+    \item $ H_0 = m \neq 0 $ ou $ m > 0 $ ou $ m < 0 $ 
+\end{itemize}
+
 \subsection*{Statistique de test}
+Somme des rangs positif des $ Z_{(i)} $
+\[
+    W_n^+ = \sum_{i=1}^{n}\mathbbm{1}_{Z_i > 0}R_i
+.\]
+et 
+\[
+    W_n^- = \sum_{i=1}^{n}\mathbbm{1}_{Z_i < 0}R_i
+.\]
+Pas mal d'interaction entre eux, tout est dans le poly de table.
+
 \subsection*{Zone de Rejet}
+\begin{itemize}
+    \item Sous $ H_0, W_n^+ \sim \mathcal{B}(n, \frac{1}{2}) $ 
+    \item Sous $ H_1 $ \begin{itemize}
+        \item $ H_1 : m > 0 \Leftrightarrow X_i > Y_i \Leftrightarrow $ plus de rang positif $ \Leftrightarrow W_n^+ $ prend de plus grande valeur et $ W_n^- $ de plus petite.
+        \item $ H_1 : m > 0 $ Même raisonnement
+        \item $ H_1 : m \neq 0 \Leftrightarrow W_n^+ $ prend des valeurs extremes.
+    \end{itemize}
+\end{itemize}
+Bref on regarde la table avec le $ n $ nombre de couple $ (X_i, Y_i) $. On fait attention si on regarde $ W_n^+ $ ou $ W_n^- $. Et on utilise la symétrie avec les formules du centre ou des extrémités pour trouver l'autre quantile si besoin.
 \subsection*{Méthode}
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|}
+    \hline
+        $X_{(i)}$ & ... & ... & ... & ... & ... \\ \hline
+        $Y_{(i)}$ & ... & ... & ... & ... & ... \\ \hline
+        $Z_i$ & Avec & des & couleur & pour & X ou Y \\ \hline
+        $Z_{(i)}$ & ... & ... & ... & ... & ... \\ \hline
+        Rang & 1 & 2 & 3 & ... & 2n \\ \hline
+    \end{tabular}
+\end{table}
 
 \section{Test d'indépendance de Pearson}
 \subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_n $ iid $ \mathcal{N}(m,\sigma ^2) $ 
+    \item $ Y_1, \dots, Y_n $ iid $ \mathcal{N}(m,\sigma ^2) $ 
+    \item Échantillon appariés et $ (X_i,Y_i) $ vecteur gaussien (not sure)
+\end{itemize}
+
 \subsection*{Conditions}
+\begin{itemize}
+    \item Gaussien car c'est ce qui créé l'équivalence entre corrélation et indépendance
+    \item Apparié ? (pas sur en td on l'a fait sans)
+\end{itemize}
+
 \subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = X_i \bot Y_i $ ($ cor(X,Y) = 0 $ )
+    \item $ H_0 = X_i \not\bot Y_i $ ($ cor(X,Y) \neq 0 $ )
+\end{itemize}
+
 \subsection*{Statistique de test}
+Soit $ R $ la corrélation empirique :
+\begin{align*}
+    R &= \frac{cov_n( (X_1, \dots, X_n), (Y_1, \dots, Y_n) )}{\sqrt[]{V_n^X*V_n^Y}} \\
+    R_n &= \frac{\sum_{i=1}^{n} (X_i - \bar{X}_n) (Y_i - \bar{Y}_n)}{\sqrt[]{(\sum_{i=1}^{n} (X_i - \bar{X}_n)^2) \sum_{i=1}^{n} (Y_i - \bar{Y}_n)^2 }}
+\end{align*}
+$ R_n $ est un estimateur fortement consistant de $ cor(X_i, Y_i) $
+\[
+    D = \frac{R_n}{\sqrt[]{1 - R_n^2}} \sqrt[]{n-1}
+.\]
+
 \subsection*{Zone de Rejet}
-\subsection*{Méthode}
+\begin{itemize}
+    \item Sous $ H_0, D \sim \mathcal{T}(n-2) $ 
+    \item Sous $ H_1, D $ est grand en valeur absolue
+\end{itemize}
+On utilise les quantiles de la loi de Student.
 
 \section{Test de comparaison asymptotique de proportion}
 \subsection*{Donnée}
+\begin{itemize}
+    \item $ X_1, \dots, X_n $ iid $ \mathcal{B}er(p_1) $ 
+    \item $ Y_1, \dots, Y_n $ iid $ \mathcal{B}er(p_2) $ 
+    \item $ (X_1, \dots, X_n) \bot (Y_1, \dots, Y_n) $
+\end{itemize}
+
 \subsection*{Conditions}
+\begin{itemize}
+    \item Bernouilli
+    \item Ech indépendant
+\end{itemize}
+
 \subsection*{Hypothèse}
+\begin{itemize}
+    \item $ H_0 = p_1 = p_2 $ 
+    \item $ H_1 = p_1 \neq p_2 $ ou $ p_1 < p_2 $ ou $ p_1 > p_2 $ 
+\end{itemize}
+
 \subsection*{Statistique de test}
+\[
+    S_{n,m} = \frac{\bar{X}_n - \bar{Y}_n}{\sqrt[]{ \frac{\bar{X}_n (1 - \bar{X}_n)}{n}} + \frac{\bar{Y}_n (1 - \bar{Y}_n)}{n}}
+.\]
+
 \subsection*{Zone de Rejet}
-\subsection*{Méthode}
+\begin{itemize}
+    \item Sous $ H_0, S_{n,m} \to ^\mathcal{L}_{n,m \to +\infty } \mathcal{N}(0,1)$
+    \item Sous $ H_1 $ \begin{itemize}
+        \item Si $ p_1 > p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+        \item Si $ p_1 < p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+        \item Si $ p_1 \neq  p_2, S_{n,m} \to_{n,m \to \infty } +\infty  $ 
+    \end{itemize}
+\end{itemize}
+Donc
+\begin{itemize}
+    \item $ H_1 : p_1 > p_2, \mathcal{R} = \{S > h_{1 -\alpha }\} $ 
+    \item $ H_1 : p_1 < p_2, \mathcal{R} = \{S > h_{\alpha }\} $ 
+    \item $ H_1 : p_1 \neq  p_2, \mathcal{R} = \{S > h_{\alpha /2}\} \cup \{S > h_{1 - \alpha /2}\} $ 
+\end{itemize}
+Où les $ h_{\alpha } $ sont des quantiles de la loi normale.
 
 \section{ANOVA}
 \subsection*{Donnée}
