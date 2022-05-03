@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  28 APR 2022 09:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12.10) (preloaded format=pdflatex 2022.1.13)  3 MAY 2022 17:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -506,23 +506,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 283--285
 
  []
 
-<fig1.png, id=196, 460.72125pt x 286.06876pt>
-File: fig1.png Graphic file (type png)
-<use fig1.png>
-Package pdftex.def Info: fig1.png  used on input line 301.
+<./src/fig1.png, id=196, 460.72125pt x 286.06876pt>
+File: ./src/fig1.png Graphic file (type png)
+<use ./src/fig1.png>
+Package pdftex.def Info: ./src/fig1.png  used on input line 301.
 (pdftex.def)             Requested size: 341.43307pt x 211.99748pt.
 
 LaTeX Font Warning: Font shape `T1/opensans-TLF/m/sc' undefined
 (Font)              using `T1/opensans-TLF/m/n' instead on input line 302.
 
-<fig2.jpg, id=200, 2655.1697pt x 1368.61313pt>
-File: fig2.jpg Graphic file (type jpg)
-<use fig2.jpg>
-Package pdftex.def Info: fig2.jpg  used on input line 325.
+<./src/fig2.jpg, id=200, 2655.1697pt x 1368.61313pt>
+File: ./src/fig2.jpg Graphic file (type jpg)
+<use ./src/fig2.jpg>
+Package pdftex.def Info: ./src/fig2.jpg  used on input line 325.
 (pdftex.def)             Requested size: 341.43307pt x 175.9838pt.
 LaTeX Font Info:    Font shape `T1/opensans-TLF/m/sc' will be
 (Font)              scaled to size 9.49997pt on input line 326.
-[5] [6 <./fig1.png> <./fig2.jpg>]
+[5] [6 <./src/fig1.png> <./src/fig2.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 352--353
 
  []
@@ -544,10 +544,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 354--355
 
  []
 
-<./fig3.png, id=222, 722.7pt x 542.025pt>
-File: ./fig3.png Graphic file (type png)
-<use ./fig3.png>
-Package pdftex.def Info: ./fig3.png  used on input line 361.
+<./src/fig3.png, id=222, 722.7pt x 542.025pt>
+File: ./src/fig3.png Graphic file (type png)
+<use ./src/fig3.png>
+Package pdftex.def Info: ./src/fig3.png  used on input line 361.
 (pdftex.def)             Requested size: 341.43307pt x 256.07507pt.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -561,7 +561,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 416.
 
-[7] [8 <./fig3.png>]
+[7] [8 <./src/fig3.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\\' on input line 451.
@@ -670,10 +670,10 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 862.
 
-<fig4.png, id=290, 811.23074pt x 522.753pt>
-File: fig4.png Graphic file (type png)
-<use fig4.png>
-Package pdftex.def Info: fig4.png  used on input line 874.
+<./src/fig4.png, id=290, 811.23074pt x 522.753pt>
+File: ./src/fig4.png Graphic file (type png)
+<use ./src/fig4.png>
+Package pdftex.def Info: ./src/fig4.png  used on input line 874.
 (pdftex.def)             Requested size: 341.43307pt x 220.0174pt.
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
@@ -687,7 +687,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 909.
 
-[15 <./fig4.png>]
+[15 <./src/fig4.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 956--957
 
  []
@@ -711,10 +711,10 @@ Overfull \hbox (4.90244pt too wide) in paragraph at lines 1083--1085
  []
 
 [18]
-<fig5.jpg, id=338, 589.4522pt x 270.25969pt>
-File: fig5.jpg Graphic file (type jpg)
-<use fig5.jpg>
-Package pdftex.def Info: fig5.jpg  used on input line 1135.
+<./src/fig5.jpg, id=338, 589.4522pt x 270.25969pt>
+File: ./src/fig5.jpg Graphic file (type jpg)
+<use ./src/fig5.jpg>
+Package pdftex.def Info: ./src/fig5.jpg  used on input line 1135.
 (pdftex.def)             Requested size: 227.62206pt x 104.36163pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 1167--1168
@@ -745,7 +745,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1170.
 
-[19 <./fig5.jpg>]
+[19 <./src/fig5.jpg>]
 Overfull \hbox (13.34488pt too wide) in paragraph at lines 1180--1182
 []$\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; Y[]\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; [] ; \OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X[]; Y[]\OT1/cmr/m/n/10 )$ \T1/opensans-TLF/m/sc/10 don-nées ap-pa-riés \T1/opensans-TLF/b/n/10 iid.\T1/opensans-TLF/m/sc/10 . Cela mène à deux échan-tillons iid. $\OML/cmm/m/it/10 X[]; [] ; X[]$ \T1/opensans-TLF/m/sc/10 et $\OML/cmm/m/it/10 Y[]; [] ; Y[]$\T1/opensans-TLF/m/sc/10 . 
  []
@@ -805,38 +805,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 1814--1815
  []
 
 [29]
-<fig6.jpg, id=439, 1083.29718pt x 1094.58937pt>
-File: fig6.jpg Graphic file (type jpg)
-<use fig6.jpg>
-Package pdftex.def Info: fig6.jpg  used on input line 1894.
+<./src/fig6.jpg, id=439, 1083.29718pt x 1094.58937pt>
+File: ./src/fig6.jpg Graphic file (type jpg)
+<use ./src/fig6.jpg>
+Package pdftex.def Info: ./src/fig6.jpg  used on input line 1894.
 (pdftex.def)             Requested size: 273.14923pt x 275.98495pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[30] [31 <./fig6.jpg>] [32] [33]
+[30] [31 <./src/fig6.jpg>] [32] [33]
 Underfull \hbox (badness 10000) in paragraph at lines 2104--2105
 
  []
 
 [34]
-<fig7.png, id=486, 744.98325pt x 497.4585pt>
-File: fig7.png Graphic file (type png)
-<use fig7.png>
-Package pdftex.def Info: fig7.png  used on input line 2157.
+<./src/fig7.png, id=486, 744.98325pt x 497.4585pt>
+File: ./src/fig7.png Graphic file (type png)
+<use ./src/fig7.png>
+Package pdftex.def Info: ./src/fig7.png  used on input line 2157.
 (pdftex.def)             Requested size: 341.43307pt x 227.99112pt.
- [35 <./fig7.png>]
-<fig8.jpg, id=497, 1981.4025pt x 1486.55376pt>
-File: fig8.jpg Graphic file (type jpg)
-<use fig8.jpg>
-Package pdftex.def Info: fig8.jpg  used on input line 2247.
+ [35 <./src/fig7.png>]
+<./src/fig8.jpg, id=497, 1981.4025pt x 1486.55376pt>
+File: ./src/fig8.jpg Graphic file (type jpg)
+<use ./src/fig8.jpg>
+Package pdftex.def Info: ./src/fig8.jpg  used on input line 2247.
 (pdftex.def)             Requested size: 341.43307pt x 256.1586pt.
 
 Overfull \hbox (0.6404pt too wide) in paragraph at lines 2262--2263
 []\T1/opensans-TLF/m/sc/10 Quelle taille d'échan-tillon ? Si les échan-tillons sont as-sez grands, vous pou-vez faire des tests asymp-
  []
 
-[36] [37 <./fig8.jpg>]
+[36] [37 <./src/fig8.jpg>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 2338.
@@ -865,15 +865,15 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 13696 strings out of 480548
- 217898 string characters out of 2895278
+ 13697 strings out of 480548
+ 218180 string characters out of 2895278
  536269 words of memory out of 3000000
  31049 multiletter control sequences out of 15000+600000
  422660 words of font info for 93 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,16n,77p,1614b,613s stack positions out of 5000i,500n,10000p,200000b,80000s
  <C:\Users\Charles\AppData\Local\MiKTeX\fonts/pk/ljfour/public/bbm/dpi600\bbm10.pk>{C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/opensans/a_jg4h6q.enc}<C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Bold.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Italic.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/ascender/opensans/OpenSans-Regular.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam5.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Charles/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on Cours.pdf (41 pages, 3311951 bytes).
+Output written on Cours.pdf (41 pages, 3311875 bytes).
 PDF statistics:
  911 PDF objects out of 1000 (max. 8388607)
  294 named destinations out of 1000 (max. 500000)
